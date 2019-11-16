@@ -42,7 +42,7 @@ public class Joueur {
 		}
 	}
 	
-	public void consulterOffre(Joueur a) {//affiche l'offre d'un joueur, les cartes non visibles sont affichés face cachée
+	public void consulterOffre(Joueur a) {
 		Iterator<Map.Entry<String, Carte>> itMap = a.main.getOffre().entrySet().iterator();
 		while (itMap.hasNext()) {
 			Map.Entry<String, Carte> entry = itMap.next();

@@ -8,7 +8,12 @@ public class Pioche {
 
 	public Pioche() {
 		this.nbDeCartes = 0;
+		this.a0Carte = true;
 		this.pioche = new LinkedList<Carte>();
+	}
+
+	public void remplir() {// créer la pioche et la remplit entièrement
+
 		this.a0Carte = false;
 		for (Couleur c : Couleur.values()) {
 			for (Valeur v : Valeur.values()) {
@@ -20,9 +25,8 @@ public class Pioche {
 		}
 		this.nbDeCartes++;
 		this.pioche.add(new Carte(Valeur.JOKER, Couleur.COEUR));
-		
+
 	}
-	
 
 	public void mélanger() {// mélange la pioche
 		Collections.shuffle(this.pioche);
@@ -38,6 +42,7 @@ public class Pioche {
 
 	public static void main(String[] args) {
 		Pioche p = new Pioche();
+		p.remplir();
 		Carte elementPioche = p.pioche.get(1);
 		System.out.println(elementPioche);
 		p.mélanger();

@@ -36,17 +36,19 @@ public class Carte {
 
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
-		
+		if (this.estVisible == true) {
 			if (this.valeur != Valeur.JOKER) {
 				sb.append(this.valeur);
 				sb.append(" de ");
 				sb.append(this.couleur);
-			} 
-			else {
+			} else {
 				sb.append(this.valeur);
 			}
-		
-		
+		}
+		else {
+			sb.append("Carte face cachée");
+		}
+
 		return sb.toString();
 	}
 

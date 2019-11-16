@@ -24,9 +24,6 @@ public class Offre {
 	public boolean getPiochabilite() {
 		return this.estPiochable;
 	}
-	public void setPiochabilite(boolean b) {
-		this.estPiochable=b;
-	}
 
 	public static void main(String[] args) {
 		Offre main = new Offre();

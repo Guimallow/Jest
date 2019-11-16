@@ -8,9 +8,6 @@ public class Jest implements ObjetVisite{
 		this.jest = new LinkedList<Carte>();
 		this.joueur = player;
 	}
-	public LinkedList<Carte> getJest(){
-		return this.jest;
-	}
 	
 	public void accept(Visiteur v){
 		v.visit(this);

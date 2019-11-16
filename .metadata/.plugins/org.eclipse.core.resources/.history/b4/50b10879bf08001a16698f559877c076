@@ -1,4 +1,4 @@
-import java.util.*;
+
 
 public class Joueur {
 	//Ces arguments sont en protégé pour que seules les classes filles et cette classe puissent les modifier
@@ -12,7 +12,7 @@ public class Joueur {
 		this.main = new Offre();
 	}
 	
-	public void piocherDansTas(Tas a) {//prend carte du haut du tas, attribue à la carte sa place dans la main
+	public void piocherDansTas(Tas a) {//prend carte du haut du tas, rend visible la carte pour le joueur
 		Carte c = a.retirerCarteDuHaut();
 		if (this.main.getOffre().get("carte gauche") != null) {
 			this.main.getOffre().put("carte droite", c);
@@ -20,7 +20,7 @@ public class Joueur {
 			this.main.getOffre().put("carte gauche", c);
 		}
 	}
-	public void faireOffre(boolean carteGauche) {//rend une des cartes visible aux autres joueurs
+	public void faireOffre(boolean carteGauche) {
 		if (carteGauche == true) {
 			this.main.getOffre().get("carte gauche").setVisibilite(true);
 		} else {
@@ -28,8 +28,7 @@ public class Joueur {
 		}
 	}
 	
-	public void piocherOffre(Joueur a, boolean carteVisible) {//enlève la carte choisie de la main et la met dans le jest
-		if(a.main.getPiochabilite()==true) {
+	public void piocherOffre(Joueur a, boolean carteVisible) {//a modif
 		if ((carteVisible == true && a.main.getOffre().get("carte gauche").getVisibilite() == true)
 				|| (carteVisible == false && a.main.getOffre().get("carte gauche").getVisibilite() == false)) {
 			this.jest.getJest().add(a.main.getOffre().get("carte gauche"));
@@ -38,11 +37,9 @@ public class Joueur {
 			this.jest.getJest().add(a.main.getOffre().get("carte droite"));
 			a.main.getOffre().remove("carte droite");
 		}
-		a.main.setPiochabilite(false);
-		}
 	}
 	
-	public void consulterOffre(Joueur a) {//affiche l'offre d'un joueur, les cartes non visibles sont affichés face cachée
+	public void consulterOffre(Joueur a) {
 		Iterator<Map.Entry<String, Carte>> itMap = a.main.getOffre().entrySet().iterator();
 		while (itMap.hasNext()) {
 			Map.Entry<String, Carte> entry = itMap.next();
