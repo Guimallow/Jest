@@ -1,9 +1,10 @@
 import java.util.*;
 
 public class Joueur {
-	private String pseudo;
-	private Jest jest;
-	private Offre main;
+	//Ces arguments sont en protégé pour que seules les classes filles et cette classe puissent le modifier
+	protected String pseudo;
+	protected Jest jest;
+	protected Offre main;
 
 	public Joueur() {
 		pseudo = null;

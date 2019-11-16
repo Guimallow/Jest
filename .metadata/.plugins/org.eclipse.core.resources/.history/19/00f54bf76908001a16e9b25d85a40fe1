@@ -1,0 +1,7 @@
+
+public class JoueurReel extends Joueur {
+	
+	public JoueurReel(String nom){
+		this.pseudo = nom;
+	}
+}

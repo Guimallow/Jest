@@ -1,0 +1,1 @@
+INDEX VERSION 1.127+C:\Users\cmacq\Desktop\UTT\Cours\LO02\Jest\Projet_LO02\.metadata\.plugins\org.eclipse.jdt.core

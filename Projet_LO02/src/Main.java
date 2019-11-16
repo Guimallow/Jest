@@ -28,7 +28,7 @@ public class Main {
 			}
 		}
 		System.out.println("Etape réussie");
-
+		sc.close();
 	}
 
 }
