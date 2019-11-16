@@ -1,4 +1,4 @@
-import java.util.*;
+
 
 public class Joueur {
 	//Ces arguments sont en protégé pour que seules les classes filles et cette classe puissent les modifier
@@ -12,10 +12,12 @@ public class Joueur {
 		this.main = new Offre();
 	}
 	
-	public void piocherDansTas(Tas a) {
+	public void piocherDansTas(Tas a) {//prend carte du haut du tas, rend visible la carte pour le joueur
 		Carte c=a.retirerCarteDuHaut();
+		c.setVisibilite(true);
 		this.main.getOffre().add(c);
 	}
+	
 	
 
 	public void consulterMain() {
@@ -31,10 +33,10 @@ public class Joueur {
 	public static void main(String[] args) {
 		Tas t= new Tas();
 		t.getTas().add(new Carte(Valeur.AS, Couleur.COEUR));
-		t.getTas().add(new Carte(Valeur.AS, Couleur.CARREAU));
+		t.getTas().add(new Carte(Valeur.TROIS, Couleur.PIC));
 		Joueur a = new Joueur();
 		Offre main = new Offre();
-		main.getOffre().add(new Carte(Valeur.TROIS, Couleur.COEUR));	
+		main.getOffre().add(new Carte(Valeur.TROIS, Couleur.TRÊFLE));	
 		a.main = main;
 		a.piocherDansTas(t);
 		a.consulterMain();
