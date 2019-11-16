@@ -1,0 +1,11 @@
+
+public interface Visiteur {
+	void visit(Jest jest);
+	void visit(Trophee trophee);
+	
+	public int compterLesPoints(){
+		int point=0;
+		
+		return point;
+	}
+}

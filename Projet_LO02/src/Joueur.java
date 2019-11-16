@@ -1,14 +1,14 @@
 import java.util.*;
 
 public class Joueur {
-	//Ces arguments sont en protégé pour que seules les classes filles et cette classe puissent le modifier
+	//Ces arguments sont en protégé pour que seules les classes filles et cette classe puissent les modifier
 	protected String pseudo;
 	protected Jest jest;
 	protected Offre main;
 
 	public Joueur() {
 		pseudo = null;
-		this.jest = new Jest();
+		this.jest = new Jest(this);
 		this.main = new Offre();
 	}
 	

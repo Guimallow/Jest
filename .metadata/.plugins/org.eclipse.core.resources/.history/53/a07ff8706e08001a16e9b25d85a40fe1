@@ -1,0 +1,15 @@
+
+public class Arbitre implements Visiteur {
+	public void visit(Jest j){
+
+	}
+	public void visit(Trophee t){
+
+	}
+	
+	public int compterLesPoints(){
+		int point;
+		point = 0; //Pour enlever l'erreur le temps de programmer la fonction
+		return point;
+	}
+}
