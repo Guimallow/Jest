@@ -27,41 +27,6 @@ public class Arbitre implements Visiteur {
 	}
 	
 	public void attribuerTrophee(Jest jest, Trophee t1, Trophee t2){
-		ConditionTrophee conditionT1;
-		ConditionTrophee conditionT2;
-		conditionT1 = t1.getCarte().condition;
-		conditionT2 = t2.getCarte().condition;
-		//On attribue les trophées simultanément donc on va stocker le jest auquel on attribue le premier trophée pour ne pas l'ajouter tout de suite au Jest et ainsi perturber l'attribution du second
-		Jest jestTropheeT1 = null;
-		switch(conditionT1){
-		case BestJest:
-			break;
-		case BestJestNoJoke: 
-			break;
-		case Highest: 
-			break;
-		case Lowest: 
-			break;
-		case Majority: 
-			break;
-		case Joker: 
-			break;
-		}
-		
-		switch(conditionT2){
-		case BestJest:
-			break;
-		case BestJestNoJoke: 
-			break;
-		case Highest: 
-			break;
-		case Lowest: 
-			break;
-		case Majority: 
-			break;
-		case Joker: 
-			break;
-		}
 		
 	}
 }

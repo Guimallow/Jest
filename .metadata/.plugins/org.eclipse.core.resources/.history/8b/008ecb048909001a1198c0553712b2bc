@@ -1,0 +1,10 @@
+
+public enum Condition {
+	Highest,
+	Lowest, 
+	Majority,
+	Joker,
+	BestJest,
+	BestJestNoJoke
+	
+}
