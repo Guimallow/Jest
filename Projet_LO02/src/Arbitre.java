@@ -7,9 +7,15 @@ public class Arbitre implements Visiteur {
 
 	}
 	
-	public int compterLesPoints(Jest jest){
-		int point;
-		point = 0; //Pour enlever l'erreur le temps de programmer la fonction
+	public int compterLesPoints(Jest jest){ //Le jest est une LinkedList --> int size: nb éléments, object get(index): objet à l'index
+		int point = 0;
+		Carte currentCart;
+		int currentCartValue;
+		for (int i = 0; i < jest.jest.size(); i++){
+			currentCart = jest.jest.get(i);
+			currentCartValue = currentCart.valeur.ordinal() + 1; //+1 parce que "l'index" de l'énum qu'on récupère avec ordinal() commence avec AS = 0 (c'est fixé par la définition d'une énum)
+			point += currentCartValue;
+		}
 		return point;
 	}
 	

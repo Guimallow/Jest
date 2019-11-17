@@ -1,8 +1,8 @@
 public class Carte {
 
-	private Couleur couleur;
-	private Valeur valeur;
-	private boolean estVisible;
+	protected Couleur couleur;
+	protected Valeur valeur;
+	protected boolean estVisible;
 
 	public Carte(Valeur valeur, Couleur couleur) {
 		this.setCouleur(couleur);
