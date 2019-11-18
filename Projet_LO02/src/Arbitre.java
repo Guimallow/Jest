@@ -1,4 +1,4 @@
-
+import java.util.ArrayList;
 public class Arbitre implements Visiteur {
 	public void visit(Jest j){
 
@@ -20,15 +20,17 @@ public class Arbitre implements Visiteur {
 	}
 	
 	//Pas moyen de renvoyer une liste ordonnée plutôt ?
-	public String etablirClassement(int nbJoueurs){
-		String classement;
-		classement = "Cette méthode ne marche pas encore "; //Le temps de programmer la méthode
+	public ArrayList<Joueur> etablirClassement(ArrayList<Joueur> joueur){
+		ArrayList<Joueur> classement;
+		classement = new ArrayList<Joueur>();
+
 		return classement;
 	}
 	
-	public void attribuerTrophee(Jest jest, Trophee t1, Trophee t2){
+	public void attribuerTrophee(ArrayList<Joueur> joueur, Trophee t1, Trophee t2){
 		ConditionTrophee conditionT1;
 		ConditionTrophee conditionT2;
+		int nbJoueur = joueur.size();
 		conditionT1 = t1.getCarte().condition;
 		conditionT2 = t2.getCarte().condition;
 		//On attribue les trophées simultanément donc on va stocker le jest auquel on attribue le premier trophée pour ne pas l'ajouter tout de suite au Jest et ainsi perturber l'attribution du second
