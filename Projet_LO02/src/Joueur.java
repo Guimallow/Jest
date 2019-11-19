@@ -6,10 +6,11 @@ public class Joueur {
 	protected Jest jest;
 	protected Offre main;
 
-	public Joueur() {
+	public Joueur(Partie partie) {
 		pseudo = null;
 		this.jest = new Jest(this);
 		this.main = new Offre();
+		partie.addJoueur(this);
 	}
 	
 	public void piocherDansTas(Tas a) {//prend carte du haut du tas, attribue à la carte sa place dans la main
@@ -68,14 +69,16 @@ public class Joueur {
 	}
 
 	public static void main(String[] args) {
+		Partie partie;
+		partie = Partie.getInstance();
 		Tas t = new Tas();
 		t.getTas().add(new Carte(Valeur.AS, Couleur.COEUR));
 		t.getTas().add(new Carte(Valeur.AS, Couleur.CARREAU));
 		t.getTas().add(new Carte(Valeur.DEUX, Couleur.PIC));
 		t.getTas().add(new Carte(Valeur.QUATRE, Couleur.PIC));
 		t.getTas().add(new Carte(Valeur.TROIS, Couleur.PIC));
-		Joueur a = new Joueur();
-		Joueur b = new Joueur();
+		Joueur a = new Joueur(partie);
+		Joueur b = new Joueur(partie);
 		b.piocherDansTas(t);
 		b.piocherDansTas(t);
 		b.faireOffre(false);

@@ -1,8 +1,8 @@
 import java.util.*;
 
 public class Jest implements ObjetVisite{
-	private LinkedList<Carte> jest;
-	private Joueur joueur; //Permet de faire le lien avec le joueur possédant le Jest
+	protected LinkedList<Carte> jest;
+	protected Joueur joueur; //Permet de faire le lien avec le joueur possédant le Jest
 
 	public Jest(Joueur player) {
 		this.jest = new LinkedList<Carte>();

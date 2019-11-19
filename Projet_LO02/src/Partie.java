@@ -1,12 +1,10 @@
 import java.util.*;
 public class Partie {
 	private static Partie partie=null;
-	private int nbDeJoueur;
 	private ArrayList<Joueur> joueurs;
 	
 	
 	private Partie() {
-		this.nbDeJoueur=0;
 		joueurs=new ArrayList<Joueur>();
 			
 	}
@@ -15,6 +13,10 @@ public class Partie {
 			partie=new Partie();
 		}
 		return partie;
+	}
+	
+	public void addJoueur(Joueur joueur){
+		joueurs.add(joueur);
 	}
 
 }

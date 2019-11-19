@@ -1,13 +1,22 @@
 public class Carte {
 
-	private Couleur couleur;
-	private Valeur valeur;
-	private boolean estVisible;
+	protected Couleur couleur;
+	protected Valeur valeur;
+	protected ConditionTrophee condition;
+	protected boolean estVisible;
 
 	public Carte(Valeur valeur, Couleur couleur) {
 		this.setCouleur(couleur);
 		this.setValeur(valeur);
 		this.estVisible = false;
+		this.condition = null;
+	}
+	
+	public Carte(Valeur valeur, Couleur couleur, ConditionTrophee condition) {
+		this.setCouleur(couleur);
+		this.setValeur(valeur);
+		this.estVisible = false;
+		this.condition = condition;
 	}
 
 	public Couleur getCouleur() {
@@ -32,6 +41,14 @@ public class Carte {
 
 	public void setVisibilite(boolean b) {
 		this.estVisible = b;
+	}
+	
+	public ConditionTrophee getCondition() {
+		return this.condition;
+	}
+
+	public void setConditionTrophee(ConditionTrophee condition) {
+		this.condition = condition;
 	}
 
 	public String toString() {
