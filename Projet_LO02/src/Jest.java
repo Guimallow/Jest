@@ -1,14 +1,14 @@
 import java.util.*;
 
 public class Jest implements ObjetVisite{
-	protected LinkedList<Carte> jest;
+	protected ArrayList<Carte> jest;
 	protected Joueur joueur; //Permet de faire le lien avec le joueur possédant le Jest
 
 	public Jest(Joueur player) {
-		this.jest = new LinkedList<Carte>();
+		this.jest = new ArrayList<Carte>();
 		this.joueur = player;
 	}
-	public LinkedList<Carte> getJest(){
+	public ArrayList<Carte> getJest(){
 		return this.jest;
 	}
 	
@@ -21,6 +21,10 @@ public class Jest implements ObjetVisite{
 		while (it.hasNext()) {
 			System.out.println(it.next());
 		}
+	}
+	
+	public Joueur getJoueur(){
+		return this.joueur;
 	}
 
 }

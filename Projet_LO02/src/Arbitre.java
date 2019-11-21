@@ -27,6 +27,16 @@ public class Arbitre implements Visiteur {
 		return classement;
 	}
 	
+	public boolean checkJoker(Jest jest){
+		boolean joker = false;
+		for (int i = 0; i < jest.getJest().size(); i++){
+			if (jest.getJest().get(i).valeur.ordinal() == 0){
+				joker = true;
+			}
+		}
+		return joker;
+	}
+	
 	public void attribuerTrophee(ArrayList<Joueur> joueur, Trophee t1, Trophee t2){
 		ConditionTrophee conditionT1;
 		ConditionTrophee conditionT2;
@@ -35,10 +45,27 @@ public class Arbitre implements Visiteur {
 		conditionT2 = t2.getCarte().condition;
 		//On attribue les trophées simultanément donc on va stocker le jest auquel on attribue le premier trophée pour ne pas l'ajouter tout de suite au Jest et ainsi perturber l'attribution du second
 		Jest jestTropheeT1 = null;
+		Jest jestTropheeT2 = null;
 		switch(conditionT1){
 		case BestJest:
+			for (int i=0; i<joueur.size(); i++){
+				int points = 0;
+				if (compterPoints(joueur.get(i).getJest()) > points){
+					points = compterPoints(joueur.get(i).getJest());
+					jestTropheeT1 = joueur.get(i).getJest();
+				}
+			System.out.println("Le trophee 1 a été attribué à " + jestTropheeT1.getJoueur().getPseudo());
+			}
 			break;
 		case BestJestNoJoke: 
+			for (int i=0; i<joueur.size(); i++){
+				int points = 0;
+				if ((compterPoints(joueur.get(i).getJest()) > points) || checkJoker(joueur.get(i).getJest()) == false){
+					points = compterPoints(joueur.get(i).getJest());
+					jestTropheeT1 = joueur.get(i).getJest();
+				}
+			System.out.println("Le trophee 1 a été attribué à " + jestTropheeT1.getJoueur().getPseudo());
+			}
 			break;
 		case Highest: 
 			break;
@@ -52,8 +79,24 @@ public class Arbitre implements Visiteur {
 		
 		switch(conditionT2){
 		case BestJest:
+			for (int i=0; i<joueur.size(); i++){
+				int points = 0;
+				if (compterPoints(joueur.get(i).getJest()) > points){
+					points = compterPoints(joueur.get(i).getJest());
+					jestTropheeT2 = joueur.get(i).getJest();
+				}
+			System.out.println("Le trophee 2 a été attribué à " + jestTropheeT2.getJoueur().getPseudo());
+			}
 			break;
 		case BestJestNoJoke: 
+			for (int i=0; i<joueur.size(); i++){
+				int points = 0;
+				if ((compterPoints(joueur.get(i).getJest()) > points) || checkJoker(joueur.get(i).getJest()) == false){
+					points = compterPoints(joueur.get(i).getJest());
+					jestTropheeT2 = joueur.get(i).getJest();
+				}
+			System.out.println("Le trophee 2 a été attribué à " + jestTropheeT2.getJoueur().getPseudo());
+			}
 			break;
 		case Highest: 
 			break;

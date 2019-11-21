@@ -93,4 +93,16 @@ public class Joueur {
 		b.jest.afficherJest();
 
 	}
+	
+	public Jest getJest(){
+		return this.jest;
+	}
+	
+	public String getPseudo(){
+		return this.pseudo;
+	}
+	
+	public Offre getMain(){
+		return this.main;
+	}
 }
