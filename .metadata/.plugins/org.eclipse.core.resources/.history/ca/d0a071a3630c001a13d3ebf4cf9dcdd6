@@ -74,13 +74,6 @@ public class Arbitre implements Visiteur {
 		case Majority: 
 			break;
 		case Joker: 
-			for (int i=0; i<joueur.size(); i++){
-				if (checkJoker(joueur.get(i).getJest()) == true){
-					jestTropheeT1 = joueur.get(i).getJest();
-					System.out.println("Le trophee 1 a été attribué à " + joueur.get(i).getPseudo());
-					break;
-				}
-			}
 			break;
 		}
 		
@@ -112,13 +105,6 @@ public class Arbitre implements Visiteur {
 		case Majority: 
 			break;
 		case Joker: 
-			for (int i=0; i<joueur.size(); i++){
-				if (checkJoker(joueur.get(i).getJest()) == true){
-					jestTropheeT2 = joueur.get(i).getJest();
-					System.out.println("Le trophee 2 a été attribué à " + joueur.get(i).getPseudo());
-					break;
-				}
-			}
 			break;
 		}
 		
