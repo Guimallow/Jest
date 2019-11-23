@@ -69,9 +69,6 @@ public class Joueur {
 		this.jest.afficherJest();
 
 	}
-	public static int getNbJoueurs() {
-		return Joueur.nbJoueurs;
-	}
 
 	public static void main(String[] args) {
 		Partie partie;

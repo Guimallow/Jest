@@ -12,6 +12,29 @@ public class Tas {
 		return c;
 		
 	}
+	public void nouveauTas(Pioche p, ArrayList<Joueur> listeJoueur) {//creer le nouveau tas à partir de la pioche et des cartes restantes dans les offres
+		int a=Joueur.getNbJoueurs();
+		int i;
+		Carte c;
+		for(i=0;i<a;i++) {
+			c=p.retirerCarteDuHaut();
+			this.tas.add(c);
+		}
+		Iterator<Joueur> it=listeJoueur.iterator();
+		while(it.hasNext()) {
+			if(it.next().main.getOffre().get("carte gauche")!=null){
+			this.tas.add(it.next().main.getOffre().get("carte gauche"));
+			it.next().main.getOffre().remove("carte gauche");
+			}
+			else {
+			this.tas.add(it.next().main.getOffre().get("carte droite"));
+			it.next().main.getOffre().remove("carte droite");
+			}
+		}
+		
+		Collections.shuffle(this.tas);
+	}
+	
 	public LinkedList<Carte> getTas(){
 		return this.tas;
 	}

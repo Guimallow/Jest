@@ -12,21 +12,14 @@ public class Pioche {
 		this.a0Carte = false;
 		for (Couleur c : Couleur.values()) {
 			for (Valeur v : Valeur.values()) {
-				if (v != Valeur.JOKER || c!=Couleur.JOKER) {
+				if (v != Valeur.JOKER) {
 					this.nbDeCartes++;
 					this.pioche.add(new Carte(v, c));
 				}
 			}
 		}
 		this.nbDeCartes++;
-		this.pioche.add(new Carte(Valeur.JOKER, Couleur.JOKER));
-		
-	}
-	public Carte retirerCarteDuHaut() {
-		Carte c;
-		c=this.pioche.getLast();
-		this.pioche.removeLast();
-		return c;
+		this.pioche.add(new Carte(Valeur.JOKER, Couleur.COEUR));
 		
 	}
 	
