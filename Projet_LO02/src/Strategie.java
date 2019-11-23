@@ -1,6 +1,6 @@
 
 public interface Strategie {
 	public void faireOffre(JoueurVirtuel a);
-	public void piocherOffre(Joueur a, boolean carteVisible);
+	public void piocherOffre(Joueur a, Joueur b);
 
 }

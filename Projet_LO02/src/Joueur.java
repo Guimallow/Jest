@@ -5,12 +5,14 @@ public class Joueur {
 	protected String pseudo;
 	protected Jest jest;
 	protected Offre main;
+	private static int nbJoueurs=0;//va être utile pour pouvoir creer le tas à partir de la pioche
 
 	public Joueur(Partie partie) {
 		pseudo = null;
 		this.jest = new Jest(this);
 		this.main = new Offre();
 		partie.addJoueur(this);
+		Joueur.nbJoueurs++;
 	}
 	
 	public void piocherDansTas(Tas a) {//prend carte du haut du tas, attribue à la carte sa place dans la main

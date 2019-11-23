@@ -24,7 +24,7 @@ public class Tas {
 		t.tas.add(new Carte(Valeur.AS,Couleur.COEUR));
 		t.tas.add(new Carte(Valeur.AS,Couleur.CARREAU));
 		t.tas.removeLast();
-		Iterator<Carte> it=t.tas.iterator();//fonctionnement identique pour HashSet et LinkedList
+		Iterator<Carte> it=t.tas.iterator();
 		while(it.hasNext()) {
 			System.out.println(it.next());		
 			

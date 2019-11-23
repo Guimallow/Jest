@@ -24,4 +24,7 @@ public class JoueurVirtuel extends Joueur{
 	public void faireOffre(StrategieA methode) {
 		methode.faireOffre(this);
 	}
+	public void piocherOffre(StrategieA methode, Joueur joueurPioche) {
+		methode.piocherOffre(this, joueurPioche);
+	}
 }

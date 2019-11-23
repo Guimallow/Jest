@@ -1,6 +1,0 @@
-
-public class JoueurReel extends Joueur {
-	public void choisirPseudo(String nom){
-		this.pseudo = nom;
-	}
-}

@@ -144,3 +144,4 @@ Caused by: org.eclipse.jgit.errors.NoRemoteRepositoryException: http://git.eclip
 	at org.eclipse.jgit.transport.Transport.fetch(Transport.java:1138) ~[org.eclipse.jgit_4.1.1.201511131810-r.jar:4.1.1.201511131810-r]
 	at org.eclipse.jgit.api.FetchCommand.call(FetchCommand.java:130) ~[org.eclipse.jgit_4.1.1.201511131810-r.jar:4.1.1.201511131810-r]
 	... 4 common frames omitted
+2019-11-23 16:31:26,614 [Worker-2: Loading available Gradle versions] INFO  o.e.b.c.i.u.g.PublishedGradleVersions - Gradle version information cache is out-of-date. Trying to update.

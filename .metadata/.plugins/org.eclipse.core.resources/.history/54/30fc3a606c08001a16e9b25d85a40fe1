@@ -1,5 +1,0 @@
-
-public interface Visiteur {
-	public void visit(Jest jest);
-	public void visit(Trophee trophee)
-}
