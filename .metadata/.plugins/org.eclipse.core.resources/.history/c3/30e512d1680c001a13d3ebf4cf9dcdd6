@@ -16,11 +16,7 @@ public class Partie {
 	}
 	
 	public void addJoueur(Joueur joueur){
-		this.joueurs.add(joueur);
-	}
-	
-	public ArrayList<Joueur> getJoueurs(){
-		return this.joueurs;
+		joueurs.add(joueur);
 	}
 
 }

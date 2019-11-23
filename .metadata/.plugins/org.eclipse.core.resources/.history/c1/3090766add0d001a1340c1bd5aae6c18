@@ -4,7 +4,6 @@ public class Carte {
 	protected Valeur valeur;
 	protected ConditionTrophee condition;
 	protected boolean estVisible;
-	//Joker a une valeur JOKER et une couleur JOKER
 
 	public Carte(Valeur valeur, Couleur couleur) {
 		this.setCouleur(couleur);

@@ -14,25 +14,7 @@ public class Arbitre implements Visiteur {
 		for (int i = 0; i < jest.jest.size(); i++){
 			currentCart = jest.jest.get(i);
 			currentCartValue = currentCart.valeur.ordinal() + 1; //+1 parce que "l'index" de l'énum qu'on récupère avec ordinal() commence avec AS = 0 (c'est fixé par la définition d'une énum)
-			if ((currentCart.couleur.ordinal() == 2) || (currentCart.couleur.ordinal() == 3)){
-				point += currentCartValue;
-			}
-			else if (currentCart.couleur.ordinal() == 1){
-				point -= currentCartValue;
-			}
-			else if (currentCart.couleur.ordinal() == 0){
-				if ((checkJoker(jest) == true) && countHeart(jest) == 4){
-					point += currentCartValue;
-				}
-				else if ((checkJoker(jest) == true) && (countHeart(jest) < 4)){
-					point -= currentCartValue;
-				}
-			}
-			else if (currentCart.couleur.ordinal() == 4){
-				if (countHeart(jest) == 0){
-					point += 4;
-				}
-			}
+			point += currentCartValue;
 		}
 		return point;
 	}

@@ -24,14 +24,6 @@ public class Arbitre implements Visiteur {
 				if ((checkJoker(jest) == true) && countHeart(jest) == 4){
 					point += currentCartValue;
 				}
-				else if ((checkJoker(jest) == true) && (countHeart(jest) < 4)){
-					point -= currentCartValue;
-				}
-			}
-			else if (currentCart.couleur.ordinal() == 4){
-				if (countHeart(jest) == 0){
-					point += 4;
-				}
 			}
 		}
 		return point;
