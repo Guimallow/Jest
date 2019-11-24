@@ -1,4 +1,7 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Arrays;
+
 public class Arbitre implements Visiteur {
 	public void visit(Jest j){
 
@@ -7,7 +10,7 @@ public class Arbitre implements Visiteur {
 
 	}
 	
-	public int compterPoints(Jest jest){ //Le jest est une LinkedList --> int size: nb éléments, object get(index): objet à l'index
+	public int compterPoints(Jest jest){
 		int point = 0;
 		Carte currentCard;
 		int currentCardValue;
@@ -49,11 +52,35 @@ public class Arbitre implements Visiteur {
 		return point;
 	}
 	
-	//Pas moyen de renvoyer une liste ordonnée plutôt ?
-	public ArrayList<Joueur> etablirClassement(ArrayList<Joueur> joueur){
-		ArrayList<Joueur> classement;
-		classement = new ArrayList<Joueur>();
 
+	public LinkedList<Joueur> etablirClassement(ArrayList<Joueur> joueurs){ //add(int index, element e)
+		LinkedList<Joueur> classement;
+		int classementPoints[] = new int[joueurs.size()];
+		classement = new LinkedList<Joueur>();
+		
+		//On va recopier joueurs dans classement pour ne pas avoir de soucis en ajoutant, par exemple, le premier joueur à la troisième place sans avoir préalablement rempli les deux premières
+		
+		for (int i = 0; i < joueurs.size(); i++){
+			classement.add(joueurs.get(i));
+		}
+		
+		for (int i = 0; i < joueurs.size(); i++){
+			int pointsJoueur = compterPoints(joueurs.get(i).getJest());
+			classementPoints[i] = pointsJoueur;
+		}
+		//On a maintenant deux listes, dont une qu'on peut trier avec des comparaisons simples
+		//On peut essayer d'utiliser Arrays.sort()
+		Arrays.sort(classementPoints);
+		
+		//Ensuite on associe chaque joueur à son nombre de points pour le placer dans le tableau classement
+		for (int i = 0; i < joueurs.size(); i++){
+			for (int j = 0; j < classementPoints.length; j++){
+				if (compterPoints(joueurs.get(i).getJest()) == classementPoints[j]){
+					classement.add(j, joueurs.get(i));
+				}
+			}
+		}
+		
 		return classement;
 	}
 	
@@ -95,7 +122,7 @@ public class Arbitre implements Visiteur {
 		for (int i = 0; i < jest.getJest().size(); i++){
 			int couleur2 = jest.getJest().get(i).getCouleur().ordinal();
 			int valeur2 = jest.getJest().get(i).getValeur().ordinal() + 1;
-			if (((couleur2 == 2) || (couleur2 = 3)) && (couleur1 != couleur2) && (valeur1 = valeur2)){
+			if (((couleur2 == 2) || (couleur2 == 3)) && (couleur1 != couleur2) && (valeur1 == valeur2)){
 				paire = true;
 			}
 		}
