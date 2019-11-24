@@ -183,17 +183,7 @@ public class Arbitre implements Visiteur {
 				}
 			}
 			break;
-		case Lowest:
-			int lowestValue = 6;
-			for (int i = 0; i < joueur.size(); i++){
-				for (int j = 0; j < joueur.get(i).getJest().jest.size(); j++){
-					if ((joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1 < lowestValue) 
-							&& (joueur.get(i).getJest().jest.get(j).couleur.ordinal()==t1.getCarte().getCouleur().ordinal())){
-						lowestValue = joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1;
-						jestTropheeT1 = joueur.get(i).getJest();
-					}
-				}
-			}
+		case Lowest: 
 			break;
 		case Majority: 
 			int compte = 0;
@@ -237,28 +227,8 @@ public class Arbitre implements Visiteur {
 			}
 			break;
 		case Highest: 
-			int highestValue = 0;
-			for (int i = 0; i < joueur.size(); i++){
-				for (int j = 0; j < joueur.get(i).getJest().jest.size(); j++){
-					if ((joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1 > highestValue) 
-							&& (joueur.get(i).getJest().jest.get(j).couleur.ordinal()==t2.getCarte().getCouleur().ordinal())){
-						highestValue = joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1;
-						jestTropheeT2 = joueur.get(i).getJest();
-					}
-				}
-			}
 			break;
 		case Lowest: 
-			int lowestValue = 6;
-			for (int i = 0; i < joueur.size(); i++){
-				for (int j = 0; j < joueur.get(i).getJest().jest.size(); j++){
-					if ((joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1 < lowestValue) 
-							&& (joueur.get(i).getJest().jest.get(j).couleur.ordinal()==t2.getCarte().getCouleur().ordinal())){
-						lowestValue = joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1;
-						jestTropheeT2 = joueur.get(i).getJest();
-					}
-				}
-			}
 			break;
 		case Majority: 
 			int compte = 0;
