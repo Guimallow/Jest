@@ -23,6 +23,14 @@ public class Joueur {
 			this.main.getOffre().put("carte gauche", c);
 		}
 	}
+	public void piocherDansPioche(Pioche p) {//prend carte du haut de la pioche, attribue à la carte sa place dans la main
+		Carte c = p.retirerCarteDuHaut();
+		if (this.main.getOffre().get("carte gauche") != null) {
+			this.main.getOffre().put("carte droite", c);
+		} else {
+			this.main.getOffre().put("carte gauche", c);
+		}
+	}
 	public void faireOffre(boolean carteGauche) {//rend une des cartes visible aux autres joueurs
 		if (carteGauche == true) {
 			this.main.getOffre().get("carte gauche").setVisibilite(true);
