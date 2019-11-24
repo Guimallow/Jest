@@ -140,7 +140,6 @@ public class Arbitre implements Visiteur {
 		return count;
 	}
 	
-	//Il reste à faire la gestion des égalités
 	public void attribuerTrophee(ArrayList<Joueur> joueur, Trophee t1, Trophee t2){
 		ConditionTrophee conditionT1;
 		ConditionTrophee conditionT2;
@@ -176,13 +175,6 @@ public class Arbitre implements Visiteur {
 		case Lowest: 
 			break;
 		case Majority: 
-			int compte = 0;
-			for (int i = 0; i <joueur.size(); i++){
-				if (countMajority(joueur.get(i).getJest(), t1.getCarte().getValeur()) > compte){
-					jestTropheeT1 = joueur.get(i).getJest();
-					compte = countMajority(joueur.get(i).getJest(), t1.getCarte().getValeur());
-				}
-			}
 			break;
 		case Joker: 
 			for (int i=0; i<joueur.size(); i++){
@@ -221,13 +213,6 @@ public class Arbitre implements Visiteur {
 		case Lowest: 
 			break;
 		case Majority: 
-			int compte = 0;
-			for (int i = 0; i <joueur.size(); i++){
-				if (countMajority(joueur.get(i).getJest(), t1.getCarte().getValeur()) > compte){
-					jestTropheeT1 = joueur.get(i).getJest();
-					compte = countMajority(joueur.get(i).getJest(), t1.getCarte().getValeur());
-				}
-			}
 			break;
 		case Joker: 
 			for (int i=0; i<joueur.size(); i++){

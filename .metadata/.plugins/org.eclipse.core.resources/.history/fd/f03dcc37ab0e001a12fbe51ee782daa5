@@ -140,7 +140,6 @@ public class Arbitre implements Visiteur {
 		return count;
 	}
 	
-	//Il reste à faire la gestion des égalités
 	public void attribuerTrophee(ArrayList<Joueur> joueur, Trophee t1, Trophee t2){
 		ConditionTrophee conditionT1;
 		ConditionTrophee conditionT2;
