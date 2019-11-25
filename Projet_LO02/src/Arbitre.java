@@ -28,7 +28,7 @@ public class Arbitre implements Visiteur {
 				point += currentCardValue;
 				if (blackPair(jest, currentCard) == true){
 					point += 2;
-					nbPairs +=1;
+					nbPairs ++;
 				}
 			}
 			else if (currentCard.couleur.ordinal() == 1){
@@ -48,7 +48,7 @@ public class Arbitre implements Visiteur {
 				}
 			}
 		}
-		point -= nbPairs /2;
+		point -= nbPairs;
 		return point;
 	}
 	
