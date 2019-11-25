@@ -3,7 +3,7 @@ import java.util.*;
 public class Pioche {
 	private boolean a0Carte;
 
-	private LinkedList<Carte> pioche; //PriorityQueue
+	private LinkedList<Carte> pioche;
 
 	public Pioche() {
 		this.pioche = new LinkedList<Carte>();
@@ -36,6 +36,16 @@ public class Pioche {
 
 	public boolean geta0Carte() {
 		return this.a0Carte;
+	}
+
+	public static void main(String[] args) {
+		Pioche p = new Pioche();
+		Carte elementPioche = p.pioche.get(1);
+		System.out.println(elementPioche);
+		p.mélanger();
+		elementPioche = p.pioche.get(1);
+		System.out.println(elementPioche);
+		System.out.println(p.geta0Carte());
 	}
 
 }
