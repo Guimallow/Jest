@@ -5,7 +5,7 @@ public class Trophee implements ObjetVisite{
 	
 	public Trophee(Carte c){
 		this.estAttribue = false;
-		this.carte = c;
+		this.carte = carte;
 	}
 	
 	public void setAttribution(boolean b){

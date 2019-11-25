@@ -45,6 +45,7 @@ public class Pioche {
 		p.mélanger();
 		elementPioche = p.pioche.get(1);
 		System.out.println(elementPioche);
+		System.out.println(p.getnbDeCartes());
 		System.out.println(p.geta0Carte());
 	}
 

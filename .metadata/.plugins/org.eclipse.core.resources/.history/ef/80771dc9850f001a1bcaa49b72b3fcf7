@@ -3,11 +3,6 @@ public class Trophee implements ObjetVisite{
 	private boolean estAttribue;
 	private Carte carte;
 	
-	public Trophee(Carte c){
-		this.estAttribue = false;
-		this.carte = c;
-	}
-	
 	public void setAttribution(boolean b){
 		this.estAttribue = b;
 	}
