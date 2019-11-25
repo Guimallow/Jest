@@ -1,24 +1,20 @@
 import java.util.*;
 
 public class Pioche {
-	private int nbDeCartes;
 	private boolean a0Carte;
 
-	private LinkedList<Carte> pioche;
+	private LinkedList<Carte> pioche; //PriorityQueue
 
 	public Pioche() {
-		this.nbDeCartes = 0;
 		this.pioche = new LinkedList<Carte>();
 		this.a0Carte = false;
 		for (Couleur c : Couleur.values()) {
 			for (Valeur v : Valeur.values()) {
 				if (v != Valeur.JOKER || c!=Couleur.JOKER) {
-					this.nbDeCartes++;
 					this.pioche.add(new Carte(v, c));
 				}
 			}
 		}
-		this.nbDeCartes++;
 		this.pioche.add(new Carte(Valeur.JOKER, Couleur.JOKER));
 		
 	}
@@ -26,6 +22,9 @@ public class Pioche {
 		Carte c;
 		c=this.pioche.getLast();
 		this.pioche.removeLast();
+		if (this.pioche.size() == 0){
+			a0Carte = true;
+		}
 		return c;
 		
 	}
@@ -35,23 +34,8 @@ public class Pioche {
 		Collections.shuffle(this.pioche);
 	}
 
-	public int getnbDeCartes() {
-		return this.nbDeCartes;
-	}
-
 	public boolean geta0Carte() {
 		return this.a0Carte;
-	}
-
-	public static void main(String[] args) {
-		Pioche p = new Pioche();
-		Carte elementPioche = p.pioche.get(1);
-		System.out.println(elementPioche);
-		p.mélanger();
-		elementPioche = p.pioche.get(1);
-		System.out.println(elementPioche);
-		System.out.println(p.getnbDeCartes());
-		System.out.println(p.geta0Carte());
 	}
 
 }
