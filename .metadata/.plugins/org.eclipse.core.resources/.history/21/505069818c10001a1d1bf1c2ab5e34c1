@@ -147,14 +147,18 @@ public class Partie {
 		}
 	}
 
-	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		Partie.getInstance();
 		partie.configurerPartie(sc);
 		partie.initialisationPartie(sc);
 		Iterator<Joueur> it = partie.joueurs.iterator();
-		
+		while (it.hasNext()) {
+			System.out.println(it.next());
+
+		}
+		System.out.println("Trophee1:"+partie.trophee1);
+		System.out.println("Trophee2:"+partie.trophee2);
 		sc.close();
 
 	}
