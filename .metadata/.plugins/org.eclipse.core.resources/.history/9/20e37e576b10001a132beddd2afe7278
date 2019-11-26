@@ -5,17 +5,11 @@ public class Partie {
 	private ArrayList<Joueur> joueurs;
 	private int nbJoueur;
 	private int nbJoueurVirtuel;
-	private Pioche pioche;
-	private Tas tas;
-	private Trophee trophee1 = null;
-	private Trophee trophee2 = null;
 
 	private Partie() {
 		this.joueurs = new ArrayList<Joueur>();
 		this.nbJoueur = 3;
 		this.nbJoueurVirtuel = 1;
-		this.pioche = new Pioche();
-		this.tas = new Tas();
 
 	}
 
@@ -98,7 +92,7 @@ public class Partie {
 			}
 		}
 
-		
+		sc.close();
 	}
 
 	public void configurerPartie(Scanner sc) {
@@ -128,37 +122,33 @@ public class Partie {
 
 	}
 
-	public void initialisationPartie(Scanner sc) {// creer les joueurs avec leur pseudo, choisi les trophees de la partie
+	public void creerPartie(Scanner sc) {
 		int i;
 		String pseudo = "0";
 		for (i = 0; i < (nbJoueur - nbJoueurVirtuel); i++) {
-			System.out.println("Choisir un pseudo pour le joueur" + (i + 1));
+			System.out.println("Choisir un pseudo pour le joueur" + (i+1));
 			pseudo = sc.nextLine();
 			new JoueurReel(pseudo, this);
 		}
-		while (i < nbJoueur) {
+		while(i<nbJoueur){
+			
 			new JoueurVirtuel(this);
-			i++;
+			
 		}
-		this.pioche.mélanger();
-		this.trophee1 = new Trophee(this.pioche.retirerCarteDuHaut());
-		if (nbJoueur == 3) {
-			this.trophee2 = new Trophee(this.pioche.retirerCarteDuHaut());
-		}
+		
+		
 	}
 
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		Partie.getInstance();
 		partie.configurerPartie(sc);
-		partie.initialisationPartie(sc);
+		partie.creerPartie(sc);
 		Iterator<Joueur> it = partie.joueurs.iterator();
 		while (it.hasNext()) {
 			System.out.println(it.next());
 
 		}
-		System.out.println("Trophee1:"+partie.trophee1);
-		System.out.println("Trophee2:"+partie.trophee2);
 		sc.close();
 
 	}
