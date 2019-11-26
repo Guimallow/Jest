@@ -3,6 +3,11 @@ import java.util.LinkedList;
 import java.util.Arrays;
 
 public class Arbitre implements Visiteur {
+	
+	public Arbitre(){
+		
+	}
+	
 	public void visit(Jest j){
 
 	}
@@ -214,69 +219,72 @@ public class Arbitre implements Visiteur {
 			break;
 		}
 		
-		switch(conditionT2){
-		case BestJest:
-			for (int i=0; i<joueur.size(); i++){
-				int points = 0;
-				if (compterPoints(joueur.get(i).getJest()) > points){
-					points = compterPoints(joueur.get(i).getJest());
-					jestTropheeT2 = joueur.get(i).getJest();
-				}
-			System.out.println("Le trophee 2 a été attribué à " + jestTropheeT2.getJoueur().getPseudo());
-			}
-			break;
-		case BestJestNoJoke: 
-			for (int i=0; i<joueur.size(); i++){
-				int points = 0;
-				if ((compterPoints(joueur.get(i).getJest()) > points) || checkJoker(joueur.get(i).getJest()) == false){
-					points = compterPoints(joueur.get(i).getJest());
-					jestTropheeT2 = joueur.get(i).getJest();
-				}
-			System.out.println("Le trophee 2 a été attribué à " + jestTropheeT2.getJoueur().getPseudo());
-			}
-			break;
-		case Highest: 
-			int highestValue = 0;
-			for (int i = 0; i < joueur.size(); i++){
-				for (int j = 0; j < joueur.get(i).getJest().jest.size(); j++){
-					if ((joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1 > highestValue) 
-							&& (joueur.get(i).getJest().jest.get(j).couleur.ordinal()==t2.getCarte().getCouleur().ordinal())){
-						highestValue = joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1;
+		if (t2 != null){
+			switch(conditionT2){
+			case BestJest:
+				for (int i=0; i<joueur.size(); i++){
+					int points = 0;
+					if (compterPoints(joueur.get(i).getJest()) > points){
+						points = compterPoints(joueur.get(i).getJest());
 						jestTropheeT2 = joueur.get(i).getJest();
 					}
+				System.out.println("Le trophee 2 a été attribué à " + jestTropheeT2.getJoueur().getPseudo());
 				}
-			}
-			break;
-		case Lowest: 
-			int lowestValue = 6;
-			for (int i = 0; i < joueur.size(); i++){
-				for (int j = 0; j < joueur.get(i).getJest().jest.size(); j++){
-					if ((joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1 < lowestValue) 
-							&& (joueur.get(i).getJest().jest.get(j).couleur.ordinal()==t2.getCarte().getCouleur().ordinal())){
-						lowestValue = joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1;
+				break;
+			case BestJestNoJoke: 
+				for (int i=0; i<joueur.size(); i++){
+					int points = 0;
+					if ((compterPoints(joueur.get(i).getJest()) > points) || checkJoker(joueur.get(i).getJest()) == false){
+						points = compterPoints(joueur.get(i).getJest());
 						jestTropheeT2 = joueur.get(i).getJest();
 					}
+				System.out.println("Le trophee 2 a été attribué à " + jestTropheeT2.getJoueur().getPseudo());
 				}
-			}
-			break;
-		case Majority: 
-			int compte = 0;
-			for (int i = 0; i <joueur.size(); i++){
-				if (countMajority(joueur.get(i).getJest(), t1.getCarte().getValeur()) > compte){
-					jestTropheeT1 = joueur.get(i).getJest();
-					compte = countMajority(joueur.get(i).getJest(), t1.getCarte().getValeur());
+				break;
+			case Highest: 
+				int highestValue = 0;
+				for (int i = 0; i < joueur.size(); i++){
+					for (int j = 0; j < joueur.get(i).getJest().jest.size(); j++){
+						if ((joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1 > highestValue) 
+								&& (joueur.get(i).getJest().jest.get(j).couleur.ordinal()==t2.getCarte().getCouleur().ordinal())){
+							highestValue = joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1;
+							jestTropheeT2 = joueur.get(i).getJest();
+						}
+					}
 				}
-			}
-			break;
-		case Joker: 
-			for (int i=0; i<joueur.size(); i++){
-				if (checkJoker(joueur.get(i).getJest()) == true){
-					jestTropheeT2 = joueur.get(i).getJest();
-					System.out.println("Le trophee 2 a été attribué à " + joueur.get(i).getPseudo());
-					break;
+				break;
+			case Lowest: 
+				int lowestValue = 6;
+				for (int i = 0; i < joueur.size(); i++){
+					for (int j = 0; j < joueur.get(i).getJest().jest.size(); j++){
+						if ((joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1 < lowestValue) 
+								&& (joueur.get(i).getJest().jest.get(j).couleur.ordinal()==t2.getCarte().getCouleur().ordinal())){
+							lowestValue = joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1;
+							jestTropheeT2 = joueur.get(i).getJest();
+						}
+					}
 				}
+				break;
+			case Majority: 
+				int compte = 0;
+				for (int i = 0; i <joueur.size(); i++){
+					if (countMajority(joueur.get(i).getJest(), t1.getCarte().getValeur()) > compte){
+						jestTropheeT1 = joueur.get(i).getJest();
+						compte = countMajority(joueur.get(i).getJest(), t1.getCarte().getValeur());
+					}
+				}
+				break;
+			case Joker: 
+				for (int i=0; i<joueur.size(); i++){
+					if (checkJoker(joueur.get(i).getJest()) == true){
+						jestTropheeT2 = joueur.get(i).getJest();
+						System.out.println("Le trophee 2 a été attribué à " + joueur.get(i).getPseudo());
+						break;
+					}
+				}
+				break;
 			}
-			break;
+			
 		}
 		
 	}

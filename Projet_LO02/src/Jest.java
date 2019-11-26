@@ -26,5 +26,9 @@ public class Jest implements ObjetVisite{
 	public Joueur getJoueur(){
 		return this.joueur;
 	}
+	
+	public void ajouterCarte(Carte c){
+		this.jest.add(c);
+	}
 
 }

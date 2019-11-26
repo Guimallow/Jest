@@ -2,7 +2,6 @@ import java.util.*;
 
 public class Pioche {
 	private boolean a0Carte;
-
 	private LinkedList<Carte> pioche; //PriorityQueue
 
 	public Pioche() {
@@ -30,12 +29,18 @@ public class Pioche {
 	}
 	
 
-	public void mélanger() {// mélange la pioche
+	public void melanger() {// mélange la pioche
 		Collections.shuffle(this.pioche);
 	}
 
 	public boolean geta0Carte() {
 		return this.a0Carte;
+	}
+	
+	public void seta0Carte(){
+		if (this.pioche.size() == 0){
+			this.a0Carte = true;
+		}
 	}
 
 }

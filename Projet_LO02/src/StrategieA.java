@@ -1,6 +1,11 @@
 
 public class StrategieA implements Strategie {
-	public void faireOffre(JoueurVirtuel a) {
+	
+	public StrategieA(){
+		
+	}
+	
+	public void faireOffre(Joueur a) {
 		if (a.main.getOffre().get("carte gauche").valeur.ordinal() < a.main.getOffre().get("carte droite").valeur
 				.ordinal()) {
 			a.main.getOffre().get("carte gauche").setVisibilite(true);
