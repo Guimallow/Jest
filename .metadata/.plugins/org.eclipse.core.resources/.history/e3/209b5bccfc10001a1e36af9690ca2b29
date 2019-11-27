@@ -150,7 +150,7 @@ public class Partie {
 		Partie.getInstance();
 		partie.configurerPartie(sc);
 		partie.initialisationPartie(sc);
-		//Iterator<Joueur> it = partie.joueurs.iterator();
+		Iterator<Joueur> it = partie.joueurs.iterator();
 		
 		sc.close();
 		
@@ -229,8 +229,6 @@ public class Partie {
 			
 			while (compte < nbJoueurs){
 				
-				System.out.println("C'est au tour de : " + joueurs.get(index).getPseudo());
-				
 				boolean carteVisible = false;
 				
 				if (joueurs.get(index) instanceof JoueurReel){
@@ -280,8 +278,7 @@ public class Partie {
 					
 				}
 			}
-			//On met ensuite les cartes de la pioche (autant qu'il y a de joueurs) dans le tas et les cartes non piochée
-			tas.nouveauTas(pioche, joueurs);
+			//On met ensuite les cartes de la pioche dans le tas et les cartes non piochée
 			
 		}//fin du while a0Carte
 		

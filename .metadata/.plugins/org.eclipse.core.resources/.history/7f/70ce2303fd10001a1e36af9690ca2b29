@@ -150,7 +150,7 @@ public class Partie {
 		Partie.getInstance();
 		partie.configurerPartie(sc);
 		partie.initialisationPartie(sc);
-		//Iterator<Joueur> it = partie.joueurs.iterator();
+		Iterator<Joueur> it = partie.joueurs.iterator();
 		
 		sc.close();
 		
@@ -280,7 +280,7 @@ public class Partie {
 					
 				}
 			}
-			//On met ensuite les cartes de la pioche (autant qu'il y a de joueurs) dans le tas et les cartes non piochée
+			//On met ensuite les cartes de la pioche dans le tas et les cartes non piochée
 			tas.nouveauTas(pioche, joueurs);
 			
 		}//fin du while a0Carte

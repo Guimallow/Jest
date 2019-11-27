@@ -15,7 +15,14 @@ public class Tas {
 
 	}
 
-	public void nouveauTas(Pioche p, ArrayList<Joueur> listeJoueur) {// creer le nouveau tas à partir de la pioche et des cartes restantes dans les offres
+	public void nouveauTas(Pioche p, ArrayList<Joueur> listeJoueur) {// creer le nouveau tas à partir de la pioche
+																		// et
+																		// des
+																		// cartes
+																		// restantes
+																		// dans
+																		// les
+																		// offres
 		int a = Joueur.getNbJoueurs();
 		int i;
 		Carte c;

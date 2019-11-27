@@ -95,7 +95,7 @@ public class Joueur {
 
 	}
 
-	/*public static void main(String[] args) {
+	public static void main(String[] args) {
 		Partie partie;
 		partie = Partie.getInstance();
 		Tas t = new Tas();
@@ -119,7 +119,7 @@ public class Joueur {
 		a.consulterMain();
 		b.jest.afficherJest();
 
-	}*/
+	}
 
 	public Jest getJest() {
 		return this.jest;

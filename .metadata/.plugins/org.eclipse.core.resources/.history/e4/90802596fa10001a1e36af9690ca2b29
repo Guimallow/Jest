@@ -150,12 +150,11 @@ public class Partie {
 		Partie.getInstance();
 		partie.configurerPartie(sc);
 		partie.initialisationPartie(sc);
-		//Iterator<Joueur> it = partie.joueurs.iterator();
+		Iterator<Joueur> it = partie.joueurs.iterator();
 		
 		sc.close();
 		
 		Pioche pioche;
-		Tas tas;
 		Arbitre arbitre;
 		Trophee trophee1;
 		Trophee trophee2;
@@ -163,11 +162,9 @@ public class Partie {
 		LinkedList<Joueur> classementFinal;
 		StrategieA strategieA;
 		
-		
 		joueurs = partie.getJoueurs();
 		arbitre = new Arbitre();
 		pioche = new Pioche();
-		tas = new Tas();
 		pioche.melanger();
 		trophee1 = new Trophee(pioche.retirerCarteDuHaut());
 		if (joueurs.size() == 4){
@@ -229,8 +226,6 @@ public class Partie {
 			
 			while (compte < nbJoueurs){
 				
-				System.out.println("C'est au tour de : " + joueurs.get(index).getPseudo());
-				
 				boolean carteVisible = false;
 				
 				if (joueurs.get(index) instanceof JoueurReel){
@@ -249,7 +244,7 @@ public class Partie {
 						}
 						reponse.close();
 						
-					//Choix de la carte qu'on veut prendre et ajouter à son jest
+					//Choix de la carte qu'on veut ajouter à son jest
 					System.out.println("Il est temps de choisir ! Chez quel joueur voulez-vous prendre une carte ? (Indiquez l'index)  ");
 					Scanner jreponse = new Scanner(System.in);
 					String joueurAVoler = jreponse.nextLine();
@@ -268,7 +263,6 @@ public class Partie {
 						carteVisible = true;
 					}
 					joueurs.get(index).piocherOffre(joueurs.get(Integer.parseInt(joueurAVoler)), carteVisible);
-					tas.nouveauTas(pioche, joueurs);
 					compte ++;
 					index = Integer.parseInt(joueurAVoler);
 					jreponse.close();
@@ -280,21 +274,15 @@ public class Partie {
 					
 				}
 			}
-			//On met ensuite les cartes de la pioche (autant qu'il y a de joueurs) dans le tas et les cartes non piochée
-			tas.nouveauTas(pioche, joueurs);
+			//On met ensuite les cartes de la pioche dans le tas et les cartes non piochée
 			
 		}//fin du while a0Carte
 		
 		//Quand pioche vide
 		System.out.println("La pioche est vide, vous récupérer votre dernière carte.");
-			//On ajoute la carte restante à l'offre de chaque joueur dans son propre jest
 		for (Joueur j : joueurs){
-			if (j.getMain().getOffre().get("carte gauche") != null){
-				j.getJest().getJest().add(j.getMain().getOffre().get("carte gauche"));
-			}
-			else if (j.getMain().getOffre().get("carte droite") != null){
-				j.getJest().getJest().add(j.getMain().getOffre().get("carte droite"));
-			}
+			//carteRestante correspond à la carte non piochée par un joueur adverse
+			j.piocherOffre(j, carteRestante);
 		}
 		
 		//Début de la définition des vainqueurs:
