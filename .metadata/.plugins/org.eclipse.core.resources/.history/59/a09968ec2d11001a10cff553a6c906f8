@@ -17,7 +17,7 @@ public class StrategieA implements Strategie {
 
 	public void piocherOffre(Joueur piocheur, Joueur pioche) {
 		if (pioche.main.getPiochabilite() == true) {
-			if (pioche.getMain().getOffre().get("carte gauche").getVisibilite() == false) {
+			if (pioche.main.getOffre().get("carte gauche").getVisibilite() == false) {
 				piocheur.jest.getJest().add(pioche.main.getOffre().get("carte gauche"));
 				pioche.main.getOffre().remove("carte gauche");
 			} else {

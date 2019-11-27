@@ -280,7 +280,7 @@ public class Partie {
 					
 					System.out.println("Et quelle carte souhaitez-vous prendre ? Visible: V, Cachée: C   ");
 					String carteAPiocher = sc.nextLine();
-					if (carteAPiocher == "V" || carteAPiocher == "v"){
+					if (carteAPiocher == "V"){
 						carteVisible = true;
 					}
 					System.out.println("Vous prenez la carte de " + joueurAVoler);

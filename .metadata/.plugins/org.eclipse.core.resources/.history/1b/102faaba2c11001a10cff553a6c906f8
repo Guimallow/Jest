@@ -167,7 +167,7 @@ public class Partie {
 		joueurs = partie.getJoueurs();
 		arbitre = new Arbitre();
 		pioche = new Pioche();
-		//System.out.println(pioche.getPioche());
+		System.out.println(pioche.getPioche());
 		tas = new Tas();
 		pioche.melanger();
 		trophee1 = new Trophee(pioche.retirerCarteDuHaut());
@@ -197,8 +197,8 @@ public class Partie {
 		//Premier tour de jeu différent des autres puisqu'on part uniquement de la pioche donc on va l'initialiser en dehors du while
 		
 		//On distribue donc deux cartes de la pioche aux joueurs
-		System.out.println("Les joueurs sont: " + joueurs) ;
 		System.out.println("Commencez par piocher deux cartes !");
+		System.out.println(joueurs) ;
 		for (Joueur j : joueurs){
 			j.piocherDansPioche(pioche);
 			j.piocherDansPioche(pioche);
@@ -208,7 +208,7 @@ public class Partie {
 			}
 		}
 		
-		//System.out.println(pioche.getPioche());
+		System.out.println(pioche.getPioche());
 		//La fonction etablirClassement n'étant pas au point, on ne va pas encore faire la règle comme quoi le joueur avec le plus grand jest commence à piocher
 		while (pioche.getPioche().size() >= joueurs.size()){
 		/*Je mets cette condition parce que c'est plus simple de vérifier avant de lancer le tour de jeu,
@@ -219,16 +219,16 @@ public class Partie {
 			
 			//Chacun fait son offre, dans l'ordre d'inscription des joueurs
 			for (Joueur j : joueurs){
-				System.out.println("\nC'est au tour de : " + j.getPseudo());
+				System.out.println("\n\nC'est au tour de : " + j.getPseudo());
 				if (j instanceof JoueurReel){
 					boolean carteGauche = false;
 					//String carteVisible = "0";
-					System.out.println(j.getPseudo() + ", quelle carte souhaitez-vous rendre visible ? Gauche : G Droite: D   ");
+					System.out.println(j.getPseudo() + ", quelle carte souhaitez-vous rendre visible ? Gauche : 1 Droite: 2   ");
 					//Scanner carteV = new Scanner(System.in);
 					//while((carteV.hasNextLine()) && ((carteVisible != "1") || (carteVisible != "2"))){
 					    char carteVisible=sc.nextLine().charAt(0);
 					//}
-					if (carteVisible  == 'G' || carteVisible == 'g'){
+					if (carteVisible  == '1'){
 						carteGauche = true;
 					}
 					j.faireOffre(carteGauche);
@@ -273,17 +273,16 @@ public class Partie {
 					String joueurAVoler = sc.nextLine();
 					
 					//On vérifie qu'on peut bien piocher dans l'offre de ce joueur
-					while (joueurs.get(Integer.parseInt(joueurAVoler)).getMain().getPiochabilite() == false || Integer.parseInt(joueurAVoler) >= joueurs.size()){
+					while (joueurs.get(Integer.parseInt(joueurAVoler)).getMain().getPiochabilite() == false){
 						System.out.println("Malheureusement, ce joueur n'a plus qu'une carte dans son offre, veuillez en choisir un autre :   ");
 						joueurAVoler = sc.nextLine();
 					}
 					
 					System.out.println("Et quelle carte souhaitez-vous prendre ? Visible: V, Cachée: C   ");
 					String carteAPiocher = sc.nextLine();
-					if (carteAPiocher == "V" || carteAPiocher == "v"){
+					if (carteAPiocher == "V"){
 						carteVisible = true;
 					}
-					System.out.println("Vous prenez la carte de " + joueurAVoler);
 					joueurs.get(index).piocherOffre(joueurs.get(Integer.parseInt(joueurAVoler)), carteVisible);
 					tas.nouveauTas(pioche, joueurs);
 					compte ++;
@@ -300,7 +299,7 @@ public class Partie {
 					while (joueurs.get(indexJoueur).getMain().getPiochabilite() == false){
 						indexJoueur = rand.nextInt(joueurs.size());
 					}
-					joueurs.get(index).piocherOffre(strategieA, joueurs.get(indexJoueur));
+					joueurs.get(indexJoueur).piocherOffre(strategieA, joueurs.get(indexJoueur));
 					index = indexJoueur;
 					indexUtilise[indexTableau] = index;
 					compte ++;

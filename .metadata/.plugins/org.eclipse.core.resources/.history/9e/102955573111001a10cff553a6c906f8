@@ -280,10 +280,9 @@ public class Partie {
 					
 					System.out.println("Et quelle carte souhaitez-vous prendre ? Visible: V, Cachée: C   ");
 					String carteAPiocher = sc.nextLine();
-					if (carteAPiocher == "V" || carteAPiocher == "v"){
+					if (carteAPiocher == "V"){
 						carteVisible = true;
 					}
-					System.out.println("Vous prenez la carte de " + joueurAVoler);
 					joueurs.get(index).piocherOffre(joueurs.get(Integer.parseInt(joueurAVoler)), carteVisible);
 					tas.nouveauTas(pioche, joueurs);
 					compte ++;

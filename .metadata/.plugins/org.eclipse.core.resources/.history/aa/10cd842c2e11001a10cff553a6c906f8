@@ -273,17 +273,16 @@ public class Partie {
 					String joueurAVoler = sc.nextLine();
 					
 					//On vérifie qu'on peut bien piocher dans l'offre de ce joueur
-					while (joueurs.get(Integer.parseInt(joueurAVoler)).getMain().getPiochabilite() == false || Integer.parseInt(joueurAVoler) >= joueurs.size()){
+					while (joueurs.get(Integer.parseInt(joueurAVoler)).getMain().getPiochabilite() == false){
 						System.out.println("Malheureusement, ce joueur n'a plus qu'une carte dans son offre, veuillez en choisir un autre :   ");
 						joueurAVoler = sc.nextLine();
 					}
 					
 					System.out.println("Et quelle carte souhaitez-vous prendre ? Visible: V, Cachée: C   ");
 					String carteAPiocher = sc.nextLine();
-					if (carteAPiocher == "V" || carteAPiocher == "v"){
+					if (carteAPiocher == "V"){
 						carteVisible = true;
 					}
-					System.out.println("Vous prenez la carte de " + joueurAVoler);
 					joueurs.get(index).piocherOffre(joueurs.get(Integer.parseInt(joueurAVoler)), carteVisible);
 					tas.nouveauTas(pioche, joueurs);
 					compte ++;
@@ -300,7 +299,7 @@ public class Partie {
 					while (joueurs.get(indexJoueur).getMain().getPiochabilite() == false){
 						indexJoueur = rand.nextInt(joueurs.size());
 					}
-					joueurs.get(index).piocherOffre(strategieA, joueurs.get(indexJoueur));
+					joueurs.get(indexJoueur).piocherOffre(strategieA, joueurs.get(indexJoueur));
 					index = indexJoueur;
 					indexUtilise[indexTableau] = index;
 					compte ++;

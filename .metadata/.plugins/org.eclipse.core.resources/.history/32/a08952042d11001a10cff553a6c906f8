@@ -17,7 +17,7 @@ public class Pioche {
 				
 				Carte carte = new Carte(v,c);
 				this.pioche.add(carte);
-				//System.out.println(carte) ;
+				System.out.println(carte) ;
 				
 			}
 		}
