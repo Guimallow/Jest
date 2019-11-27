@@ -201,15 +201,9 @@ public class Partie {
 			j.jest.ajouterCarte(pioche.retirerCarteDuHaut());
 		}
 		//La fonction etablirClassement n'étant pas au point, on ne va pas encore faire la règle comme quoi le joueur avec le plus grand jest commence à piocher
-		while (pioche.getPioche().size() >= joueurs.size()){
-		/*Je mets cette condition parce que c'est plus simple de vérifier avant de lancer le tour de jeu,
-		* ce que ne permets pas a0carte qui sera vrai à la fin de l'avant-dernier tour de jeu mais qu'il faut mettre à jour une fois dans la boucle
-		* Or, comme on fait un nouveau Tas à la fin du tour de jeu, si la pioche a 0 cartes, cela devient problématique
-		*/
-				
-		//while (pioche.geta0Carte() == false){
+		while (pioche.geta0Carte() == false){
 			//On set le a0Carte en début de boucle parce que, quand la pioche sera vide, on aura les dernière cartes à distribuer dans le tas
-			//pioche.seta0Carte();
+			pioche.seta0Carte();
 			
 			//Chacun fait son offre, dans l'ordre d'inscription des joueurs
 			for (Joueur j : joueurs){
@@ -286,7 +280,6 @@ public class Partie {
 				else if (joueurs.get(index) instanceof JoueurVirtuel){
 					int indexJoueur;
 					Random rand = new Random();
-					
 					indexJoueur = rand.nextInt(joueurs.size());
 					joueurs.get(indexJoueur).piocherOffre(strategieA, joueurs.get(indexJoueur));
 					index = indexJoueur;
