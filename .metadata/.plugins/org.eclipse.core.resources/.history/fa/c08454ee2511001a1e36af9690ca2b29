@@ -310,10 +310,10 @@ public class Partie {
 					compte ++;
 				}
 				while (arbitre.verification(index, indexUtilise) == true && compte < nbJoueurs){ //On vérifie que le joueur suivant n'a pas déjà joué
-					if (index+1 != joueurs.size()){
+					if (joueurs.get(index+1) != null){
 						index++;
 					}
-					else if (index != 0){
+					else if (joueurs.get(index - 1) != null){
 						index --;
 					}
 				}

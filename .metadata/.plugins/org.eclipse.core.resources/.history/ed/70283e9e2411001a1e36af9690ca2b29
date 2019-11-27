@@ -253,7 +253,7 @@ public class Partie {
 				System.out.println("C'est au tour de : " + joueurs.get(index).getPseudo());
 				
 				boolean carteVisible = false;
-				int[] indexUtilise = new int[joueurs.size()]; //Utile pour que le même joueur ne joue pas deux fois
+				int[] indexUtilise = new int[joueurs.size()];
 				for (int i = 0 ; i < joueurs.size(); i++){
 					indexUtilise[i] = 5;
 				}
@@ -301,21 +301,13 @@ public class Partie {
 					
 					indexJoueur = rand.nextInt(joueurs.size());
 					//On vérifie qu'on peut bien piocher dans l'offre de ce joueur
-					while (joueurs.get(indexJoueur).getMain().getPiochabilite() == false){
+					while (joueurs.get(indexJoueur).getMain().getPiochabilite() == false || partie.verification(indexJoueur, indexUtilise)){
 						indexJoueur = rand.nextInt(joueurs.size());
 					}
 					joueurs.get(indexJoueur).piocherOffre(strategieA, joueurs.get(indexJoueur));
 					index = indexJoueur;
 					indexUtilise[indexTableau] = index;
 					compte ++;
-				}
-				while (arbitre.verification(index, indexUtilise) == true && compte < nbJoueurs){ //On vérifie que le joueur suivant n'a pas déjà joué
-					if (index+1 != joueurs.size()){
-						index++;
-					}
-					else if (index != 0){
-						index --;
-					}
 				}
 				indexTableau++;
 			}
@@ -344,5 +336,14 @@ public class Partie {
 		
 	}
 	
+	public boolean verification(int index, int[] tableau){
+		boolean utilise = false;
+		for (int i = 0; i < tableau.length; i++){
+			if (tableau[i] == index){
+				utilise = true;
+			}
+		}
+		return utilise;
+	}
 
 }

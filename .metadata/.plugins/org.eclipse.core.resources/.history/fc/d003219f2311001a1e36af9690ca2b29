@@ -253,11 +253,9 @@ public class Partie {
 				System.out.println("C'est au tour de : " + joueurs.get(index).getPseudo());
 				
 				boolean carteVisible = false;
-				int[] indexUtilise = new int[joueurs.size()]; //Utile pour que le même joueur ne joue pas deux fois
-				for (int i = 0 ; i < joueurs.size(); i++){
-					indexUtilise[i] = 5;
-				}
-				int indexTableau = 0;
+				int[] indexUtilise = new int[joueurs.size()];
+				
+				
 				
 				if (joueurs.get(index) instanceof JoueurReel){
 					//Consultation des jests adverses
@@ -265,13 +263,17 @@ public class Partie {
 					System.out.println("Voulez-vous consulter une offre ? Oui : O, Non: N ");
 					reponseString = sc.nextLine().charAt(0);
 					while (reponseString == 'O' || reponseString == 'o'){
+						//if ((reponseString == "O") || (reponseString == "o")){
 							System.out.println("De quel joueur voulez-vous consulter l'offre ? (Indiquez l'index)  ");
+							//Scanner reponseJoueur = new Scanner(System.in);
 							String reponseStringJoueur = sc.nextLine();
 							System.out.println("Il s'agit du joueur "+ joueurs.get(Integer.parseInt(reponseStringJoueur)).getPseudo());
 							joueurs.get(index).consulterOffre(joueurs.get(Integer.parseInt(reponseStringJoueur)));
+							//reponseJoueur.close();
 							System.out.println("Voulez-vous consulter une offre ? Oui : O, Non: N ");
 							reponseString = sc.nextLine().charAt(0);
-
+						//}
+						//reponse.close();
 					}
 					//Choix de la carte qu'on veut prendre et ajouter à son jest
 					System.out.println("Il est temps de choisir ! Chez quel joueur voulez-vous prendre une carte ? (Indiquez l'index)  ");
@@ -280,6 +282,7 @@ public class Partie {
 					//On vérifie qu'on peut bien piocher dans l'offre de ce joueur
 					while (joueurs.get(Integer.parseInt(joueurAVoler)).getMain().getPiochabilite() == false){
 						System.out.println("Malheureusement, ce joueur n'a plus qu'une carte dans son offre, veuillez en choisir un autre :   ");
+						//jreponse = new Scanner(System.in);
 						joueurAVoler = sc.nextLine();
 					}
 					
@@ -292,7 +295,8 @@ public class Partie {
 					tas.nouveauTas(pioche, joueurs);
 					compte ++;
 					index = Integer.parseInt(joueurAVoler);
-					indexUtilise[indexTableau] = index;
+					//jreponse.close();
+					//creponse.close();
 				}
 				
 				else if (joueurs.get(index) instanceof JoueurVirtuel){
@@ -306,18 +310,8 @@ public class Partie {
 					}
 					joueurs.get(indexJoueur).piocherOffre(strategieA, joueurs.get(indexJoueur));
 					index = indexJoueur;
-					indexUtilise[indexTableau] = index;
 					compte ++;
 				}
-				while (arbitre.verification(index, indexUtilise) == true && compte < nbJoueurs){ //On vérifie que le joueur suivant n'a pas déjà joué
-					if (index+1 != joueurs.size()){
-						index++;
-					}
-					else if (index != 0){
-						index --;
-					}
-				}
-				indexTableau++;
 			}
 			//On met ensuite les cartes de la pioche (autant qu'il y a de joueurs) dans le tas et les cartes non piochée
 			tas.nouveauTas(pioche, joueurs);
@@ -343,6 +337,5 @@ public class Partie {
 		System.out.println("Le gagnant est : " + classementFinal.get(1) + "\n Félicitations !");
 		
 	}
-	
 
 }
