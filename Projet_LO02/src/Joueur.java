@@ -8,11 +8,10 @@ public class Joueur {
 	protected Offre main;
 	private static int nbJoueurs = 0;// va être utile pour pouvoir creer le tas à partir de la pioche
 
-	public Joueur(Partie partie) {
+	public Joueur() {
 		pseudo = null;
 		this.jest = new Jest(this);
 		this.main = new Offre();
-		partie.addJoueur(this);
 		Joueur.nbJoueurs++;
 	}
 

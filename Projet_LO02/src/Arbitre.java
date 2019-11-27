@@ -147,15 +147,17 @@ public class Arbitre implements Visiteur {
 	
 	//Il reste à faire la gestion des égalités
 	public void attribuerTrophee(ArrayList<Joueur> joueur, Trophee t1, Trophee t2){
-		ConditionTrophee conditionT1;
-		ConditionTrophee conditionT2;
+		ConditionTrophee conditionT1 = null;
+		ConditionTrophee conditionT2 = null;
 		conditionT1 = t1.getCarte().condition;
-		conditionT2 = t2.getCarte().condition;
+		if (t2 !=  null){
+			conditionT2 = t2.getCarte().condition;
+		}
 		//On attribue les trophées simultanément donc on va stocker le jest auquel on attribue le premier trophée pour ne pas l'ajouter tout de suite au Jest et ainsi perturber l'attribution du second
 		Jest jestTropheeT1 = null;
 		Jest jestTropheeT2 = null;
 		switch(conditionT1){
-		case BestJest:
+			case BestJest:
 			for (int i=0; i<joueur.size(); i++){
 				int points = 0;
 				if (compterPoints(joueur.get(i).getJest()) > points){
@@ -217,6 +219,7 @@ public class Arbitre implements Visiteur {
 				}
 			}
 			break;
+			default: break;
 		}
 		
 		if (t2 != null){
@@ -282,6 +285,8 @@ public class Arbitre implements Visiteur {
 						break;
 					}
 				}
+				break;
+			default :
 				break;
 			}
 			

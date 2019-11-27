@@ -2,7 +2,7 @@
 public class JoueurVirtuel extends Joueur{
 	
 	public JoueurVirtuel(Partie partie){
-		super(partie);
+		super();
 		this.pseudo = genererPseudo();
 		this.jest = new Jest(this);
 		this.main = new Offre();

@@ -7,11 +7,18 @@ public class Pioche {
 	public Pioche() {
 		this.pioche = new LinkedList<Carte>();
 		this.a0Carte = false;
-		for (Couleur c : Couleur.values()) {
-			for (Valeur v : Valeur.values()) {
-				if (v != Valeur.JOKER || c!=Couleur.JOKER) {
-					this.pioche.add(new Carte(v, c));
-				}
+
+		//for (Couleur c : Couleur.values()){
+		for (int i = 0; i < 4; i++){
+			Couleur c = Couleur.values()[i];
+			//for (Valeur v : Valeur.values())
+			for (int j=0; j < 4; j++ ){
+				Valeur v = Valeur.values()[j];
+				
+				Carte carte = new Carte(v,c);
+				this.pioche.add(carte);
+				System.out.println(carte) ;
+				
 			}
 		}
 		this.pioche.add(new Carte(Valeur.JOKER, Couleur.JOKER));
@@ -19,8 +26,7 @@ public class Pioche {
 	}
 	public Carte retirerCarteDuHaut() {
 		Carte c;
-		c=this.pioche.getLast();
-		this.pioche.removeLast();
+		c=this.pioche.removeLast();
 		if (this.pioche.size() == 0){
 			a0Carte = true;
 		}
@@ -46,5 +52,7 @@ public class Pioche {
 	public LinkedList<Carte> getPioche(){
 		return this.pioche;
 	}
-
+	public static void main (String args[]) {
+		System.out.println(Couleur.values()) ;
+	}
 }
