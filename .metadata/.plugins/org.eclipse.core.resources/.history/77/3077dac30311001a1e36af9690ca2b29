@@ -288,10 +288,6 @@ public class Partie {
 					Random rand = new Random();
 					
 					indexJoueur = rand.nextInt(joueurs.size());
-					//On vérifie qu'on peut bien piocher dans l'offre de ce joueur
-					while (joueurs.get(indexJoueur).getMain().getPiochabilite() == false){
-						indexJoueur = rand.nextInt(joueurs.size());
-					}
 					joueurs.get(indexJoueur).piocherOffre(strategieA, joueurs.get(indexJoueur));
 					index = indexJoueur;
 					compte ++;
