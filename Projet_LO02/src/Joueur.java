@@ -1,17 +1,17 @@
 import java.util.*;
 
 public class Joueur {
-	// Ces arguments sont en protégé pour que seules les classes filles et cette
-	// classe puissent les modifier
-	protected String pseudo;
-	protected Jest jest;
-	protected Offre main;
+	
+	private String pseudo;
+	private Jest jest;
+	private Offre main;
 	private static int nbJoueurs = 0;// va être utile pour pouvoir creer le tas à partir de la pioche
 
-	public Joueur() {
+	public Joueur(Partie partie) {
 		pseudo = null;
 		this.jest = new Jest(this);
 		this.main = new Offre();
+		partie.addJoueur(this);
 		Joueur.nbJoueurs++;
 	}
 
@@ -47,10 +47,10 @@ public class Joueur {
 		if (a.main.getPiochabilite() == true) {
 			if ((carteVisible == true && a.main.getOffre().get("carte gauche").getVisibilite() == true)
 					|| (carteVisible == false && a.main.getOffre().get("carte gauche").getVisibilite() == false)) {
-				this.jest.getJest().add(a.main.getOffre().get("carte gauche"));
+				this.jest.getCartes().add(a.main.getOffre().get("carte gauche"));
 				a.main.getOffre().remove("carte gauche");
 			} else {
-				this.jest.getJest().add(a.main.getOffre().get("carte droite"));
+				this.jest.getCartes().add(a.main.getOffre().get("carte droite"));
 				a.main.getOffre().remove("carte droite");
 			}
 			a.main.setPiochabilite(false);
@@ -126,6 +126,9 @@ public class Joueur {
 
 	public String getPseudo() {
 		return this.pseudo;
+	}
+	public void setPseudo(String nom) {
+		this.pseudo=nom;
 	}
 
 	public Offre getMain() {

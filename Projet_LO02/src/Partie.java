@@ -325,10 +325,10 @@ public class Partie {
 			//On ajoute la carte restante à l'offre de chaque joueur dans son propre jest
 		for (Joueur j : joueurs){
 			if (j.getMain().getOffre().get("carte gauche") != null){
-				j.getJest().getJest().add(j.getMain().getOffre().get("carte gauche"));
+				j.getJest().getCartes().add(j.getMain().getOffre().get("carte gauche"));
 			}
 			else if (j.getMain().getOffre().get("carte droite") != null){
-				j.getJest().getJest().add(j.getMain().getOffre().get("carte droite"));
+				j.getJest().getCartes().add(j.getMain().getOffre().get("carte droite"));
 			}
 		}
 		

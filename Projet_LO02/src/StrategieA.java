@@ -6,25 +6,25 @@ public class StrategieA implements Strategie {
 	}
 	
 	public void faireOffre(Joueur a) {
-		if (a.main.getOffre().get("carte gauche").valeur.ordinal() < a.main.getOffre().get("carte droite").valeur
+		if (a.getMain().getOffre().get("carte gauche").getValeur().ordinal() < a.getMain().getOffre().get("carte droite").getValeur()
 				.ordinal()) {
-			a.main.getOffre().get("carte gauche").setVisibilite(true);
+			a.getMain().getOffre().get("carte gauche").setVisibilite(true);
 		} else {
-			a.main.getOffre().get("carte droite").setVisibilite(true);
+			a.getMain().getOffre().get("carte droite").setVisibilite(true);
 		}
 
 	};
 
 	public void piocherOffre(Joueur piocheur, Joueur pioche) {
-		if (pioche.main.getPiochabilite() == true) {
+		if (pioche.getMain().getPiochabilite() == true) {
 			if (pioche.getMain().getOffre().get("carte gauche").getVisibilite() == false) {
-				piocheur.jest.getJest().add(pioche.main.getOffre().get("carte gauche"));
-				pioche.main.getOffre().remove("carte gauche");
+				piocheur.getJest().getCartes().add(pioche.getMain().getOffre().get("carte gauche"));
+				pioche.getMain().getOffre().remove("carte gauche");
 			} else {
-				piocheur.jest.getJest().add(pioche.main.getOffre().get("carte droite"));
-				pioche.main.getOffre().remove("carte droite");
+				piocheur.getJest().getCartes().add(pioche.getMain().getOffre().get("carte droite"));
+				pioche.getMain().getOffre().remove("carte droite");
 			}
-			pioche.main.setPiochabilite(false);
+			pioche.getMain().setPiochabilite(false);
 		}
 
 	};

@@ -1,9 +1,9 @@
 public class Carte {
 // pourquoi protected au lieu de private?
-	protected Couleur couleur;
-	protected Valeur valeur;
-	protected ConditionTrophee condition;
-	protected boolean estVisible;
+	private Couleur couleur;
+	private Valeur valeur;
+	private ConditionTrophee condition;
+	private boolean estVisible;
 	//Joker a une valeur JOKER et une couleur JOKER
 
 	public Carte(Valeur valeur, Couleur couleur) {

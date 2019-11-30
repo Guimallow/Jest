@@ -1,15 +1,15 @@
 import java.util.*;
 
 public class Jest implements ObjetVisite{
-	protected ArrayList<Carte> jest;
-	protected Joueur joueur; //Permet de faire le lien avec le joueur possédant le Jest
+	private ArrayList<Carte> cartes;
+	private Joueur joueur; //Permet de faire le lien avec le joueur possédant le Jest
 
 	public Jest(Joueur player) {
-		this.jest = new ArrayList<Carte>();
+		this.cartes = new ArrayList<Carte>();
 		this.joueur = player;
 	}
-	public ArrayList<Carte> getJest(){
-		return this.jest;
+	public ArrayList<Carte> getCartes(){
+		return this.cartes;
 	}
 	
 	public void accept(Visiteur v){
@@ -17,7 +17,7 @@ public class Jest implements ObjetVisite{
 	}
 
 	public void afficherJest() {// affiche le jest
-		Iterator<Carte> it = this.jest.iterator();
+		Iterator<Carte> it = this.cartes.iterator();
 		while (it.hasNext()) {
 			System.out.println(it.next());
 		}
@@ -28,7 +28,7 @@ public class Jest implements ObjetVisite{
 	}
 	
 	public void ajouterCarte(Carte c){
-		this.jest.add(c);
+		this.cartes.add(c);
 	}
 
 }

@@ -21,25 +21,25 @@ public class Arbitre implements Visiteur {
 		int currentCardValue;
 		int nbPairs = 0;
 
-		for (int i = 0; i < jest.jest.size(); i++){
-			currentCard = jest.jest.get(i);
-			currentCardValue = currentCard.valeur.ordinal() + 1; //+1 parce que "l'index" de l'énum qu'on récupère avec ordinal() commence avec AS = 0 (c'est fixé par la définition d'une énum)
+		for (int i = 0; i < jest.getCartes().size(); i++){
+			currentCard = jest.getCartes().get(i);
+			currentCardValue = currentCard.getValeur().ordinal() + 1; //+1 parce que "l'index" de l'énum qu'on récupère avec ordinal() commence avec AS = 0 (c'est fixé par la définition d'une énum)
 			
 			if ((currentCardValue == 1) && (onlyCard(jest, currentCard) == true)){
 				currentCardValue = 5;
 			}
 			
-			if ((currentCard.couleur.ordinal() == 2) || (currentCard.couleur.ordinal() == 3)){
+			if ((currentCard.getCouleur().ordinal() == 2) || (currentCard.getCouleur().ordinal() == 3)){
 				point += currentCardValue;
 				if (blackPair(jest, currentCard) == true){
 					point += 2;
 					nbPairs ++;
 				}
 			}
-			else if (currentCard.couleur.ordinal() == 1){
+			else if (currentCard.getCouleur().ordinal() == 1){
 				point -= currentCardValue;
 			}
-			else if (currentCard.couleur.ordinal() == 0){
+			else if (currentCard.getCouleur().ordinal() == 0){
 				if ((checkJoker(jest) == true) && countHeart(jest) == 4){
 					point += currentCardValue;
 				}
@@ -47,7 +47,7 @@ public class Arbitre implements Visiteur {
 					point -= currentCardValue;
 				}
 			}
-			else if (currentCard.couleur.ordinal() == 4){
+			else if (currentCard.getCouleur().ordinal() == 4){
 				if (countHeart(jest) == 0){
 					point += 4;
 				}
@@ -92,8 +92,8 @@ public class Arbitre implements Visiteur {
 	
 	public boolean checkJoker(Jest jest){
 		boolean joker = false;
-		for (int i = 0; i < jest.getJest().size(); i++){
-			if (jest.getJest().get(i).valeur.ordinal() == 0){
+		for (int i = 0; i < jest.getCartes().size(); i++){
+			if (jest.getCartes().get(i).getValeur().ordinal() == 0){
 				joker = true;
 			}
 		}
@@ -102,8 +102,8 @@ public class Arbitre implements Visiteur {
 	
 	public int countHeart(Jest jest){
 		int count = 0;
-		for (int i = 0; i < jest.getJest().size(); i++){
-			if (jest.getJest().get(i).couleur.ordinal() == 0){
+		for (int i = 0; i < jest.getCartes().size(); i++){
+			if (jest.getCartes().get(i).getCouleur().ordinal() == 0){
 				count ++;
 			}
 		}
@@ -113,8 +113,8 @@ public class Arbitre implements Visiteur {
 	public boolean onlyCard(Jest jest, Carte carte){
 		boolean onlyOne = true;
 		int couleur = carte.getCouleur().ordinal();
-		for (int i= 0; i < jest.getJest().size(); i++){
-			if (jest.getJest().get(i).couleur.ordinal() == couleur){
+		for (int i= 0; i < jest.getCartes().size(); i++){
+			if (jest.getCartes().get(i).getCouleur().ordinal() == couleur){
 				onlyOne = false;
 			}
 		}
@@ -125,9 +125,9 @@ public class Arbitre implements Visiteur {
 		boolean paire = false;
 		int valeur1 = carte.getValeur().ordinal() + 1;
 		int couleur1 = carte.getValeur().ordinal();
-		for (int i = 0; i < jest.getJest().size(); i++){
-			int couleur2 = jest.getJest().get(i).getCouleur().ordinal();
-			int valeur2 = jest.getJest().get(i).getValeur().ordinal() + 1;
+		for (int i = 0; i < jest.getCartes().size(); i++){
+			int couleur2 = jest.getCartes().get(i).getCouleur().ordinal();
+			int valeur2 = jest.getCartes().get(i).getValeur().ordinal() + 1;
 			if (((couleur2 == 2) || (couleur2 == 3)) && (couleur1 != couleur2) && (valeur1 == valeur2)){
 				paire = true;
 			}
@@ -137,8 +137,8 @@ public class Arbitre implements Visiteur {
 	
 	public int countMajority(Jest jest, Valeur valeur){
 		int count = 0;
-		for (int i = 0; i < jest.getJest().size(); i++){
-			if (jest.getJest().get(i).valeur.ordinal() == valeur.ordinal()){
+		for (int i = 0; i < jest.getCartes().size(); i++){
+			if (jest.getCartes().get(i).getValeur().ordinal() == valeur.ordinal()){
 				count ++;
 			}
 		}
@@ -149,9 +149,9 @@ public class Arbitre implements Visiteur {
 	public void attribuerTrophee(ArrayList<Joueur> joueur, Trophee t1, Trophee t2){
 		ConditionTrophee conditionT1 = null;
 		ConditionTrophee conditionT2 = null;
-		conditionT1 = t1.getCarte().condition;
+		conditionT1 = t1.getCarte().getCondition();
 		if (t2 !=  null){
-			conditionT2 = t2.getCarte().condition;
+			conditionT2 = t2.getCarte().getCondition();
 		}
 		//On attribue les trophées simultanément donc on va stocker le jest auquel on attribue le premier trophée pour ne pas l'ajouter tout de suite au Jest et ainsi perturber l'attribution du second
 		Jest jestTropheeT1 = null;
@@ -180,10 +180,10 @@ public class Arbitre implements Visiteur {
 		case Highest: 
 			int highestValue = 0;
 			for (int i = 0; i < joueur.size(); i++){
-				for (int j = 0; j < joueur.get(i).getJest().jest.size(); j++){
-					if ((joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1 > highestValue) 
-							&& (joueur.get(i).getJest().jest.get(j).couleur.ordinal()==t1.getCarte().getCouleur().ordinal())){
-						highestValue = joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1;
+				for (int j = 0; j < joueur.get(i).getJest().getCartes().size(); j++){
+					if ((joueur.get(i).getJest().getCartes().get(j).getValeur().ordinal() + 1 > highestValue) 
+							&& (joueur.get(i).getJest().getCartes().get(j).getCouleur().ordinal()==t1.getCarte().getCouleur().ordinal())){
+						highestValue = joueur.get(i).getJest().getCartes().get(j).getValeur().ordinal() + 1;
 						jestTropheeT1 = joueur.get(i).getJest();
 					}
 				}
@@ -192,10 +192,10 @@ public class Arbitre implements Visiteur {
 		case Lowest:
 			int lowestValue = 6;
 			for (int i = 0; i < joueur.size(); i++){
-				for (int j = 0; j < joueur.get(i).getJest().jest.size(); j++){
-					if ((joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1 < lowestValue) 
-							&& (joueur.get(i).getJest().jest.get(j).couleur.ordinal()==t1.getCarte().getCouleur().ordinal())){
-						lowestValue = joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1;
+				for (int j = 0; j < joueur.get(i).getJest().getCartes().size(); j++){
+					if ((joueur.get(i).getJest().getCartes().get(j).getValeur().ordinal() + 1 < lowestValue) 
+							&& (joueur.get(i).getJest().getCartes().get(j).getCouleur().ordinal()==t1.getCarte().getCouleur().ordinal())){
+						lowestValue = joueur.get(i).getJest().getCartes().get(j).getValeur().ordinal() + 1;
 						jestTropheeT1 = joueur.get(i).getJest();
 					}
 				}
@@ -247,10 +247,10 @@ public class Arbitre implements Visiteur {
 			case Highest: 
 				int highestValue = 0;
 				for (int i = 0; i < joueur.size(); i++){
-					for (int j = 0; j < joueur.get(i).getJest().jest.size(); j++){
-						if ((joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1 > highestValue) 
-								&& (joueur.get(i).getJest().jest.get(j).couleur.ordinal()==t2.getCarte().getCouleur().ordinal())){
-							highestValue = joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1;
+					for (int j = 0; j < joueur.get(i).getJest().getCartes().size(); j++){
+						if ((joueur.get(i).getJest().getCartes().get(j).getValeur().ordinal() + 1 > highestValue) 
+								&& (joueur.get(i).getJest().getCartes().get(j).getCouleur().ordinal()==t2.getCarte().getCouleur().ordinal())){
+							highestValue = joueur.get(i).getJest().getCartes().get(j).getValeur().ordinal() + 1;
 							jestTropheeT2 = joueur.get(i).getJest();
 						}
 					}
@@ -259,10 +259,10 @@ public class Arbitre implements Visiteur {
 			case Lowest: 
 				int lowestValue = 6;
 				for (int i = 0; i < joueur.size(); i++){
-					for (int j = 0; j < joueur.get(i).getJest().jest.size(); j++){
-						if ((joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1 < lowestValue) 
-								&& (joueur.get(i).getJest().jest.get(j).couleur.ordinal()==t2.getCarte().getCouleur().ordinal())){
-							lowestValue = joueur.get(i).getJest().jest.get(j).valeur.ordinal() + 1;
+					for (int j = 0; j < joueur.get(i).getJest().getCartes().size(); j++){
+						if ((joueur.get(i).getJest().getCartes().get(j).getValeur().ordinal() + 1 < lowestValue) 
+								&& (joueur.get(i).getJest().getCartes().get(j).getCouleur().ordinal()==t2.getCarte().getCouleur().ordinal())){
+							lowestValue = joueur.get(i).getJest().getCartes().get(j).getValeur().ordinal() + 1;
 							jestTropheeT2 = joueur.get(i).getJest();
 						}
 					}

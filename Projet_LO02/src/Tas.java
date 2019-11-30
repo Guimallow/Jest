@@ -25,12 +25,12 @@ public class Tas {
 		}
 		Iterator<Joueur> it = listeJoueur.iterator();
 		while (it.hasNext()) {
-			if (it.next().main.getOffre().get("carte gauche") != null) {
-				this.tas.add(it.next().main.getOffre().get("carte gauche"));
-				it.next().main.getOffre().remove("carte gauche");
+			if (it.next().getMain().getOffre().get("carte gauche") != null) {
+				this.tas.add(it.next().getMain().getOffre().get("carte gauche"));
+				it.next().getMain().getOffre().remove("carte gauche");
 			} else {
-				this.tas.add(it.next().main.getOffre().get("carte droite"));
-				it.next().main.getOffre().remove("carte droite");
+				this.tas.add(it.next().getMain().getOffre().get("carte droite"));
+				it.next().getMain().getOffre().remove("carte droite");
 			}
 		}
 

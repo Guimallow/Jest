@@ -30,13 +30,13 @@ public class Trophee implements ObjetVisite{
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		
-			if (this.carte.valeur != Valeur.JOKER) {
-				sb.append(this.carte.valeur);
+			if (this.carte.getValeur() != Valeur.JOKER) {
+				sb.append(this.carte.getValeur());
 				sb.append(" de ");
-				sb.append(this.carte.couleur);
+				sb.append(this.carte.getCouleur());
 			} 
 			else {
-				sb.append(this.carte.valeur);
+				sb.append(this.carte.getValeur());
 			}
 		
 		

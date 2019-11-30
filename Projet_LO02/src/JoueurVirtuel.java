@@ -2,11 +2,9 @@
 public class JoueurVirtuel extends Joueur{
 	
 	public JoueurVirtuel(Partie partie){
-		super();
-		this.pseudo = genererPseudo();
-		this.jest = new Jest(this);
-		this.main = new Offre();
-		partie.addJoueur(this);
+		super(partie);
+		this.setPseudo(genererPseudo());
+		
 	}
 	
 	//Permet de prendre 5 caractères aléatoires dans la chaîne caracteresPossibles 

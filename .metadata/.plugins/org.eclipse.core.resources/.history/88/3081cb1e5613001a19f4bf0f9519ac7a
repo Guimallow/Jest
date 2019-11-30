@@ -1,0 +1,9 @@
+
+public class JoueurReel extends Joueur {
+	
+	public JoueurReel(String nom, Partie partie){
+		super();
+		this.setPseudo(nom);
+		partie.addJoueur(this);
+	}
+}
