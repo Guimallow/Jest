@@ -1,25 +1,31 @@
 import java.util.*;
 
 public class Offre {
-	private HashMap<String,Carte> offre;
+	private ArrayList<Carte> offre;
 	private boolean estPiochable;
 
 	public Offre() {
 		this.estPiochable = true;
-		this.offre = new HashMap<String,Carte>();
+		this.offre = new ArrayList<Carte>();
 	}
 
-	public HashMap<String,Carte> getOffre() {
+	public ArrayList<Carte> getOffre() {
 		return offre;
 	}
 	
 
 	public void afficherOffre() {
-		Iterator<Map.Entry<String, Carte>> itMap=offre.entrySet().iterator();
+		for(Carte c:offre) {
+			if(c.getVisibilite()==true) {
+				System.out.println(c);				
+			}else {System.out.println("Carte face cachée");}
+		}
+	/*	Iterator<Map.Entry<String, Carte>> itMap=offre.entrySet().iterator();
 		while(itMap.hasNext()) {
 			Map.Entry<String, Carte> entry=itMap.next();
+			
 			System.out.println(entry.getKey()+":"+entry.getValue());
-		}
+		}*/
 	}
 	public boolean getPiochabilite() {
 		return this.estPiochable;
@@ -28,12 +34,6 @@ public class Offre {
 		this.estPiochable=b;
 	}
 
-	public static void main(String[] args) {
-		Offre main = new Offre();
-		main.offre.put("carte gauche",new Carte(Valeur.DEUX, Couleur.COEUR));
-		main.offre.put("carte droite",new Carte(Valeur.TROIS, Couleur.COEUR));
-		main.afficherOffre();
-		
-	}
+	
 
 }

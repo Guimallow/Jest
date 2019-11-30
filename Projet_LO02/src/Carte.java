@@ -19,6 +19,22 @@ public class Carte {
 		this.estVisible = false;
 		this.condition = condition;
 	}
+	public boolean cartePlusHaute(Carte c) {//compare la carte courante à la carte en paramètre
+		if(this.valeur.ordinal()>c.valeur.ordinal()) {
+			return true;
+		}
+		if(this.valeur.ordinal()<c.valeur.ordinal()) {
+			return false;
+		}
+		else {
+			if(this.couleur.ordinal()>c.couleur.ordinal()) {
+				return true;
+			}
+			else {
+				return false;
+			}
+		}
+	}
 
 	public Couleur getCouleur() {
 		return this.couleur;

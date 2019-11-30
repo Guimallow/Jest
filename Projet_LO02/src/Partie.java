@@ -5,15 +5,21 @@ public class Partie {
 	private ArrayList<Joueur> joueurs;
 	private int nbJoueur;
 	private int nbJoueurVirtuel;
-	//private Tas tas;
-	//Private Pioche pioche;
+	private int tourDeJeu;// ne pas oublier de faire ++ à chaque fin de tour
+	private Tas tas;
+	private Pioche pioche;
+	private StrategieA strategie;
+	private Trophee trophee1;
+	private Trophee trophee2;
 
 	private Partie() {
 		this.joueurs = new ArrayList<Joueur>();
 		this.nbJoueur = 3;
 		this.nbJoueurVirtuel = 1;
-		//this.tas = new Tas();
-		//this.pioche = new Pioche();
+		this.tourDeJeu = 1;
+		this.tas = new Tas();
+		this.pioche = new Pioche();
+		this.strategie = new StrategieA();
 	}
 
 	public static Partie getInstance() {
@@ -95,7 +101,6 @@ public class Partie {
 			}
 		}
 
-		
 	}
 
 	public void configurerPartie(Scanner sc) {
@@ -125,9 +130,9 @@ public class Partie {
 
 	}
 
-	public void initialisationPartie(Scanner sc) {// creer les joueurs avec leur pseudo, choisi les trophees de la partie
+	public void initialisationPartie(Scanner sc) {// creer les joueurs avec leur pseudo, choisi les trophees de la
+													// partie
 		int i;
-		this.joueurs = new ArrayList<Joueur>() ;
 		String pseudo = "0";
 		for (i = 0; i < (nbJoueur - nbJoueurVirtuel); i++) {
 			System.out.println("Choisir un pseudo pour le joueur" + (i + 1));
@@ -138,207 +143,204 @@ public class Partie {
 			new JoueurVirtuel(this);
 			i++;
 		}
-		/*this.pioche.melanger();
+
+		this.pioche.melanger();
 		this.trophee1 = new Trophee(this.pioche.retirerCarteDuHaut());
+		System.out.println(
+				"Trophée 1: " + this.trophee1.getCarte() + " Condition: " + this.trophee1.getCarte().getCondition());
 		if (nbJoueur == 3) {
 			this.trophee2 = new Trophee(this.pioche.retirerCarteDuHaut());
-		}*/
+			System.out.println("Trophée 2: " + this.trophee2.getCarte() + " Condition: "
+					+ this.trophee2.getCarte().getCondition());
+		}
+
 	}
 
-	
+	public void creationDesOffres(Scanner sc) {// fait piocher les joueurs et leurs fait creer leurs offres
+		for (Joueur j : joueurs) {
+			if (partie.tourDeJeu == 1) {
+				j.piocherDansPioche(partie.pioche);
+				j.piocherDansPioche(partie.pioche);
+			} else {
+				j.piocherDansTas(partie.tas);
+				j.piocherDansTas(partie.tas);
+			}
+
+		}
+		for (Joueur j : joueurs) {
+			if (j instanceof JoueurVirtuel) {
+				j.faireOffre(partie.strategie);
+			} else {
+
+				System.out.println(j.getPseudo()
+						+ ": Quel carte voulez vous rendre face cachée?\n 1.Première Carte \n 2.Deuxième Carte");
+				String choix = "0";
+				boolean valide = false;
+				while (valide == false) {
+
+					choix = sc.nextLine();
+
+					switch (choix) {
+					case "1":
+						j.faireOffre(false);
+
+						valide = true;
+						break;
+					case "2":
+						j.faireOffre(true);
+						valide = true;
+
+						break;
+					default:
+						System.out.println("Vous avez tapé un mauvais nombre, veuillez recommencer");
+
+					}
+				}
+			}
+		}
+	}
+
+	public void affichageDesOffres() {
+		
+		for (Joueur j : joueurs) {
+			System.out.println(j.getPseudo() + ":");
+			j.getMain().afficherOffre();
+		}
+	}
+
+	public Joueur testMeilleureCarteVisible() {// test la meilleure des cartes visibles parmi les joueurs qui n'ont pas
+												// pioché
+		Joueur piocheur=null;
+		for(Joueur j2: joueurs) {
+			if(j2.getJouabilite()==true) {
+				piocheur=j2;
+			}
+		}
+		for (Joueur j : joueurs) {
+			if (j.getJouabilite() == true) {
+				if (j.getMain().getOffre().get(0).getVisibilite() == true
+						&& piocheur.getMain().getOffre().get(0).getVisibilite() == true) {
+					if (j.getMain().getOffre().get(0).cartePlusHaute(piocheur.getMain().getOffre().get(0))) {
+						piocheur = j;
+					}
+
+				}
+				if (j.getMain().getOffre().get(0).getVisibilite() == true
+						&& piocheur.getMain().getOffre().get(1).getVisibilite() == true) {
+					if (j.getMain().getOffre().get(0).cartePlusHaute(piocheur.getMain().getOffre().get(1))) {
+						piocheur = j;
+					}
+				}
+				if (j.getMain().getOffre().get(1).getVisibilite() == true
+						&& piocheur.getMain().getOffre().get(1).getVisibilite() == true) {
+					if (j.getMain().getOffre().get(1).cartePlusHaute(piocheur.getMain().getOffre().get(1))) {
+						piocheur = j;
+					}
+				} else {
+					if (j.getMain().getOffre().get(1).cartePlusHaute(piocheur.getMain().getOffre().get(0))) {
+						piocheur = j;
+					}
+
+				}
+			}
+
+		}
+		return piocheur;
+	}
+
+	public void piochageDesOffres(Scanner sc) {// permet à tous les joueurs de piocher dans les offres adverses
+		Joueur piocheur = partie.testMeilleureCarteVisible();
+		for (Joueur j : joueurs) {
+			if (j == piocheur) {
+				if (j instanceof JoueurVirtuel) {
+					Joueur joueurAPiocher = j.choisirJoueurAPiocher(partie.strategie, partie.joueurs);
+					for(Joueur j3:joueurs) {
+						if(j3==joueurAPiocher) {
+							j.piocherOffre(partie.strategie, j3);
+						}
+					}
+					
+					if (joueurAPiocher.getJouabilite()) {
+						piocheur = joueurAPiocher;
+					} else {
+						piocheur = partie.testMeilleureCarteVisible();
+					}
+				}
+				else {
+					System.out.println(j.getPseudo()+"Chez quel joueur voulez vous piocher?\n");
+					String choix = "0";
+					boolean valide = false;
+					while (valide == false) {
+						choix = sc.nextLine();
+						for (Joueur j2 : joueurs) {
+							if (j2.getPseudo() == choix) {
+								valide = true;
+								System.out.println(
+										"Quelle carte prenez vous? Tapez 1 pour celle visible et 2 pour celle cachée");
+								String choix2 = "0";
+								boolean valide2 = false;
+								while (valide2 == false) {
+
+									choix2 = sc.nextLine();
+
+									switch (choix2) {
+									case "1":
+										j.piocherOffre(j2, true);
+										if (j2.getJouabilite()) {
+											piocheur = j2;
+										} else {
+											piocheur = partie.testMeilleureCarteVisible();
+										}
+										valide2 = true;
+										break;
+									case "2":
+										j.piocherOffre(j2, false);
+										if (j2.getJouabilite()) {
+											piocheur = j2;
+										} else {
+											piocheur = partie.testMeilleureCarteVisible();
+										}
+										valide2 = true;
+
+										break;
+									default:
+										System.out.println("Vous avez tapé un mauvais nombre, veuillez recommencer");
+
+									}
+								}
+
+							}
+						}
+						if (valide == false) {
+							System.out.println("Vous avez tapé un mauvais nombre test, veuillez recommencer\"");
+						}
+					}
+
+				}
+
+			}
+		}
+
+	}
+
+	public Pioche getPioche() {
+		return this.pioche;
+	}
+
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		Partie.getInstance();
 		partie.configurerPartie(sc);
 		partie.initialisationPartie(sc);
-		//Iterator<Joueur> it = partie.joueurs.iterator();
-		//sc.close();
-		
-		Pioche pioche;
-		Tas tas;
-		Arbitre arbitre;
-		Trophee trophee1;
-		Trophee trophee2;
-		ArrayList<Joueur> joueurs;
-		LinkedList<Joueur> classementFinal;
-		StrategieA strategieA;
-		
-		
-		joueurs = partie.getJoueurs();
-		arbitre = new Arbitre();
-		pioche = new Pioche();
-		//System.out.println(pioche.getPioche());
-		tas = new Tas();
-		pioche.melanger();
-		trophee1 = new Trophee(pioche.retirerCarteDuHaut());
-		if (joueurs.size() == 4){
-			trophee2 = new Trophee(pioche.retirerCarteDuHaut());
-		}
-		else {
-			trophee2 = null;
-		}
-		strategieA = new StrategieA();
-		
-		
-		/*Plan d'un tour de jeu: 
-		 * Tant que pioche non vide(et que tout le monde peut piocher)
-		 	* Chaque joueur: Pioche 2 cartes dans le tas + fait offre (dans l'ordre de meilleur jest)
-		 	* Chaque joueur: Pioche dans offre d'un autre joueur si piochable + ajoute à son Jest
-		 	* 	--> Joueur dont on vient de piocher la carte
-		 	* 	--> Si dernier joueur: peut piocher dans sa propre offre
-		 	* On remet les cartes restantes dans le tas à distribuer + on y ajoute autant de cartes de la ioche qu'il y a de joueurs
-		 	* On distribue deux cartes du tas ainsi obtenu
-		 * Quand pioche vide:
-		 * Joueurs piochent carte restante dans leur Jest
-		 * Attribution trophées
-		 * Désignation du vainqueur
-		 */
-		
-		//Premier tour de jeu différent des autres puisqu'on part uniquement de la pioche donc on va l'initialiser en dehors du while
-		
-		//On distribue donc deux cartes de la pioche aux joueurs
-		System.out.println("Les joueurs sont: " + joueurs) ;
-		System.out.println("Commencez par piocher deux cartes !");
-		for (Joueur j : joueurs){
-			j.piocherDansPioche(pioche);
-			j.piocherDansPioche(pioche);
-			
-			if (j instanceof JoueurReel){
-				System.out.println(j.getPseudo() + " a pioché: \n Carte de gauche: " + j.getMain().getOffre().get("carte gauche").toString() + "\n Carte de droite: " + j.getMain().getOffre().get("carte droite").toString());
-			}
-		}
-		
-		//System.out.println(pioche.getPioche());
-		//La fonction etablirClassement n'étant pas au point, on ne va pas encore faire la règle comme quoi le joueur avec le plus grand jest commence à piocher
-		while (pioche.getPioche().size() >= joueurs.size()){
-		/*Je mets cette condition parce que c'est plus simple de vérifier avant de lancer le tour de jeu,
-		* ce que ne permets pas a0carte qui sera vrai à la fin de l'avant-dernier tour de jeu mais qu'il faut mettre à jour une fois dans la boucle
-		* Or, comme on fait un nouveau Tas à la fin du tour de jeu, si la pioche a 0 cartes, cela devient problématique
-		*/
-				
-			
-			//Chacun fait son offre, dans l'ordre d'inscription des joueurs
-			for (Joueur j : joueurs){
-				System.out.println("\nC'est au tour de : " + j.getPseudo());
-				if (j instanceof JoueurReel){
-					boolean carteGauche = false;
-					//String carteVisible = "0";
-					System.out.println(j.getPseudo() + ", quelle carte souhaitez-vous rendre visible ? Gauche : G Droite: D   ");
-					//Scanner carteV = new Scanner(System.in);
-					//while((carteV.hasNextLine()) && ((carteVisible != "1") || (carteVisible != "2"))){
-					    char carteVisible=sc.nextLine().charAt(0);
-					//}
-					if (carteVisible  == 'G' || carteVisible == 'g'){
-						carteGauche = true;
-					}
-					j.faireOffre(carteGauche);
-					//carteV.close();
-				}
-				else if (j instanceof JoueurVirtuel){
-					j.faireOffre(strategieA);
-				}
-			}
-			//On pioche ensuite dans les offres des autres
-			int nbJoueurs = joueurs.size();
-			int compte = 0;
-			int index = 0;
-			
-			while (compte < nbJoueurs){
-				
-				System.out.println("C'est au tour de : " + joueurs.get(index).getPseudo());
-				
-				boolean carteVisible = false;
-				int[] indexUtilise = new int[joueurs.size()]; //Utile pour que le même joueur ne joue pas deux fois
-				for (int i = 0 ; i < joueurs.size(); i++){
-					indexUtilise[i] = 5;
-				}
-				int indexTableau = 0;
-				
-				if (joueurs.get(index) instanceof JoueurReel){
-					//Consultation des jests adverses
-					char reponseString;
-					System.out.println("Voulez-vous consulter une offre ? Oui : O, Non: N ");
-					reponseString = sc.nextLine().charAt(0);
-					while (reponseString == 'O' || reponseString == 'o'){
-							System.out.println("De quel joueur voulez-vous consulter l'offre ? (Indiquez l'index)  ");
-							String reponseStringJoueur = sc.nextLine();
-							System.out.println("Il s'agit du joueur "+ joueurs.get(Integer.parseInt(reponseStringJoueur)).getPseudo());
-							joueurs.get(index).consulterOffre(joueurs.get(Integer.parseInt(reponseStringJoueur)));
-							System.out.println("Voulez-vous consulter une offre ? Oui : O, Non: N ");
-							reponseString = sc.nextLine().charAt(0);
 
-					}
-					//Choix de la carte qu'on veut prendre et ajouter à son jest
-					System.out.println("Il est temps de choisir ! Chez quel joueur voulez-vous prendre une carte ? (Indiquez l'index)  ");
-					String joueurAVoler = sc.nextLine();
-					
-					//On vérifie qu'on peut bien piocher dans l'offre de ce joueur
-					while (joueurs.get(Integer.parseInt(joueurAVoler)).getMain().getPiochabilite() == false || Integer.parseInt(joueurAVoler) >= joueurs.size()){
-						System.out.println("Malheureusement, ce joueur n'a plus qu'une carte dans son offre, veuillez en choisir un autre :   ");
-						joueurAVoler = sc.nextLine();
-					}
-					
-					System.out.println("Et quelle carte souhaitez-vous prendre ? Visible: V, Cachée: C   ");
-					String carteAPiocher = sc.nextLine();
-					if (carteAPiocher == "V" || carteAPiocher == "v"){
-						carteVisible = true;
-					}
-					System.out.println("Vous prenez la carte de " + joueurAVoler);
-					joueurs.get(index).piocherOffre(joueurs.get(Integer.parseInt(joueurAVoler)), carteVisible);
-					tas.nouveauTas(pioche, joueurs);
-					compte ++;
-					index = Integer.parseInt(joueurAVoler);
-					indexUtilise[indexTableau] = index;
-				}
-				
-				else if (joueurs.get(index) instanceof JoueurVirtuel){
-					int indexJoueur;
-					Random rand = new Random();
-					
-					indexJoueur = rand.nextInt(joueurs.size());
-					//On vérifie qu'on peut bien piocher dans l'offre de ce joueur
-					while (joueurs.get(indexJoueur).getMain().getPiochabilite() == false){
-						indexJoueur = rand.nextInt(joueurs.size());
-					}
-					joueurs.get(index).piocherOffre(strategieA, joueurs.get(indexJoueur));
-					index = indexJoueur;
-					indexUtilise[indexTableau] = index;
-					compte ++;
-				}
-				while (arbitre.verification(index, indexUtilise) == true && compte < nbJoueurs){ //On vérifie que le joueur suivant n'a pas déjà joué
-					if (index+1 != joueurs.size()){
-						index++;
-					}
-					else if (index != 0){
-						index --;
-					}
-				}
-				indexTableau++;
-			}
-			//On met ensuite les cartes de la pioche (autant qu'il y a de joueurs) dans le tas et les cartes non piochée
-			tas.nouveauTas(pioche, joueurs);
-			
-		}//fin du while a0Carte
-		
-		//Quand pioche vide
-		System.out.println("La pioche est vide, vous récupérer votre dernière carte.");
-			//On ajoute la carte restante à l'offre de chaque joueur dans son propre jest
-		for (Joueur j : joueurs){
-			if (j.getMain().getOffre().get("carte gauche") != null){
-				j.getJest().getCartes().add(j.getMain().getOffre().get("carte gauche"));
-			}
-			else if (j.getMain().getOffre().get("carte droite") != null){
-				j.getJest().getCartes().add(j.getMain().getOffre().get("carte droite"));
-			}
+		partie.creationDesOffres(sc);
+		partie.affichageDesOffres();
+		while(partie.getPioche().getA0Carte()==false) {
+		partie.piochageDesOffres(sc);
+		partie.tourDeJeu++;
 		}
-		
-		//Début de la définition des vainqueurs:
-		arbitre.attribuerTrophee(joueurs, trophee1, trophee2);
-		classementFinal = arbitre.etablirClassement(joueurs);
-		
-		System.out.println("Le gagnant est : " + classementFinal.get(1) + "\n Félicitations !");
-		
+		sc.close();
+
 	}
-	
 
 }

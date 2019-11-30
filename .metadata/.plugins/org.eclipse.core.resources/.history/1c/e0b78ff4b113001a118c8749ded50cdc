@@ -1,0 +1,50 @@
+import java.util.*;
+
+public class StrategieA implements Strategie {
+	
+	public StrategieA(){
+		
+	}
+	
+	public void faireOffre(Joueur a) {
+		if (a.getMain().getOffre().get(0).getValeur().ordinal() < a.getMain().getOffre().get(1).getValeur()
+				.ordinal()) {
+			a.getMain().getOffre().get(0).setVisibilite(true);
+		} else {
+			a.getMain().getOffre().get(1).setVisibilite(true);
+		}
+
+	}
+
+	public void piocherOffre(Joueur piocheur, Joueur pioche) {
+		if (pioche.getMain().getPiochabilite() == true) {
+			if (pioche.getMain().getOffre().get("carte gauche").getVisibilite() == false) {
+				piocheur.getJest().getCartes().add(pioche.getMain().getOffre().get("carte gauche"));
+				pioche.getMain().getOffre().remove("carte gauche");
+			} else {
+				piocheur.getJest().getCartes().add(pioche.getMain().getOffre().get("carte droite"));
+				pioche.getMain().getOffre().remove("carte droite");
+			}
+			pioche.getMain().setPiochabilite(false);
+		}
+
+	}
+	public Joueur choisirJoueurAPiocher(ArrayList<Joueur> liste,Joueur soiMeme) {
+		boolean cibleChoisie=false;
+		Iterator<Joueur> it=liste.iterator();
+		while(it.hasNext()&&cibleChoisie==false) {
+			it.next();
+			if(it.next().getMain().getPiochabilite()==true&&it.next()!=soiMeme) {
+				cibleChoisie=true;
+			}
+			
+		}
+		if(cibleChoisie==true) {
+		return it.next();
+		}
+		else {
+			return soiMeme;
+		}
+	}
+
+}

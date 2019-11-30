@@ -5,25 +5,23 @@ public class Pioche {
 	private LinkedList<Carte> pioche; //PriorityQueue
 
 	public Pioche() {
+		
 		this.pioche = new LinkedList<Carte>();
 		this.a0Carte = false;
-
-		//for (Couleur c : Couleur.values()){
-		for (int i = 0; i < 4; i++){
-			Couleur c = Couleur.values()[i];
-			//for (Valeur v : Valeur.values())
-			for (int j=0; j < 4; j++ ){
-				Valeur v = Valeur.values()[j];
-				
-				Carte carte = new Carte(v,c);
-				this.pioche.add(carte);
-				//System.out.println(carte) ;
-				
+		for (Couleur c : Couleur.values()) {
+			for (Valeur v : Valeur.values()) {
+				if (v != Valeur.JOKER && c!=Couleur.JOKER) {
+					
+					this.pioche.add(new Carte(v, c));
+				}
 			}
 		}
+		
 		this.pioche.add(new Carte(Valeur.JOKER, Couleur.JOKER));
 		
 	}
+		
+	
 	public Carte retirerCarteDuHaut() {
 		Carte c;
 		c=this.pioche.removeLast();
@@ -39,11 +37,11 @@ public class Pioche {
 		Collections.shuffle(this.pioche);
 	}
 
-	public boolean geta0Carte() {
+	public boolean getA0Carte() {
 		return this.a0Carte;
 	}
 	
-	public void seta0Carte(){
+	public void setA0Carte(){
 		if (this.pioche.size() == 0){
 			this.a0Carte = true;
 		}

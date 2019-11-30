@@ -1,6 +1,6 @@
 
 public enum Valeur {
 
-	AS, DEUX, TROIS, QUATRE, JOKER
+	JOKER, AS, DEUX, TROIS, QUATRE
 
 }

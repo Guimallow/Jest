@@ -23,7 +23,16 @@ public class Tas {
 			c = p.retirerCarteDuHaut();
 			this.tas.add(c);
 		}
-		Iterator<Joueur> it = listeJoueur.iterator();
+		for(Joueur j: listeJoueur) {
+			if (j.getMain().getOffre().get(0) != null) {
+				this.tas.add(j.getMain().getOffre().get(0));
+				j.getMain().getOffre().remove(0);
+			}else {
+				this.tas.add(j.getMain().getOffre().get(1));
+				j.getMain().getOffre().remove(1);
+			}
+		}
+		/*Iterator<Joueur> it = listeJoueur.iterator();
 		while (it.hasNext()) {
 			if (it.next().getMain().getOffre().get("carte gauche") != null) {
 				this.tas.add(it.next().getMain().getOffre().get("carte gauche"));
@@ -32,7 +41,7 @@ public class Tas {
 				this.tas.add(it.next().getMain().getOffre().get("carte droite"));
 				it.next().getMain().getOffre().remove("carte droite");
 			}
-		}
+		}*/
 
 		Collections.shuffle(this.tas);
 	}

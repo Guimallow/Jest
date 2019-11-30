@@ -7,39 +7,37 @@ public class StrategieA implements Strategie {
 	}
 	
 	public void faireOffre(Joueur a) {
-		if (a.getMain().getOffre().get("carte gauche").getValeur().ordinal() < a.getMain().getOffre().get("carte droite").getValeur()
+		if (a.getMain().getOffre().get(0).getValeur().ordinal() < a.getMain().getOffre().get(1).getValeur()
 				.ordinal()) {
-			a.getMain().getOffre().get("carte gauche").setVisibilite(true);
+			a.getMain().getOffre().get(0).setVisibilite(true);
 		} else {
-			a.getMain().getOffre().get("carte droite").setVisibilite(true);
+			a.getMain().getOffre().get(1).setVisibilite(true);
 		}
 
 	}
 
 	public void piocherOffre(Joueur piocheur, Joueur pioche) {
 		if (pioche.getMain().getPiochabilite() == true) {
-			if (pioche.getMain().getOffre().get("carte gauche").getVisibilite() == false) {
-				piocheur.getJest().getCartes().add(pioche.getMain().getOffre().get("carte gauche"));
-				pioche.getMain().getOffre().remove("carte gauche");
+			if (pioche.getMain().getOffre().get(0).getVisibilite() == false) {
+				piocheur.getJest().getCartes().add(pioche.getMain().getOffre().get(0));
+				pioche.getMain().getOffre().remove(0);
 			} else {
-				piocheur.getJest().getCartes().add(pioche.getMain().getOffre().get("carte droite"));
-				pioche.getMain().getOffre().remove("carte droite");
+				piocheur.getJest().getCartes().add(pioche.getMain().getOffre().get(1));
+				pioche.getMain().getOffre().remove(1);
 			}
 			pioche.getMain().setPiochabilite(false);
 		}
-
+		piocheur.setJouabilite(false);
 	}
-	public Joueur choisirJoueurAPiocher(ArrayList<Joueur> liste) {
-		boolean cibleChoisie=false;
-		Iterator<Joueur> it=liste.iterator();
-		while(it.hasNext()&&cibleChoisie==false) {
-			it.next();
-			if(it.next().getMain().getPiochabilite()==true) {
-				cibleChoisie=true;
-			}
-			
+	public Joueur choisirJoueurAPiocher(ArrayList<Joueur> liste,Joueur soiMeme) {
+		Joueur joueurAPiocher=soiMeme;
+		for(Joueur j:liste) {
+			if(j!=soiMeme && j.getMain().getPiochabilite()==true) {
+			joueurAPiocher=j;
+			}	
 		}
-		return it.next();
+		return joueurAPiocher;
+		
 	}
 
 }
