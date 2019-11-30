@@ -14,11 +14,6 @@ public class Joueur {
 		partie.addJoueur(this);
 		Joueur.nbJoueurs++;
 	}
-	public Joueur() {
-		pseudo = null;
-		this.jest = new Jest(this);
-		this.main = new Offre();
-	}
 
 	public void piocherDansTas(Tas a) {// prend carte du haut du tas, attribue à la carte sa place dans la main
 		Carte c = a.retirerCarteDuHaut();

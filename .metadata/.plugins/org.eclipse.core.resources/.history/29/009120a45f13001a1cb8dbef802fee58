@@ -30,16 +30,15 @@ public class StrategieA implements Strategie {
 
 	}
 	public Joueur choisirJoueurAPiocher(ArrayList<Joueur> liste) {
-		boolean cibleChoisie=false;
+		
 		Iterator<Joueur> it=liste.iterator();
-		while(it.hasNext()&&cibleChoisie==false) {
+		while(it.hasNext()) {
 			it.next();
-			if(it.next().getMain().getPiochabilite()==true) {
-				cibleChoisie=true;
+			if(it.next().getMain().getPiochabilite()) {
+				return it.next();
 			}
 			
 		}
-		return it.next();
 	}
 
 }
