@@ -1,4 +1,0 @@
-
-public interface Comparable<int> {
-	public int compareTo(int o);
-}

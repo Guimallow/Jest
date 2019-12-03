@@ -201,10 +201,10 @@ public class Partie {
 	}
 
 	public void affichageDesOffres() {
-		int i = 1;
-
+		int i=1;
+		
 		for (Joueur j : joueurs) {
-			System.out.println("Joueur" + i + " " + j.getPseudo() + ":");
+			System.out.println("Joueur"+i+" "+j.getPseudo() + ":");
 			i++;
 			j.getMain().afficherOffre();
 		}
@@ -212,10 +212,10 @@ public class Partie {
 
 	public Joueur testMeilleureCarteVisible() {// test la meilleure des cartes visibles parmi les joueurs qui n'ont pas
 												// pioché
-		Joueur piocheur = null;
-		for (Joueur j2 : joueurs) {
-			if (j2.getJouabilite() == true) {
-				piocheur = j2;
+		Joueur piocheur=null;
+		for(Joueur j2: joueurs) {
+			if(j2.getJouabilite()==true) {
+				piocheur=j2;
 			}
 		}
 		for (Joueur j : joueurs) {
@@ -251,93 +251,78 @@ public class Partie {
 	}
 
 	public void piochageDesOffres(Scanner sc) {// permet à tous les joueurs de piocher dans les offres adverses
-
 		Joueur piocheur = partie.testMeilleureCarteVisible();
-		for (Joueur j1 : joueurs) {
-			for (Joueur j : joueurs) {
-				if (j == piocheur) {
-					if (j instanceof JoueurVirtuel) {
-						Joueur joueurAPiocher = j.choisirJoueurAPiocher(partie.strategie, partie.joueurs);
-						for (Joueur j3 : joueurs) {
-							if (j3 == joueurAPiocher) {
-								j.piocherOffre(partie.strategie, j3);
-							}
+		for (Joueur j : joueurs) {
+			if (j == piocheur) {
+				if (j instanceof JoueurVirtuel) {
+					Joueur joueurAPiocher = j.choisirJoueurAPiocher(partie.strategie, partie.joueurs);
+					for(Joueur j3:joueurs) {
+						if(j3==joueurAPiocher) {
+							j.piocherOffre(partie.strategie, j3);
 						}
-
-						if (joueurAPiocher.getJouabilite() == true) {
-							piocheur = joueurAPiocher;
-						} else {
-							piocheur = partie.testMeilleureCarteVisible();
-						}
+					}
+					
+					if (joueurAPiocher.getJouabilite()) {
+						piocheur = joueurAPiocher;
 					} else {
-						System.out.println(j.getPseudo() + "Chez quel joueur voulez vous piocher?\n");
-						String choix = "0";
-						int choixEntier = 0;
-						boolean valide = false;
-						while (valide == false) {
-							choix = sc.nextLine();
-							if (choix == "1") {
-								choixEntier = 1;
-							}
-							if (choix == "2") {
-								choixEntier = 2;
-							}
-							if (choix == "3") {
-								choixEntier = 3;
-							}
-							if (choix == "4") {
-								choixEntier = 4;
-							}
-							for (Joueur j2 : joueurs) {
-								if (choixEntier == joueurs.indexOf(j2)) {
-									valide = true;
-									System.out.println(
-											"Quelle carte prenez vous? Tapez 1 pour celle visible et 2 pour celle cachée");
-									String choix2 = "0";
-									boolean valide2 = false;
-									while (valide2 == false) {
+						piocheur = partie.testMeilleureCarteVisible();
+					}
+				}
+				else {
+					System.out.println(j.getPseudo()+"Chez quel joueur voulez vous piocher?\n");
+					String choix = "0";
+					boolean valide = false;
+					while (valide == false) {
+						choix = sc.nextLine();
+						for (Joueur j2 : joueurs) {
+							if (j2.getPseudo() == choix) {
+								valide = true;
+								System.out.println(
+										"Quelle carte prenez vous? Tapez 1 pour celle visible et 2 pour celle cachée");
+								String choix2 = "0";
+								boolean valide2 = false;
+								while (valide2 == false) {
 
-										choix2 = sc.nextLine();
+									choix2 = sc.nextLine();
 
-										switch (choix2) {
-										case "1":
-											j.piocherOffre(j2, true);
-											if (j2.getJouabilite()) {
-												piocheur = j2;
-											} else {
-												piocheur = partie.testMeilleureCarteVisible();
-											}
-											valide2 = true;
-											break;
-										case "2":
-											j.piocherOffre(j2, false);
-											if (j2.getJouabilite() == true) {
-												piocheur = j2;
-											} else {
-												piocheur = partie.testMeilleureCarteVisible();
-											}
-											valide2 = true;
-
-											break;
-										default:
-											System.out
-													.println("Vous avez tapé un mauvais nombre, veuillez recommencer");
-
+									switch (choix2) {
+									case "1":
+										j.piocherOffre(j2, true);
+										if (j2.getJouabilite()) {
+											piocheur = j2;
+										} else {
+											piocheur = partie.testMeilleureCarteVisible();
 										}
-									}
+										valide2 = true;
+										break;
+									case "2":
+										j.piocherOffre(j2, false);
+										if (j2.getJouabilite()) {
+											piocheur = j2;
+										} else {
+											piocheur = partie.testMeilleureCarteVisible();
+										}
+										valide2 = true;
 
+										break;
+									default:
+										System.out.println("Vous avez tapé un mauvais nombre, veuillez recommencer");
+
+									}
 								}
-							}
-							if (valide == false) {
-								System.out.println("Vous avez tapé un mauvais nombre test, veuillez recommencer\"");
+
 							}
 						}
-
+						if (valide == false) {
+							System.out.println("Vous avez tapé un mauvais nombre test, veuillez recommencer\"");
+						}
 					}
 
 				}
+
 			}
 		}
+
 	}
 
 	public Pioche getPioche() {
@@ -349,12 +334,12 @@ public class Partie {
 		Partie.getInstance();
 		partie.configurerPartie(sc);
 		partie.initialisationPartie(sc);
-		while (partie.getPioche().getA0Carte() == false) {
-			partie.creationDesOffres(sc);
-			partie.affichageDesOffres();
-			partie.piochageDesOffres(sc);
-			partie.tourDeJeu++;
-			partie.tas.nouveauTas(partie.pioche,partie.joueurs);
+
+		partie.creationDesOffres(sc);
+		partie.affichageDesOffres();
+		while(partie.getPioche().getA0Carte()==false) {
+		partie.piochageDesOffres(sc);
+		partie.tourDeJeu++;
 		}
 		sc.close();
 

@@ -162,6 +162,7 @@ public class Partie {
 				j.piocherDansPioche(partie.pioche);
 				j.piocherDansPioche(partie.pioche);
 			} else {
+				partie.tas.nouveauTas(partie.pioche,partie.joueurs);
 				j.piocherDansTas(partie.tas);
 				j.piocherDansTas(partie.tas);
 			}
@@ -354,7 +355,6 @@ public class Partie {
 			partie.affichageDesOffres();
 			partie.piochageDesOffres(sc);
 			partie.tourDeJeu++;
-			partie.tas.nouveauTas(partie.pioche,partie.joueurs);
 		}
 		sc.close();
 

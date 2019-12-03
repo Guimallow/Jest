@@ -354,7 +354,6 @@ public class Partie {
 			partie.affichageDesOffres();
 			partie.piochageDesOffres(sc);
 			partie.tourDeJeu++;
-			partie.tas.nouveauTas(partie.pioche,partie.joueurs);
 		}
 		sc.close();
 

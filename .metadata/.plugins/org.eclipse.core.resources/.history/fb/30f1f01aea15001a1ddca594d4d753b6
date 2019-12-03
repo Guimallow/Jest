@@ -12,7 +12,7 @@ public class Joueur {
 		pseudo = null;
 		this.jest = new Jest(this);
 		this.main = new Offre();
-		this.estJouable = true;
+		this.aPiocheOffre = false;
 		partie.addJoueur(this);
 		Joueur.nbJoueurs++;
 	}
@@ -55,7 +55,7 @@ public class Joueur {
 			}
 			a.main.setPiochabilite(false);
 		}
-		this.estJouable = false;
+		this.aPiocheOffre = true;
 	}
 
 	public void consulterOffre(Joueur a) {// affiche l'offre d'un joueur, les cartes non visibles sont affichés face
@@ -143,10 +143,10 @@ public class Joueur {
 	}
 
 	public boolean getJouabilite() {
-		return this.estJouable;
+		return !this.aPiocheOffre;
 	}
 	public void setJouabilite(boolean b) {
-		this.estJouable=b;
+		this.aPiocheOffre=!b;
 	}
 
 }

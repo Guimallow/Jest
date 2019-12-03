@@ -25,11 +25,9 @@ public class Tas {
 		}
 		for(Joueur j: listeJoueur) {
 			if (j.getMain().getOffre().get(0) != null) {
-				j.getMain().getOffre().get(0).setVisibilite(false);
 				this.tas.add(j.getMain().getOffre().get(0));
 				j.getMain().getOffre().remove(0);
 			}else {
-				j.getMain().getOffre().get(1).setVisibilite(false);
 				this.tas.add(j.getMain().getOffre().get(1));
 				j.getMain().getOffre().remove(1);
 			}

@@ -272,24 +272,11 @@ public class Partie {
 					} else {
 						System.out.println(j.getPseudo() + "Chez quel joueur voulez vous piocher?\n");
 						String choix = "0";
-						int choixEntier = 0;
 						boolean valide = false;
 						while (valide == false) {
 							choix = sc.nextLine();
-							if (choix == "1") {
-								choixEntier = 1;
-							}
-							if (choix == "2") {
-								choixEntier = 2;
-							}
-							if (choix == "3") {
-								choixEntier = 3;
-							}
-							if (choix == "4") {
-								choixEntier = 4;
-							}
 							for (Joueur j2 : joueurs) {
-								if (choixEntier == joueurs.indexOf(j2)) {
+								if (choix== joueurs.indexOf(j2)) {
 									valide = true;
 									System.out.println(
 											"Quelle carte prenez vous? Tapez 1 pour celle visible et 2 pour celle cachée");
@@ -349,13 +336,12 @@ public class Partie {
 		Partie.getInstance();
 		partie.configurerPartie(sc);
 		partie.initialisationPartie(sc);
-		while (partie.getPioche().getA0Carte() == false) {
-			partie.creationDesOffres(sc);
-			partie.affichageDesOffres();
-			partie.piochageDesOffres(sc);
-			partie.tourDeJeu++;
-			partie.tas.nouveauTas(partie.pioche,partie.joueurs);
-		}
+
+		partie.creationDesOffres(sc);
+		partie.affichageDesOffres();
+		partie.piochageDesOffres(sc);
+		partie.tourDeJeu++;
+
 		sc.close();
 
 	}
