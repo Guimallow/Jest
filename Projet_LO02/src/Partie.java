@@ -256,6 +256,7 @@ public class Partie {
 		for (Joueur j1 : joueurs) {
 			for (Joueur j : joueurs) {
 				if (j == piocheur) {
+					System.out.println("C'est au tour de: " + j.getPseudo());
 					if (j instanceof JoueurVirtuel) {
 						Joueur joueurAPiocher = j.choisirJoueurAPiocher(partie.strategie, partie.joueurs);
 						for (Joueur j3 : joueurs) {
@@ -270,69 +271,44 @@ public class Partie {
 							piocheur = partie.testMeilleureCarteVisible();
 						}
 					} else {
-						System.out.println(j.getPseudo() + "Chez quel joueur voulez vous piocher?\n");
-						String choix = "0";
-						int choixEntier = 0;
-						boolean valide = false;
-						while (valide == false) {
-							choix = sc.nextLine();
-							if (choix == "1") {
-								choixEntier = 1;
-							}
-							if (choix == "2") {
-								choixEntier = 2;
-							}
-							if (choix == "3") {
-								choixEntier = 3;
-							}
-							if (choix == "4") {
-								choixEntier = 4;
-							}
-							for (Joueur j2 : joueurs) {
-								if (choixEntier == joueurs.indexOf(j2)) {
-									valide = true;
-									System.out.println(
-											"Quelle carte prenez vous? Tapez 1 pour celle visible et 2 pour celle cachée");
-									String choix2 = "0";
-									boolean valide2 = false;
-									while (valide2 == false) {
-
-										choix2 = sc.nextLine();
-
-										switch (choix2) {
-										case "1":
-											j.piocherOffre(j2, true);
-											if (j2.getJouabilite()) {
-												piocheur = j2;
-											} else {
-												piocheur = partie.testMeilleureCarteVisible();
-											}
-											valide2 = true;
-											break;
-										case "2":
-											j.piocherOffre(j2, false);
-											if (j2.getJouabilite() == true) {
-												piocheur = j2;
-											} else {
-												piocheur = partie.testMeilleureCarteVisible();
-											}
-											valide2 = true;
-
-											break;
-										default:
-											System.out
-													.println("Vous avez tapé un mauvais nombre, veuillez recommencer");
-
-										}
-									}
-
-								}
-							}
-							if (valide == false) {
-								System.out.println("Vous avez tapé un mauvais nombre test, veuillez recommencer\"");
-							}
+						int n = 1;
+						for (Joueur joueurAafficher : joueurs){
+							System.out.println(joueurAafficher.getPseudo() + ": numéro " + n + ", piochabilité: " + joueurAafficher.getMain().getPiochabilite());
+							n++;
 						}
-
+						System.out.println(j.getPseudo() + ", chez quel joueur voulez vous piocher ? (indiquez son numéro)\n");
+						char choix = '0';
+						
+						// Choix de la carte qu'on veut prendre et ajouter à son jest
+						choix = sc.nextLine().charAt(0);
+						
+						// On vérifie qu'on peut bien piocher dans l'offre de ce joueur
+						while (testChoixValide(choix, j) == false){
+							n = 1;
+							for (Joueur joueurAafficher : joueurs){
+								System.out.println(joueurAafficher.getPseudo() + ": numéro " + n + ", piochabilité: " + joueurAafficher.getMain().getPiochabilite());
+								n++;
+							}
+							choix = sc.nextLine().charAt(0);
+						}
+						
+						
+						Joueur j2 = joueurs.get(Character.getNumericValue(choix)-1);
+						System.out.println("Vous prenez la carte de " + j2.getPseudo());	
+						
+						System.out.println("Et quelle carte souhaitez-vous prendre ? Visible: V, Cachée: C   ");
+						boolean carteVisible = false;
+						String carteAPiocher = sc.nextLine();
+						if (carteAPiocher == "V" || carteAPiocher == "v") {
+							carteVisible = true;
+						}
+						System.out.println("Vous prenez la carte de " + j2.getPseudo());
+						j.piocherOffre(j2, carteVisible);
+						if (j2.getJouabilite() == true) {
+							piocheur = j2;
+						} else {
+							piocheur = partie.testMeilleureCarteVisible();
+						}
 					}
 
 				}
@@ -344,6 +320,23 @@ public class Partie {
 		return this.pioche;
 	}
 
+	public boolean testChoixValide(char choix, Joueur j){
+		boolean valide = false;
+		if (choix == '1' || choix == '2' || choix =='3' || choix =='4'){ //On vérifie qu'on rentre bien un chiffre valide
+			int choixEntier = Character.getNumericValue(choix)-1;
+
+			if (choixEntier < partie.joueurs.size()
+					&& partie.joueurs.get(choixEntier).getMain().getPiochabilite() == true){ //On vérifie que le joueur existe et est piochable (existe notamment dans le cas du joueur 4, pas toujours présent)
+				if (choixEntier != partie.joueurs.indexOf(j)){//On vérifie qu'on ne se pioche pas soi-même
+					valide = true;
+				}
+				else {System.out.println("Vous ne pouvez pas piocher votre propre offre");}
+			}
+			else {System.out.println("Malheureusement, ce joueur n'est pas piochable");}
+		}
+		else {System.out.println("Veuillez saisir un chiffre valide");}
+		return valide;
+	}
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		Partie.getInstance();

@@ -1,5 +1,5 @@
 public class Carte {
-// pourquoi protected au lieu de private?
+
 	private Couleur couleur;
 	private Valeur valeur;
 	private ConditionTrophee condition;
