@@ -256,12 +256,8 @@ public class Partie {
 	}
 
 	public void piochageDesOffres(Scanner sc) {// permet à tous les joueurs de piocher dans les offres adverses
-		System.out.println("On pioche");
+
 		Joueur piocheur = partie.testMeilleureCarteVisible();
-		for (Joueur j : joueurs){
-			System.out.println(j.getPseudo() + " jouabilité: " + j.getJouabilite());
-		}
-		System.out.println(piocheur + " pioche");
 		for (Joueur j1 : joueurs) {
 			for (Joueur j : joueurs) {
 				if (j == piocheur) {
@@ -323,10 +319,7 @@ public class Partie {
 				}
 			}
 		}
-		for (Joueur j : joueurs){
-			j.setJouabilite(true);
-			j.getMain().setPiochabilite(true);
-		}
+		System.out.println("Fonction piochage des offres terminée");
 	}
 
 	public Pioche getPioche() {
@@ -367,10 +360,10 @@ public class Partie {
 			partie.creationDesOffres(sc);
 			partie.affichageDesOffres();
 			partie.piochageDesOffres(sc);
+			System.out.println("Piochage des offres fait !");
 			partie.tourDeJeu++;
 			partie.tas.nouveauTas(partie.pioche,partie.joueurs);
 		}
-		System.out.println("La pioche n'a plus de cartes !");
 		sc.close();
 
 	}

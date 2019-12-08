@@ -267,6 +267,7 @@ public class Partie {
 				if (j == piocheur) {
 					System.out.println("C'est au tour de: " + j.getPseudo());
 					if (j instanceof JoueurVirtuel) {
+						System.out.println(j.getPseudo() + " est un joueur virtuel");
 						Joueur joueurAPiocher = j.choisirJoueurAPiocher(partie.strategie, partie.joueurs);
 						for (Joueur j3 : joueurs) {
 							if (j3 == joueurAPiocher) {
@@ -327,6 +328,7 @@ public class Partie {
 			j.setJouabilite(true);
 			j.getMain().setPiochabilite(true);
 		}
+		System.out.println("Fonction piochage des offres terminée");
 	}
 
 	public Pioche getPioche() {
