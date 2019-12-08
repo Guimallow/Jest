@@ -327,14 +327,7 @@ public class Partie {
 
 			if (choixEntier < partie.joueurs.size()
 					&& partie.joueurs.get(choixEntier).getMain().getPiochabilite() == true){ //On vérifie que le joueur existe et est piochable (existe notamment dans le cas du joueur 4, pas toujours présent)
-				boolean dernierJoueur = true;
-				for (Joueur testJoueur : partie.joueurs){
-					if (testJoueur.getMain().getPiochabilite() == true && testJoueur != j){
-						dernierJoueur = false;
-					}
-				}
-				System.out.println("Dernier joueur: " + dernierJoueur);
-				if (choixEntier != partie.joueurs.indexOf(j) || (choixEntier == partie.joueurs.indexOf(j) && dernierJoueur == true)){//On vérifie qu'on ne se pioche pas soi-même
+				if (choixEntier != partie.joueurs.indexOf(j)){//On vérifie qu'on ne se pioche pas soi-même
 					valide = true;
 				}
 				else {System.out.println("Vous ne pouvez pas piocher votre propre offre");}

@@ -333,7 +333,6 @@ public class Partie {
 						dernierJoueur = false;
 					}
 				}
-				System.out.println("Dernier joueur: " + dernierJoueur);
 				if (choixEntier != partie.joueurs.indexOf(j) || (choixEntier == partie.joueurs.indexOf(j) && dernierJoueur == true)){//On vérifie qu'on ne se pioche pas soi-même
 					valide = true;
 				}
