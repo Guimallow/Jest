@@ -172,9 +172,8 @@ public class Partie {
 				j.faireOffre(partie.strategie);
 			} else {
 				int i = 1;
-				for (Carte c : j.getMain().getOffre()){
-					System.out.println("Carte " + i +": "+ c);
-					i++;
+				for (Carte c : j.getMain().getOffre().get(i-1)){
+					System.out.println("Carte " + i + c);
 				}
 				
 				System.out.println(j.getPseudo()

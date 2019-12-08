@@ -171,12 +171,7 @@ public class Partie {
 			if (j instanceof JoueurVirtuel) {
 				j.faireOffre(partie.strategie);
 			} else {
-				int i = 1;
-				for (Carte c : j.getMain().getOffre()){
-					System.out.println("Carte " + i +": "+ c);
-					i++;
-				}
-				
+
 				System.out.println(j.getPseudo()
 						+ ": Quel carte voulez vous rendre face cachée?\n 1.Première Carte \n 2.Deuxième Carte");
 				String choix = "0";

@@ -173,8 +173,7 @@ public class Partie {
 			} else {
 				int i = 1;
 				for (Carte c : j.getMain().getOffre()){
-					System.out.println("Carte " + i +": "+ c);
-					i++;
+					System.out.println("Carte " + i + c);
 				}
 				
 				System.out.println(j.getPseudo()
