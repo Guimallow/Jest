@@ -132,7 +132,7 @@ public class Trophee implements ObjetVisite{
 			else {this.setValeurCondition(Valeur.DEUX);
 		}
 	}
-	}
+	
 }
 
 

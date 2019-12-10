@@ -174,6 +174,7 @@ public class Arbitre implements Visiteur {
 					points = compterPoints(joueur.get(i).getJest());
 					jestTropheeT1 = joueur.get(i).getJest();
 				}
+			System.out.println("Le trophee 1 a été attribué à " + jestTropheeT1.getJoueur().getPseudo());
 			}
 			break;
 		case Highest: 
@@ -181,7 +182,7 @@ public class Arbitre implements Visiteur {
 			for (int i = 0; i < joueur.size(); i++){
 				for (int j = 0; j < joueur.get(i).getJest().getCartes().size(); j++){
 					if ((joueur.get(i).getJest().getCartes().get(j).getValeur().ordinal() + 1 > highestValue) 
-							&& (joueur.get(i).getJest().getCartes().get(j).getCouleur().ordinal()==t1.getCouleurCondition().ordinal())){
+							&& (joueur.get(i).getJest().getCartes().get(j).getCouleur().ordinal()==t1.getCarte().getCouleur().ordinal())){
 						highestValue = joueur.get(i).getJest().getCartes().get(j).getValeur().ordinal() + 1;
 						jestTropheeT1 = joueur.get(i).getJest();
 					}
@@ -193,7 +194,7 @@ public class Arbitre implements Visiteur {
 			for (int i = 0; i < joueur.size(); i++){
 				for (int j = 0; j < joueur.get(i).getJest().getCartes().size(); j++){
 					if ((joueur.get(i).getJest().getCartes().get(j).getValeur().ordinal() + 1 < lowestValue) 
-							&& (joueur.get(i).getJest().getCartes().get(j).getCouleur().ordinal()==t1.getCouleurCondition().ordinal())){
+							&& (joueur.get(i).getJest().getCartes().get(j).getCouleur().ordinal()==t1.getCarte().getCouleur().ordinal())){
 						lowestValue = joueur.get(i).getJest().getCartes().get(j).getValeur().ordinal() + 1;
 						jestTropheeT1 = joueur.get(i).getJest();
 					}
@@ -203,9 +204,9 @@ public class Arbitre implements Visiteur {
 		case Majority: 
 			int compte = 0;
 			for (int i = 0; i <joueur.size(); i++){
-				if (countMajority(joueur.get(i).getJest(), t1.getValeurCondition()) > compte){
+				if (countMajority(joueur.get(i).getJest(), t1.getCarte().getValeur()) > compte){
 					jestTropheeT1 = joueur.get(i).getJest();
-					compte = countMajority(joueur.get(i).getJest(), t1.getValeurCondition());
+					compte = countMajority(joueur.get(i).getJest(), t1.getCarte().getValeur());
 				}
 			}
 			break;
@@ -220,8 +221,6 @@ public class Arbitre implements Visiteur {
 			break;
 			default: break;
 		}
-		
-		System.out.println("Le trophee 1 a été attribué à " + jestTropheeT1.getJoueur().getPseudo());
 		
 		if (t2 != null){
 			switch(conditionT2){
@@ -250,7 +249,7 @@ public class Arbitre implements Visiteur {
 				for (int i = 0; i < joueur.size(); i++){
 					for (int j = 0; j < joueur.get(i).getJest().getCartes().size(); j++){
 						if ((joueur.get(i).getJest().getCartes().get(j).getValeur().ordinal() + 1 > highestValue) 
-								&& (joueur.get(i).getJest().getCartes().get(j).getCouleur().ordinal()==t2.getCouleurCondition().ordinal())){
+								&& (joueur.get(i).getJest().getCartes().get(j).getCouleur().ordinal()==t2.getCarte().getCouleur().ordinal())){
 							highestValue = joueur.get(i).getJest().getCartes().get(j).getValeur().ordinal() + 1;
 							jestTropheeT2 = joueur.get(i).getJest();
 						}
@@ -262,7 +261,7 @@ public class Arbitre implements Visiteur {
 				for (int i = 0; i < joueur.size(); i++){
 					for (int j = 0; j < joueur.get(i).getJest().getCartes().size(); j++){
 						if ((joueur.get(i).getJest().getCartes().get(j).getValeur().ordinal() + 1 < lowestValue) 
-								&& (joueur.get(i).getJest().getCartes().get(j).getCouleur().ordinal()==t2.getCouleurCondition().ordinal())){
+								&& (joueur.get(i).getJest().getCartes().get(j).getCouleur().ordinal()==t2.getCarte().getCouleur().ordinal())){
 							lowestValue = joueur.get(i).getJest().getCartes().get(j).getValeur().ordinal() + 1;
 							jestTropheeT2 = joueur.get(i).getJest();
 						}
@@ -272,9 +271,9 @@ public class Arbitre implements Visiteur {
 			case Majority: 
 				int compte = 0;
 				for (int i = 0; i <joueur.size(); i++){
-					if (countMajority(joueur.get(i).getJest(), t1.getValeurCondition()) > compte){
+					if (countMajority(joueur.get(i).getJest(), t1.getCarte().getValeur()) > compte){
 						jestTropheeT1 = joueur.get(i).getJest();
-						compte = countMajority(joueur.get(i).getJest(), t1.getValeurCondition());
+						compte = countMajority(joueur.get(i).getJest(), t1.getCarte().getValeur());
 					}
 				}
 				break;
@@ -290,7 +289,6 @@ public class Arbitre implements Visiteur {
 			default :
 				break;
 			}
-			System.out.println("Le trophee 2 a été attribué à " + jestTropheeT2.getJoueur().getPseudo());
 			
 		}
 		

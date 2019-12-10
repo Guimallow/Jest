@@ -73,7 +73,11 @@ public class Trophee implements ObjetVisite{
 		return sb.toString();
 	}
 	public void conditionTrophee(){ //fonction pour attribuer les conditions aux trophées en fonction de sa valeur et de sa couleur
-		//Cette fontion est beaucoup trop compliquée pour ce que c'est
+		/*
+		 * Highest,
+	Lowest, 
+	Majority,
+	*/
 		if (this.carte.getCouleur() == Couleur.COEUR){
 			this.setConditionTrophee(ConditionTrophee.Joker);
 		}
@@ -87,52 +91,17 @@ public class Trophee implements ObjetVisite{
 		}
 		
 		if ((this.carte.getCouleur() == Couleur.TRÊFLE && this.carte.getValeur() == Valeur.QUATRE)
-				|| (this.carte.getCouleur() == Couleur.PIC && this.carte.getValeur() == Valeur.QUATRE)
-				|| (this.carte.getCouleur() == Couleur.TRÊFLE && this.carte.getValeur() == Valeur.DEUX)
-				|| (this.carte.getCouleur() == Couleur.CARREAU && this.carte.getValeur() == Valeur.TROIS)){
+				|| (this.carte.getCouleur() == Couleur.PIC && this.carte.getValeur() == Valeur.QUATRE)){
 			this.setConditionTrophee(ConditionTrophee.Lowest);
-			
-			if (this.carte.getCouleur() == Couleur.TRÊFLE && this.carte.getValeur() == Valeur.QUATRE){
-				this.setCouleurCondition(Couleur.PIC);
+			if (this.carte.getCouleur() == Couleur.TRÊFLE){
+				this.
 			}
-			else if (this.carte.getCouleur() == Couleur.PIC && this.carte.getValeur() == Valeur.QUATRE){
-				this.setCouleurCondition(Couleur.TRÊFLE); 
-				}
-			else if (this.carte.getCouleur() == Couleur.TRÊFLE && this.carte.getValeur() == Valeur.DEUX){
-				this.setCouleurCondition(Couleur.COEUR);
-			}
-			else {this.setCouleurCondition(Couleur.CARREAU);}
-		}
-		
-		if ((this.carte.getCouleur() == Couleur.TRÊFLE && this.carte.getValeur() == Valeur.AS)
-				|| (this.carte.getCouleur() == Couleur.PIC && this.carte.getValeur() == Valeur.AS)
-				|| (this.carte.getCouleur() == Couleur.TRÊFLE && this.carte.getValeur() == Valeur.TROIS)
-				|| (this.carte.getCouleur() == Couleur.CARREAU && this.carte.getValeur() == Valeur.DEUX)){
-			this.setConditionTrophee(ConditionTrophee.Highest);
-			
-			if (this.carte.getCouleur() == Couleur.TRÊFLE && this.carte.getValeur() == Valeur.AS){
-				this.setCouleurCondition(Couleur.PIC);
-			}
-			else if (this.carte.getCouleur() == Couleur.PIC && this.carte.getValeur() == Valeur.AS){
-				this.setCouleurCondition(Couleur.TRÊFLE); 
-				}
-			else if (this.carte.getCouleur() == Couleur.TRÊFLE && this.carte.getValeur() == Valeur.TROIS){
-				this.setCouleurCondition(Couleur.COEUR);
-			}
-			else {this.setCouleurCondition(Couleur.CARREAU);}
-		}
-		else {
-			this.setConditionTrophee(ConditionTrophee.Majority);
-			if (this.carte.getValeur() == Valeur.AS){
-				this.setValeurCondition(Valeur.QUATRE);
-			}
-			if (this.carte.getValeur() == Valeur.DEUX){
-				this.setValeurCondition(Valeur.TROIS);
-			}
-			else {this.setValeurCondition(Valeur.DEUX);
 		}
 	}
-	}
+	
+	
+	
+	
 }
 
 

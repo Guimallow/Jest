@@ -73,7 +73,10 @@ public class Trophee implements ObjetVisite{
 		return sb.toString();
 	}
 	public void conditionTrophee(){ //fonction pour attribuer les conditions aux trophées en fonction de sa valeur et de sa couleur
-		//Cette fontion est beaucoup trop compliquée pour ce que c'est
+		/*
+		 * Highest, 
+	Majority,
+	*/
 		if (this.carte.getCouleur() == Couleur.COEUR){
 			this.setConditionTrophee(ConditionTrophee.Joker);
 		}
@@ -103,7 +106,6 @@ public class Trophee implements ObjetVisite{
 			}
 			else {this.setCouleurCondition(Couleur.CARREAU);}
 		}
-		
 		if ((this.carte.getCouleur() == Couleur.TRÊFLE && this.carte.getValeur() == Valeur.AS)
 				|| (this.carte.getCouleur() == Couleur.PIC && this.carte.getValeur() == Valeur.AS)
 				|| (this.carte.getCouleur() == Couleur.TRÊFLE && this.carte.getValeur() == Valeur.TROIS)
@@ -132,7 +134,10 @@ public class Trophee implements ObjetVisite{
 			else {this.setValeurCondition(Valeur.DEUX);
 		}
 	}
-	}
+	
+	
+	
+	
 }
 
 

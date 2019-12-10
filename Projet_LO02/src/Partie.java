@@ -147,11 +147,11 @@ public class Partie {
 		this.pioche.melanger();
 		this.trophee1 = new Trophee(this.pioche.retirerCarteDuHaut());
 		System.out.println(
-				"Trophée 1: " + this.trophee1.getCarte() + " Condition: " + this.trophee1.getCarte().getCondition());
+				"Trophée 1: " + this.trophee1.getCarte() + " Condition: " + this.trophee1.getCondition());
 		if (nbJoueur == 3) {
 			this.trophee2 = new Trophee(this.pioche.retirerCarteDuHaut());
 			System.out.println("Trophée 2: " + this.trophee2.getCarte() + " Condition: "
-					+ this.trophee2.getCarte().getCondition());
+					+ this.trophee2.getCondition());
 		}
 
 	}
@@ -357,8 +357,11 @@ public class Partie {
 		else {System.out.println("Veuillez saisir un chiffre valide");}
 		return valide;
 	}
+	
+	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
+		Arbitre arbitre = new Arbitre();
 		Partie.getInstance();
 		partie.configurerPartie(sc);
 		partie.initialisationPartie(sc);
@@ -371,6 +374,10 @@ public class Partie {
 			partie.tas.nouveauTas(partie.pioche,partie.joueurs);
 		}
 		System.out.println("La pioche n'a plus de cartes !");
+		partie.trophee1.conditionTrophee();
+		partie.trophee2.conditionTrophee();
+		arbitre.attribuerTrophee(partie.joueurs, partie.trophee1, partie.trophee2);
+		arbitre.etablirClassement(partie.joueurs);
 		sc.close();
 
 	}

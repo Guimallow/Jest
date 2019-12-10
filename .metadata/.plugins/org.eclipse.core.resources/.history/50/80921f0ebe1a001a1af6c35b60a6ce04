@@ -1,0 +1,67 @@
+
+public class Trophee implements ObjetVisite{
+	private boolean estAttribue;
+	private Carte carte;
+	
+	public Trophee(Carte c){
+		this.estAttribue = false;
+		this.carte = c;
+	}
+	
+	public void setAttribution(boolean b){
+		this.estAttribue = b;
+	}
+	
+	public boolean getAttribution(){
+		return this.estAttribue;
+	}
+	
+	public void setCarte(Carte carte){
+		this.carte = carte;
+	}
+	
+	public Carte getCarte(){
+		return this.carte;
+	}
+	
+	public void accept(Visiteur v){
+		v.visit(this);
+	}
+	public String toString() {
+		StringBuffer sb = new StringBuffer();
+		
+			if (this.carte.getValeur() != Valeur.JOKER) {
+				sb.append(this.carte.getValeur());
+				sb.append(" de ");
+				sb.append(this.carte.getCouleur());
+			} 
+			else {
+				sb.append(this.carte.getValeur());
+			}
+		
+		
+		return sb.toString();
+	}
+	public void conditionTrophee(){ //fonction pour attribuer les conditions aux trophées en fonction de sa valeur et de sa couleur
+		/*
+		 * Highest,
+	Lowest, 
+	Majority,
+	Joker,
+	BestJest,
+	BestJestNoJoke*/
+		if (this.carte.getCouleur() == Couleur.COEUR){
+			this.carte.setConditionTrophee(ConditionTrophee.Joker);
+		}
+		
+		if (this.carte.getCouleur() == Couleur.CARREAU || this.carte.getValeur() == Valeur.QUATRE){
+			this.carte.setConditionTrophee(ConditionTrophee.BestJestNoJoke);
+		}
+	}
+	
+	
+	
+	
+}
+
+
