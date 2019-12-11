@@ -1,4 +1,6 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Arrays;
 
 public class Arbitre implements Visiteur {
 	
@@ -291,17 +293,6 @@ public class Arbitre implements Visiteur {
 			System.out.println("Le trophee 2 a été attribué à " + jestTropheeT2.getJoueur().getPseudo());
 			
 		}
-		
-	}
-	
-	public ArrayList<Joueur> etablirClassement2(Partie partie){
-		ArrayList<Joueur> classement = new ArrayList<Joueur>();
-		for (Joueur joueur : partie.getJoueurs()){
-			joueur.setScore(this.compterPoints(joueur.getJest()));
-			classement.add(joueur);
-		}
-		Collections.sort(classement, new ComparaisonScore());
-		return classement;
 		
 	}
 	public boolean verification(int index, int[] tableau){

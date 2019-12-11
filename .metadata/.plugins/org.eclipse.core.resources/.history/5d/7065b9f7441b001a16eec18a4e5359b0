@@ -7,7 +7,6 @@ public class Joueur {
 	private Offre main;
 	private boolean estJouable;
 	private static int nbJoueurs = 0;// va être utile pour pouvoir creer le tas à partir de la pioche
-	private int score;
 
 	public Joueur(Partie partie) {
 		pseudo = null;
@@ -16,14 +15,12 @@ public class Joueur {
 		this.estJouable = true;
 		partie.addJoueur(this);
 		Joueur.nbJoueurs++;
-		this.score = 0;
 	}
 
 	public Joueur() {
 		pseudo = null;
 		this.jest = new Jest(this);
 		this.main = new Offre();
-		this.score = 0;
 	}
 
 	public void piocherDansTas(Tas a) {// prend carte du haut du tas, attribue à la carte sa place dans la main
@@ -150,14 +147,6 @@ public class Joueur {
 	}
 	public void setJouabilite(boolean b) {
 		this.estJouable=b;
-	}
-	
-	public int getScore(){
-		return this.score;
-	}
-	
-	public void setScore(int score){
-		this.score = score;
 	}
 
 }

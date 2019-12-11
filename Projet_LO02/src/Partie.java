@@ -363,6 +363,7 @@ public class Partie {
 		Scanner sc = new Scanner(System.in);
 		Arbitre arbitre = new Arbitre();
 		Partie.getInstance();
+		ArrayList<Joueur> classement = new ArrayList<Joueur>();
 		partie.configurerPartie(sc);
 		partie.initialisationPartie(sc);
 		while (partie.getPioche().getA0Carte() == false) {
@@ -377,7 +378,14 @@ public class Partie {
 		partie.trophee1.conditionTrophee();
 		partie.trophee2.conditionTrophee();
 		arbitre.attribuerTrophee(partie.joueurs, partie.trophee1, partie.trophee2);
-		arbitre.etablirClassement(partie.joueurs);
+		//arbitre.etablirClassement(partie.joueurs);
+		classement = arbitre.etablirClassement2(partie);
+		System.out.println("Classement: ");
+		for (Joueur j : classement){
+			System.out.println(j);
+		}
+		System.out.println("Le gagnant est donc " + classement.get(0).getPseudo() + " avec un score de " + classement.get(0).getScore());
+		
 		sc.close();
 
 	}

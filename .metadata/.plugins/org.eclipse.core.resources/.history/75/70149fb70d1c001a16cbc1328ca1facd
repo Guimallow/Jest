@@ -1,4 +1,6 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Arrays;
 
 public class Arbitre implements Visiteur {
 	
@@ -294,13 +296,14 @@ public class Arbitre implements Visiteur {
 		
 	}
 	
-	public ArrayList<Joueur> etablirClassement2(Partie partie){
-		ArrayList<Joueur> classement = new ArrayList<Joueur>();
+	public LinkedList<Joueur> etablirClassement2(Partie partie){
+		LinkedList<Joueur> classement = new LinkedList<Joueur>();
 		for (Joueur joueur : partie.getJoueurs()){
 			joueur.setScore(this.compterPoints(joueur.getJest()));
-			classement.add(joueur);
 		}
-		Collections.sort(classement, new ComparaisonScore());
+		//regarder si égalité
+		//trier joueurs
+		
 		return classement;
 		
 	}
