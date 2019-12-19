@@ -386,7 +386,7 @@ public class Partie {
 		for (Joueur j : classement){
 			System.out.println(j.getPseudo() + " : " + j.getScore() + " points \n");
 		}
-		System.out.println("Le gagnant est donc " + classement.get(classement.size()-1).getPseudo() + " avec un score de " + classement.get(classement.size() - 1).getScore());
+		System.out.println("Le gagnant est donc " + classement.get(0).getPseudo() + " avec un score de " + classement.get(0).getScore());
 		
 		sc.close();
 

@@ -146,12 +146,10 @@ public class Partie {
 
 		this.pioche.melanger();
 		this.trophee1 = new Trophee(this.pioche.retirerCarteDuHaut());
-		this.trophee1.conditionTrophee();
 		System.out.println(
 				"Trophée 1: " + this.trophee1.getCarte() + " Condition: " + this.trophee1.getCondition());
 		if (nbJoueur == 3) {
 			this.trophee2 = new Trophee(this.pioche.retirerCarteDuHaut());
-			this.trophee2.conditionTrophee();
 			System.out.println("Trophée 2: " + this.trophee2.getCarte() + " Condition: "
 					+ this.trophee2.getCondition());
 		}
@@ -384,9 +382,9 @@ public class Partie {
 		classement = arbitre.etablirClassement2(partie);
 		System.out.println("Classement: ");
 		for (Joueur j : classement){
-			System.out.println(j.getPseudo() + " : " + j.getScore() + " points \n");
+			System.out.println(j);
 		}
-		System.out.println("Le gagnant est donc " + classement.get(classement.size()-1).getPseudo() + " avec un score de " + classement.get(classement.size() - 1).getScore());
+		System.out.println("Le gagnant est donc " + classement.get(0).getPseudo() + " avec un score de " + classement.get(0).getScore());
 		
 		sc.close();
 

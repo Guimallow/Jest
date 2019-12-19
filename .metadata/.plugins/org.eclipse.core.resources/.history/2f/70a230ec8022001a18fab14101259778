@@ -285,10 +285,10 @@ public class Arbitre implements Visiteur {
 					}
 				}
 				break;
-			default : System.out.println("Erreur trophée 2");
+			default :
 				break;
 			}
-			
+			System.out.println("Le trophee 2 a été attribué à " + jestTropheeT2.getJoueur().getPseudo());
 			
 		}
 		
