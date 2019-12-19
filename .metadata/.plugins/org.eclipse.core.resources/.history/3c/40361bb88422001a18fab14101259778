@@ -230,7 +230,7 @@ public class Arbitre implements Visiteur {
 						points = compterPoints(joueur.get(i).getJest());
 						jestTropheeT2 = joueur.get(i).getJest();
 					}
-
+				System.out.println("Le trophee 2 a été attribué à " + jestTropheeT2.getJoueur().getPseudo());
 				}
 				break;
 			case BestJestNoJoke: 
@@ -271,7 +271,7 @@ public class Arbitre implements Visiteur {
 				int compte = 0;
 				for (int i = 0; i <joueur.size(); i++){
 					if (countMajority(joueur.get(i).getJest(), t1.getValeurCondition()) > compte){
-						jestTropheeT2 = joueur.get(i).getJest();
+						jestTropheeT1 = joueur.get(i).getJest();
 						compte = countMajority(joueur.get(i).getJest(), t1.getValeurCondition());
 					}
 				}

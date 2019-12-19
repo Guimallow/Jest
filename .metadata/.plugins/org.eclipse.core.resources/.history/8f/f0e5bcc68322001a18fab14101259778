@@ -20,8 +20,6 @@ public class Partie {
 		this.tas = new Tas();
 		this.pioche = new Pioche();
 		this.strategie = new StrategieA();
-		this.trophee1 = null;
-		this.trophee2 = null;
 	}
 
 	public static Partie getInstance() {

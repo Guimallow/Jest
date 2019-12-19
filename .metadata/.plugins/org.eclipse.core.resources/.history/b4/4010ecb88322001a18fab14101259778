@@ -20,8 +20,6 @@ public class Partie {
 		this.tas = new Tas();
 		this.pioche = new Pioche();
 		this.strategie = new StrategieA();
-		this.trophee1 = null;
-		this.trophee2 = null;
 	}
 
 	public static Partie getInstance() {
@@ -382,6 +380,7 @@ public class Partie {
 		partie.trophee1.conditionTrophee();
 		partie.trophee2.conditionTrophee();
 		arbitre.attribuerTrophee(partie.joueurs, partie.trophee1, partie.trophee2);
+		//arbitre.etablirClassement(partie.joueurs);
 		classement = arbitre.etablirClassement2(partie);
 		System.out.println("Classement: ");
 		for (Joueur j : classement){

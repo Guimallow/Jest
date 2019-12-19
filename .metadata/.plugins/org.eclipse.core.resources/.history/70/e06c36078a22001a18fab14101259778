@@ -68,8 +68,6 @@ public class Trophee implements ObjetVisite{
 			else {
 				sb.append(this.carte.getValeur());
 			}
-			sb.append(" , Condition: ");
-			
 		
 		
 		return sb.toString();

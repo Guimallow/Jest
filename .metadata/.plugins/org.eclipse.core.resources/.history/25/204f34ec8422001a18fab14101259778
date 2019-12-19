@@ -20,7 +20,12 @@ public class Offre {
 				System.out.println(c);				
 			}else {System.out.println("Carte face cachée");}
 		}
-		
+	/*	Iterator<Map.Entry<String, Carte>> itMap=offre.entrySet().iterator();
+		while(itMap.hasNext()) {
+			Map.Entry<String, Carte> entry=itMap.next();
+			
+			System.out.println(entry.getKey()+":"+entry.getValue());
+		}*/
 	}
 	public boolean getPiochabilite() {
 		return this.estPiochable;
