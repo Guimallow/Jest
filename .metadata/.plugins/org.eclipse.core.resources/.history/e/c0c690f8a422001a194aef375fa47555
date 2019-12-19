@@ -69,13 +69,7 @@ public class Trophee implements ObjetVisite{
 				sb.append(this.carte.getValeur());
 			}
 			sb.append(" , Condition: ");
-			sb.append(this.getCondition());
-			if (this.valeurCondition != null){
-				sb.append(" sur valeur " + this.getValeurCondition());
-			}
-			else if (this.couleurCondition != null){
-				sb.append(" sur couleur " + this.getCouleurCondition());
-			}
+			
 		
 		
 		return sb.toString();

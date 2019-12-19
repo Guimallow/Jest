@@ -155,7 +155,6 @@ public class Partie {
 			this.trophee2.conditionTrophee();
 			System.out.println("Trophée 2: " + this.trophee2);
 		}
-		System.out.println("\n");
 
 	}
 
@@ -367,7 +366,7 @@ public class Partie {
 		partie.configurerPartie(sc);
 		partie.initialisationPartie(sc);
 		while (partie.getPioche().getA0Carte() == false) {
-			System.out.println("Taille de la pioche: "+partie.getPioche().getPioche().size() + "\n");
+			System.out.println("Taille de la pioche: "+partie.getPioche().getPioche().size());
 			partie.creationDesOffres(sc);
 			System.out.println("\n");
 			partie.affichageDesOffres();

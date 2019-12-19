@@ -155,7 +155,6 @@ public class Partie {
 			this.trophee2.conditionTrophee();
 			System.out.println("Trophée 2: " + this.trophee2);
 		}
-		System.out.println("\n");
 
 	}
 
@@ -259,12 +258,16 @@ public class Partie {
 	}
 
 	public void piochageDesOffres(Scanner sc) {// permet à tous les joueurs de piocher dans les offres adverses
-		System.out.println("On pioche !");
+		System.out.println("On pioche");
 		Joueur piocheur = partie.testMeilleureCarteVisible();
+		for (Joueur j : joueurs){
+			System.out.println(j.getPseudo() + " jouabilité: " + j.getJouabilite());
+		}
+		System.out.println(piocheur + " pioche");
 		for (Joueur j1 : joueurs) {
 			for (Joueur j : joueurs) {
 				if (j == piocheur) {
-					System.out.println("\n C'est au tour de: " + j.getPseudo());
+					System.out.println("C'est au tour de: " + j.getPseudo());
 					if (j instanceof JoueurVirtuel) {
 						Joueur joueurAPiocher = j.choisirJoueurAPiocher(partie.strategie, partie.joueurs);
 						for (Joueur j3 : joueurs) {
@@ -272,21 +275,18 @@ public class Partie {
 								j.piocherOffre(partie.strategie, j3);
 							}
 						}
-						System.out.println(j.getPseudo() + " prend la carte de " + joueurAPiocher.getPseudo());
+
 						if (joueurAPiocher.getJouabilite() == true) {
 							piocheur = joueurAPiocher;
 						} else {
 							piocheur = partie.testMeilleureCarteVisible();
 						}
-
 					} else {
 						int n = 1;
-						
 						for (Joueur joueurAafficher : joueurs){
 							System.out.println(joueurAafficher.getPseudo() + ": numéro " + n + ", piochabilité: " + joueurAafficher.getMain().getPiochabilite());
 							n++;
 						}
-						System.out.println("\n");
 						System.out.println(j.getPseudo() + ", chez quel joueur voulez vous piocher ? (indiquez son numéro)\n");
 						char choix = '0';
 						
@@ -305,7 +305,9 @@ public class Partie {
 						
 						
 						Joueur j2 = joueurs.get(Character.getNumericValue(choix)-1);
-						System.out.println("Et quelle carte de " + j2.getPseudo() + " souhaitez-vous prendre ? Visible: V, Cachée: C   ");
+						System.out.println("Vous prenez la carte de " + j2.getPseudo());	
+						
+						System.out.println("Et quelle carte souhaitez-vous prendre ? Visible: V, Cachée: C   ");
 						boolean carteVisible = false;
 						String carteAPiocher = sc.nextLine();
 						if (carteAPiocher == "V" || carteAPiocher == "v") {
@@ -322,7 +324,6 @@ public class Partie {
 
 				}
 			}
-			System.out.println("\n");
 		}
 		for (Joueur j : joueurs){
 			j.setJouabilite(true);
@@ -347,10 +348,11 @@ public class Partie {
 						dernierJoueur = false;
 					}
 				}
+				System.out.println("Dernier joueur: " + dernierJoueur);
 				if (choixEntier != partie.joueurs.indexOf(j) || (choixEntier == partie.joueurs.indexOf(j) && dernierJoueur == true)){//On vérifie qu'on ne se pioche pas soi-même
 					valide = true;
 				}
-				else {System.out.println("Vous ne pouvez pas piocher votre propre offre si vous n'êtes pas le dernier joueur");}
+				else {System.out.println("Vous ne pouvez pas piocher votre propre offre");}
 			}
 			else {System.out.println("Malheureusement, ce joueur n'est pas piochable");}
 		}
@@ -367,13 +369,10 @@ public class Partie {
 		partie.configurerPartie(sc);
 		partie.initialisationPartie(sc);
 		while (partie.getPioche().getA0Carte() == false) {
-			System.out.println("Taille de la pioche: "+partie.getPioche().getPioche().size() + "\n");
+			System.out.println("Taille de la pioche: "+partie.getPioche().getPioche().size());
 			partie.creationDesOffres(sc);
-			System.out.println("\n");
 			partie.affichageDesOffres();
-			System.out.println("\n");
 			partie.piochageDesOffres(sc);
-			System.out.println("\n");
 			partie.tourDeJeu++;
 			partie.tas.nouveauTas(partie.pioche,partie.joueurs);
 		}
