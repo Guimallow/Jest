@@ -12,6 +12,10 @@ public class Jest implements ObjetVisite{
 		return this.cartes;
 	}
 	
+	public void setCartes(ArrayList<Carte> nouvellesCartes){
+		this.cartes = nouvellesCartes;
+	}
+	
 	public void accept(Visiteur v){
 		v.visit(this);
 	}

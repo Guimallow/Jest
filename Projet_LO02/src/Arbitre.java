@@ -313,4 +313,13 @@ public class Arbitre implements Visiteur {
 		}
 		return utilise;
 	}
+
+	public void echangeJest(Partie partie){
+		ArrayList<Carte> jestStocke = partie.getJoueurs().get(0).getJest().getCartes();
+		for (int i = 0; i < partie.getJoueurs().size(); i++){
+			partie.getJoueurs().get(i).getJest().setCartes(partie.getJoueurs().get(i+1).getJest().getCartes());
+		}
+		partie.getJoueurs().get(partie.getJoueurs().size()-1).getJest().setCartes(jestStocke);
+	}
+
 }

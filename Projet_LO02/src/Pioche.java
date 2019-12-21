@@ -20,6 +20,10 @@ public class Pioche {
 		this.pioche.add(new Carte(Valeur.JOKER, Couleur.JOKER));
 		
 	}
+	
+	public void ajoutExtension(){
+		
+	}
 		
 	
 	public Carte retirerCarteDuHaut() {

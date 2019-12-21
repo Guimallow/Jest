@@ -11,7 +11,9 @@ public class Partie {
 	private StrategieA strategie;
 	private Trophee trophee1;
 	private Trophee trophee2;
-
+	private boolean extension; //vrai si l'extension est active
+	// On ajoute l'extension après la tirage des trophées, dans initialisationPartie() parce que flemme de rajouter des conditions d'obtention pour le moment
+	private Variante variante; //correspond à la variante utilisée
 	private Partie() {
 		this.joueurs = new ArrayList<Joueur>();
 		this.nbJoueur = 3;
@@ -22,6 +24,8 @@ public class Partie {
 		this.strategie = new StrategieA();
 		this.trophee1 = null;
 		this.trophee2 = null;
+		this.variante = Variante.BASE;
+		this.extension = false;
 	}
 
 	public static Partie getInstance() {
@@ -37,6 +41,22 @@ public class Partie {
 
 	public ArrayList<Joueur> getJoueurs() {
 		return this.joueurs;
+	}
+	
+	public void setExtension(boolean b){
+		this.extension = b;
+	}
+	
+	public boolean getExtension(){
+		return this.extension;
+	}
+	
+	public void setVariante(Variante v){
+		this.variante = v;
+	}
+	
+	public Variante getVariante(){
+		return this.variante;
 	}
 
 	public void configurerNbJoueur(Scanner sc) {
@@ -121,6 +141,8 @@ public class Partie {
 			case "2":
 				partie.configurerNbJoueur(sc);
 				partie.configurerNbJoueurVirtuel(sc);
+				partie.configurationExtension(sc);
+				partie.configurationVariantes(sc);
 				valide = true;
 
 				break;
@@ -130,6 +152,38 @@ public class Partie {
 			}
 		}
 
+	}
+	
+	public void configurationExtension(Scanner sc){
+		char reponse;
+		System.out.println("Souhaitez-vous jouer avec l'extension de carte ? 1- Oui, 2- Non\n"
+				+ "Rappel: l'extension contient les cartes:");
+		reponse = sc.nextLine().charAt(0);
+		while (reponse != '1' && reponse !='2'){
+			System.out.println("Vous avez tapé un mauvais nombre, veuillez recommencer");
+			reponse = sc.nextLine().charAt(0);
+		}
+		if (reponse == '1'){
+			this.setExtension(true);
+		}
+	}
+	
+	public void configurationVariantes(Scanner sc){
+		char reponse;
+		System.out.println("Avec quelles règles souhaitez-vous jouer ? 0- Règles de base, 1- Variante 1, 2- Variante 2\n"
+				+ "Rappel: Variante 1: A la fin de la partie, vous échanger votre Jest avec le joueur suivant\n"
+				+ "Variante 2: Pas encore définie");
+		reponse = sc.nextLine().charAt(0);
+		while (reponse != '0' && reponse != '1' && reponse !='2'){
+			System.out.println("Vous avez tapé un mauvais nombre, veuillez recommencer");
+			reponse = sc.nextLine().charAt(0);
+		}
+		if (reponse == '1'){
+			this.setVariante(Variante.ECHANGE);
+		}
+		if (reponse == '2'){
+			this.setVariante(Variante.COMPTAGE);
+		}
 	}
 
 	public void initialisationPartie(Scanner sc) {// creer les joueurs avec leur pseudo, choisi les trophees de la
@@ -156,6 +210,9 @@ public class Partie {
 			System.out.println("Trophée 2: " + this.trophee2);
 		}
 		System.out.println("\n");
+		if (this.getExtension() == true) {
+			this.getPioche().ajoutExtension();
+		}
 
 	}
 
@@ -381,6 +438,9 @@ public class Partie {
 		partie.trophee1.conditionTrophee();
 		partie.trophee2.conditionTrophee();
 		arbitre.attribuerTrophee(partie.joueurs, partie.trophee1, partie.trophee2);
+		if (partie.getVariante() == Variante.ECHANGE){
+			arbitre.echangeJest(partie);
+		}
 		classement = arbitre.etablirClassement2(partie);
 		System.out.println("Classement: ");
 		for (Joueur j : classement){
