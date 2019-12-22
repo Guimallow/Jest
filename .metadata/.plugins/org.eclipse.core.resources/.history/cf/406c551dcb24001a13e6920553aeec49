@@ -60,13 +60,16 @@ public class Arbitre implements Visiteur {
 			if (allCardsValue(jest, Valeur.TROIS)){
 				point = point * 3;
 			}
+			if (allCardsValue(jest, Valeur.QUATRE)){
+				point = point * 4;
+			}
 		}
 		
 		return point;
 	}
 	
-	/*//Soucis si deux joueurs ont le même nombre de points
-	public LinkedList<Joueur> etablirClassement(ArrayList<Joueur> joueurs, Variante variante){ //add(int index, element e)
+	//Soucis si deux joueurs ont le même nombre de points
+	public LinkedList<Joueur> etablirClassement(ArrayList<Joueur> joueurs){ //add(int index, element e)
 		LinkedList<Joueur> classement;
 		int classementPoints[] = new int[joueurs.size()];
 		classement = new LinkedList<Joueur>();
@@ -78,7 +81,7 @@ public class Arbitre implements Visiteur {
 		}
 		
 		for (int i = 0; i < joueurs.size(); i++){
-			int pointsJoueur = compterPoints(joueurs.get(i).getJest(), variante);
+			int pointsJoueur = compterPoints(joueurs.get(i).getJest());
 			classementPoints[i] = pointsJoueur;
 		}
 		//On a maintenant deux listes, dont une qu'on peut trier avec des comparaisons simples
@@ -88,7 +91,7 @@ public class Arbitre implements Visiteur {
 		//Ensuite on associe chaque joueur à son nombre de points pour le placer dans le tableau classement
 		for (int i = 0; i < joueurs.size(); i++){
 			for (int j = 0; j < classementPoints.length; j++){
-				if (compterPoints(joueurs.get(i).getJest(), variante) == classementPoints[j]){
+				if (compterPoints(joueurs.get(i).getJest()) == classementPoints[j]){
 					classement.remove(j);
 					classement.add(j, joueurs.get(i));
 				}
@@ -97,7 +100,7 @@ public class Arbitre implements Visiteur {
 		
 		return classement;
 	}
-	*/
+	
 	public boolean checkJoker(Jest jest){
 		boolean joker = false;
 		for (int i = 0; i < jest.getCartes().size(); i++){
@@ -236,8 +239,8 @@ public class Arbitre implements Visiteur {
 			case BestJest:
 				for (int i=0; i<joueur.size(); i++){
 					int points = 0;
-					if (compterPoints(joueur.get(i).getJest(), variante) > points){
-						points = compterPoints(joueur.get(i).getJest(), variante);
+					if (compterPoints(joueur.get(i).getJest()) > points){
+						points = compterPoints(joueur.get(i).getJest());
 						jestTropheeT2 = joueur.get(i).getJest();
 					}
 
@@ -246,8 +249,8 @@ public class Arbitre implements Visiteur {
 			case BestJestNoJoke: 
 				for (int i=0; i<joueur.size(); i++){
 					int points = 0;
-					if ((compterPoints(joueur.get(i).getJest(), variante) > points) || checkJoker(joueur.get(i).getJest()) == false){
-						points = compterPoints(joueur.get(i).getJest(), variante);
+					if ((compterPoints(joueur.get(i).getJest()) > points) || checkJoker(joueur.get(i).getJest()) == false){
+						points = compterPoints(joueur.get(i).getJest());
 						jestTropheeT2 = joueur.get(i).getJest();
 					}
 				
@@ -307,7 +310,7 @@ public class Arbitre implements Visiteur {
 	public ArrayList<Joueur> etablirClassement2(Partie partie){
 		ArrayList<Joueur> classement = new ArrayList<Joueur>();
 		for (Joueur joueur : partie.getJoueurs()){
-			joueur.setScore(this.compterPoints(joueur.getJest(), partie.getVariante()));
+			joueur.setScore(this.compterPoints(joueur.getJest()));
 			classement.add(joueur);
 		}
 		Collections.sort(classement, new ComparaisonScore());

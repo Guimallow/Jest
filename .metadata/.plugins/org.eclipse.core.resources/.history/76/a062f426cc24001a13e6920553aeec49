@@ -12,9 +12,8 @@ public class Partie {
 	private Trophee trophee1;
 	private Trophee trophee2;
 	private boolean extension; //vrai si l'extension est active
-	// On ajoute l'extension après le tirage des trophées, dans initialisationPartie() parce que flemme de rajouter des conditions d'obtention pour le moment
+	// On ajoute l'extension après la tirage des trophées, dans initialisationPartie() parce que flemme de rajouter des conditions d'obtention pour le moment
 	private Variante variante; //correspond à la variante utilisée
-	
 	private Partie() {
 		this.joueurs = new ArrayList<Joueur>();
 		this.nbJoueur = 3;

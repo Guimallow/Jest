@@ -12,9 +12,8 @@ public class Partie {
 	private Trophee trophee1;
 	private Trophee trophee2;
 	private boolean extension; //vrai si l'extension est active
-	// On ajoute l'extension après le tirage des trophées, dans initialisationPartie() parce que flemme de rajouter des conditions d'obtention pour le moment
+	// On ajoute l'extension après la tirage des trophées, dans initialisationPartie() parce que flemme de rajouter des conditions d'obtention pour le moment
 	private Variante variante; //correspond à la variante utilisée
-	
 	private Partie() {
 		this.joueurs = new ArrayList<Joueur>();
 		this.nbJoueur = 3;
@@ -172,9 +171,8 @@ public class Partie {
 	public void configurationVariantes(Scanner sc){
 		char reponse;
 		System.out.println("Avec quelles règles souhaitez-vous jouer ? 0- Règles de base, 1- Variante 1, 2- Variante 2\n"
-				+ "Rappel: \n"
-				+ "Variante 1: A la fin de la partie, vous échanger votre Jest avec le joueur suivant\n"
-				+ "Variante 2: Essayez de collecter toutes les cartes de même valeur. Si vous réussissez à obtenir tous les 2 ou 3 votre score sera multiplié par cette valeur"); //Pas avec les 4 car ce serait trop cheaté
+				+ "Rappel: Variante 1: A la fin de la partie, vous échanger votre Jest avec le joueur suivant\n"
+				+ "Variante 2: Pas encore définie");
 		reponse = sc.nextLine().charAt(0);
 		while (reponse != '0' && reponse != '1' && reponse !='2'){
 			System.out.println("Vous avez tapé un mauvais nombre, veuillez recommencer");
@@ -439,7 +437,7 @@ public class Partie {
 		System.out.println("La pioche n'a plus de cartes !");
 		partie.trophee1.conditionTrophee();
 		partie.trophee2.conditionTrophee();
-		arbitre.attribuerTrophee(partie.joueurs, partie.trophee1, partie.trophee2, partie.getVariante());
+		arbitre.attribuerTrophee(partie.joueurs, partie.trophee1, partie.trophee2);
 		if (partie.getVariante() == Variante.ECHANGE){
 			arbitre.echangeJest(partie);
 		}

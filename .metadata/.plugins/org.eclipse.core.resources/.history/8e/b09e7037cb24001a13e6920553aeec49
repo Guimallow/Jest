@@ -60,12 +60,15 @@ public class Arbitre implements Visiteur {
 			if (allCardsValue(jest, Valeur.TROIS)){
 				point = point * 3;
 			}
+			if (allCardsValue(jest, Valeur.QUATRE)){
+				point = point * 4;
+			}
 		}
 		
 		return point;
 	}
 	
-	/*//Soucis si deux joueurs ont le même nombre de points
+	//Soucis si deux joueurs ont le même nombre de points
 	public LinkedList<Joueur> etablirClassement(ArrayList<Joueur> joueurs, Variante variante){ //add(int index, element e)
 		LinkedList<Joueur> classement;
 		int classementPoints[] = new int[joueurs.size()];
@@ -97,7 +100,7 @@ public class Arbitre implements Visiteur {
 		
 		return classement;
 	}
-	*/
+	
 	public boolean checkJoker(Jest jest){
 		boolean joker = false;
 		for (int i = 0; i < jest.getCartes().size(); i++){
@@ -236,8 +239,8 @@ public class Arbitre implements Visiteur {
 			case BestJest:
 				for (int i=0; i<joueur.size(); i++){
 					int points = 0;
-					if (compterPoints(joueur.get(i).getJest(), variante) > points){
-						points = compterPoints(joueur.get(i).getJest(), variante);
+					if (compterPoints(joueur.get(i).getJest()) > points){
+						points = compterPoints(joueur.get(i).getJest());
 						jestTropheeT2 = joueur.get(i).getJest();
 					}
 
@@ -246,8 +249,8 @@ public class Arbitre implements Visiteur {
 			case BestJestNoJoke: 
 				for (int i=0; i<joueur.size(); i++){
 					int points = 0;
-					if ((compterPoints(joueur.get(i).getJest(), variante) > points) || checkJoker(joueur.get(i).getJest()) == false){
-						points = compterPoints(joueur.get(i).getJest(), variante);
+					if ((compterPoints(joueur.get(i).getJest()) > points) || checkJoker(joueur.get(i).getJest()) == false){
+						points = compterPoints(joueur.get(i).getJest());
 						jestTropheeT2 = joueur.get(i).getJest();
 					}
 				
@@ -307,7 +310,7 @@ public class Arbitre implements Visiteur {
 	public ArrayList<Joueur> etablirClassement2(Partie partie){
 		ArrayList<Joueur> classement = new ArrayList<Joueur>();
 		for (Joueur joueur : partie.getJoueurs()){
-			joueur.setScore(this.compterPoints(joueur.getJest(), partie.getVariante()));
+			joueur.setScore(this.compterPoints(joueur.getJest()));
 			classement.add(joueur);
 		}
 		Collections.sort(classement, new ComparaisonScore());

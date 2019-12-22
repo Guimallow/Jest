@@ -60,12 +60,15 @@ public class Arbitre implements Visiteur {
 			if (allCardsValue(jest, Valeur.TROIS)){
 				point = point * 3;
 			}
+			if (allCardsValue(jest, Valeur.QUATRE)){
+				point = point * 4;
+			}
 		}
 		
 		return point;
 	}
 	
-	/*//Soucis si deux joueurs ont le même nombre de points
+	//Soucis si deux joueurs ont le même nombre de points
 	public LinkedList<Joueur> etablirClassement(ArrayList<Joueur> joueurs, Variante variante){ //add(int index, element e)
 		LinkedList<Joueur> classement;
 		int classementPoints[] = new int[joueurs.size()];
@@ -97,7 +100,7 @@ public class Arbitre implements Visiteur {
 		
 		return classement;
 	}
-	*/
+	
 	public boolean checkJoker(Jest jest){
 		boolean joker = false;
 		for (int i = 0; i < jest.getCartes().size(); i++){

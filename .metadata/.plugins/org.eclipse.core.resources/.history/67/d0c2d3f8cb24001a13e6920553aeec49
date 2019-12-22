@@ -60,6 +60,9 @@ public class Arbitre implements Visiteur {
 			if (allCardsValue(jest, Valeur.TROIS)){
 				point = point * 3;
 			}
+			if (allCardsValue(jest, Valeur.QUATRE)){
+				point = point * 4;
+			}
 		}
 		
 		return point;
