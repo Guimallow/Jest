@@ -73,13 +73,6 @@ public class Joueur {
 		}
 	}
 	
-	public void afficherJest(){
-		System.out.println("Voici le jest de " + this.pseudo + ":");
-		for (Carte carte : this.jest.getCartes()){
-			System.out.println(carte);
-		}
-	}
-	
 	public void faireOffre(StrategieA methode) {
 		methode.faireOffre(this);
 	}

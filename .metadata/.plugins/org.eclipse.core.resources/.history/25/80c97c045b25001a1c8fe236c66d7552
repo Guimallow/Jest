@@ -1,0 +1,22 @@
+package Vue;
+import javax.swing.JFrame;
+
+public class Fenetre extends JFrame{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public Fenetre(){
+		this.setBounds(100, 100, 450, 300);
+		 //Définit un titre pour notre fenêtre
+	    this.setTitle("Jest");
+	    //Positionnement au centre de la page
+	    this.setLocationRelativeTo(null);
+	    //Termine le processus lorsqu'on clique sur la croix rouge
+	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+	    //Et enfin, la rendre visible        
+	    this.setVisible(true);
+	}
+}

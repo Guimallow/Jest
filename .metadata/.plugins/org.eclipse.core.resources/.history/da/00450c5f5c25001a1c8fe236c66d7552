@@ -1,0 +1,19 @@
+package Vue;
+
+import java.awt.Graphics;
+import javax.swing.JPanel;
+
+public class Panneau extends JPanel{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public Panneau(){
+		
+	}
+	
+	public void paintComponent(Graphics g){
+	    g.drawString("Tiens ! Le Site du Zéro !", 10, 20);
+	  }   
+}

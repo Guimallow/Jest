@@ -444,7 +444,6 @@ public class Partie {
 		if (partie.getVariante() == Variante.ECHANGE){
 			arbitre.echangeJest(partie);
 		}
-		System.out.println("Affichons les jest des joueurs");
 		for (Joueur joueur : partie.getJoueurs()){
 			joueur.afficherJest();
 		}

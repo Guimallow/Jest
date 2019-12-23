@@ -22,8 +22,9 @@ public class Jest implements ObjetVisite{
 	}
 
 	public void afficherJest() {// affiche le jest
-		for (Carte carte : this.cartes){
-			System.out.println(carte);
+		Iterator<Carte> it = this.cartes.iterator();
+		while (it.hasNext()) {
+			System.out.println(it.next());
 		}
 	}
 	
