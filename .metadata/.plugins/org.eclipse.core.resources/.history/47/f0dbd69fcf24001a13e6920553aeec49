@@ -1,8 +1,0 @@
-import Modèle.Jest;
-import Modèle.Trophee;
-
-public interface Visiteur {
-	void visit(Jest jest);
-	void visit(Trophee trophee);
-	
-}
