@@ -5,11 +5,13 @@ package Modèle;
  */
 public class Carte {
 	/**
-	 * attribut privé de type Couleur représentant la couleur de la carte {@link Couleur}
+	 * attribut privé de type Couleur représentant la couleur de la carte
+	 * {@link Couleur}
 	 */
 	private Couleur couleur;
 	/**
-	 * attribut privé de type Valeur représentant la valeur de la carte {@link Valeur}
+	 * attribut privé de type Valeur représentant la valeur de la carte
+	 * {@link Valeur}
 	 */
 	private Valeur valeur;
 	/**
@@ -19,11 +21,11 @@ public class Carte {
 
 	// Joker a une valeur JOKER et une couleur JOKER
 	/**
-	 * constructeur de la classe Carte avec comme paramètres sa valeur et sa couleur
+	 * constructeur de la classe carte avec comme paramètres sa valeur et sa couleur
 	 * et qui initialise la visibilité de la carte à false
 	 * 
-	 * @param valeur  valeur de la carte (de type Valeur) 
-	 * @param couleur couleur de la carte (de type Couleur)
+	 * @param valeur  de type Valeur 
+	 * @param couleur de type Couleur
 	 */
 	public Carte(Valeur valeur, Couleur couleur) {
 		this.setCouleur(couleur);
