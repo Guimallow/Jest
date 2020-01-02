@@ -20,6 +20,6 @@ public class Panneau extends JPanel{
 		 *  g.setColor(Color.red);
 		 */
 		
-	    g.drawString("Texte écrit", 10, 20);
+	    //g.drawString("Texte écrit", 10, 20);
 	  }   
 }
