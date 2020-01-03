@@ -1,5 +1,7 @@
 package Modèle;
-
+/**
+ * énumération qui rassemble toutes les couleurs possibles d'une carte
+ */
 public enum Couleur {
 	
 		 COEUR,
