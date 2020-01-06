@@ -1,5 +1,4 @@
 package Modèle;
-
 import java.util.*;
 
 public class Partie {
@@ -13,12 +12,10 @@ public class Partie {
 	private StrategieA strategie;
 	private Trophee trophee1;
 	private Trophee trophee2;
-	private boolean extension; // vrai si l'extension est active
-	// On ajoute l'extension après le tirage des trophées, dans
-	// initialisationPartie() parce que flemme de rajouter des conditions
-	// d'obtention pour le moment
-	private Variante variante; // correspond à la variante utilisée
-
+	private boolean extension; //vrai si l'extension est active
+	// On ajoute l'extension après le tirage des trophées, dans initialisationPartie() parce que flemme de rajouter des conditions d'obtention pour le moment
+	private Variante variante; //correspond à la variante utilisée
+	
 	private Partie() {
 		this.joueurs = new ArrayList<Joueur>();
 		this.nbJoueur = 0;
@@ -47,20 +44,20 @@ public class Partie {
 	public ArrayList<Joueur> getJoueurs() {
 		return this.joueurs;
 	}
-
-	public void setExtension(boolean b) {
+	
+	public void setExtension(boolean b){
 		this.extension = b;
 	}
-
-	public boolean getExtension() {
+	
+	public boolean getExtension(){
 		return this.extension;
 	}
-
-	public void setVariante(Variante v) {
+	
+	public void setVariante(Variante v){
 		this.variante = v;
 	}
-
-	public Variante getVariante() {
+	
+	public Variante getVariante(){
 		return this.variante;
 	}
 
@@ -158,45 +155,36 @@ public class Partie {
 		}
 
 	}
-
-	public void configurationExtension(Scanner sc) {
+	
+	public void configurationExtension(Scanner sc){
 		char reponse;
 		System.out.println("Souhaitez-vous jouer avec l'extension de carte ? 1- Oui, 2- Non\n"
 				+ "Rappel: l'extension contient les cartes:");
 		reponse = sc.nextLine().charAt(0);
-		while (reponse != '1' && reponse != '2') {
+		while (reponse != '1' && reponse !='2'){
 			System.out.println("Vous avez tapé un mauvais nombre, veuillez recommencer");
 			reponse = sc.nextLine().charAt(0);
 		}
-		if (reponse == '1') {
+		if (reponse == '1'){
 			this.setExtension(true);
 		}
 	}
-
-	public void configurationVariantes(Scanner sc) {
+	
+	public void configurationVariantes(Scanner sc){
 		char reponse;
-		System.out
-				.println("Avec quelles règles souhaitez-vous jouer ? 0- Règles de base, 1- Variante 1, 2- Variante 2\n"
-						+ "Rappel: \n"
-						+ "Variante 1: A la fin de la partie, vous échanger votre Jest avec le joueur suivant\n"
-						+ "Variante 2: Essayez de collecter toutes les cartes de même valeur. Si vous réussissez à obtenir tous les 2 ou 3 votre score sera multiplié par cette valeur"); // Pas
-																																															// avec
-																																															// les
-																																															// 4
-																																															// car
-																																															// ce
-																																															// serait
-																																															// trop
-																																															// cheaté
+		System.out.println("Avec quelles règles souhaitez-vous jouer ? 0- Règles de base, 1- Variante 1, 2- Variante 2\n"
+				+ "Rappel: \n"
+				+ "Variante 1: A la fin de la partie, vous échanger votre Jest avec le joueur suivant\n"
+				+ "Variante 2: Essayez de collecter toutes les cartes de même valeur. Si vous réussissez à obtenir tous les 2 ou 3 votre score sera multiplié par cette valeur"); //Pas avec les 4 car ce serait trop cheaté
 		reponse = sc.nextLine().charAt(0);
-		while (reponse != '0' && reponse != '1' && reponse != '2') {
+		while (reponse != '0' && reponse != '1' && reponse !='2'){
 			System.out.println("Vous avez tapé un mauvais nombre, veuillez recommencer");
 			reponse = sc.nextLine().charAt(0);
 		}
-		if (reponse == '1') {
+		if (reponse == '1'){
 			this.setVariante(Variante.ECHANGE);
 		}
-		if (reponse == '2') {
+		if (reponse == '2'){
 			this.setVariante(Variante.COMPTAGE);
 		}
 	}
@@ -205,14 +193,6 @@ public class Partie {
 													// partie
 		int i;
 		String pseudo = "0";
-		if (this.getExtension() == true) {
-			if(nbJoueur==3) {
-			this.getPioche().ajoutExtension3Joueurs();
-			}
-			else {
-				this.getPioche().ajoutExtension4Joueurs();
-			}
-		}
 		for (i = 0; i < (nbJoueur - nbJoueurVirtuel); i++) {
 			System.out.println("Choisir un pseudo pour le joueur" + (i + 1));
 			pseudo = sc.nextLine();
@@ -233,6 +213,9 @@ public class Partie {
 			System.out.println("Trophée 2: " + this.trophee2);
 		}
 		System.out.println("\n");
+		if (this.getExtension() == true) {
+			this.getPioche().ajoutExtension();
+		}
 
 	}
 
@@ -252,11 +235,11 @@ public class Partie {
 				j.faireOffre(partie.strategie);
 			} else {
 				int i = 1;
-				for (Carte c : j.getMain().getOffre()) {
-					System.out.println("Carte " + i + ": " + c);
+				for (Carte c : j.getMain().getOffre()){
+					System.out.println("Carte " + i +": "+ c);
 					i++;
 				}
-
+				
 				System.out.println(j.getPseudo()
 						+ ": Quel carte voulez vous rendre face cachée?\n 1.Première Carte \n 2.Deuxième Carte");
 				String choix = "0";
@@ -358,66 +341,36 @@ public class Partie {
 
 					} else {
 						int n = 1;
-
-						for (Joueur joueurAafficher : joueurs) {
-							System.out.println(joueurAafficher.getPseudo() + ": numéro " + n + ", piochabilité: "
-									+ joueurAafficher.getMain().getPiochabilite());
+						
+						for (Joueur joueurAafficher : joueurs){
+							System.out.println(joueurAafficher.getPseudo() + ": numéro " + n + ", piochabilité: " + joueurAafficher.getMain().getPiochabilite());
 							n++;
 						}
 						System.out.println("\n");
-						System.out.println(
-								j.getPseudo() + ", chez quel joueur voulez vous piocher ? (indiquez son numéro)\n");
+						System.out.println(j.getPseudo() + ", chez quel joueur voulez vous piocher ? (indiquez son numéro)\n");
 						char choix = '0';
-
+						
 						// Choix de la carte qu'on veut prendre et ajouter à son jest
 						choix = sc.nextLine().charAt(0);
-
+						
 						// On vérifie qu'on peut bien piocher dans l'offre de ce joueur
-						while (testChoixValide(choix, j) == false) {
+						while (testChoixValide(choix, j) == false){
 							n = 1;
-							for (Joueur joueurAafficher : joueurs) {
-								System.out.println(joueurAafficher.getPseudo() + ": numéro " + n + ", piochabilité: "
-										+ joueurAafficher.getMain().getPiochabilite());
+							for (Joueur joueurAafficher : joueurs){
+								System.out.println(joueurAafficher.getPseudo() + ": numéro " + n + ", piochabilité: " + joueurAafficher.getMain().getPiochabilite());
 								n++;
 							}
 							choix = sc.nextLine().charAt(0);
 						}
-
-						Joueur j2 = joueurs.get(Character.getNumericValue(choix) - 1);
-						System.out.println("Et quelle carte de " + j2.getPseudo()
-								+ " souhaitez-vous prendre ? Visible: V, Cachée: C   ");
-						boolean carteVisible = false;
 						
-
-						boolean valide = false;
-						while (valide == false) {
-							String carteAPiocher = sc.nextLine();
-							switch (carteAPiocher) {
-							case "V":
-								carteVisible = true;
-								valide = true;
-								break;
-							case "v":
-								carteVisible = true;
-								valide = true;
-								break;
-							case "C":
-								carteVisible = false;
-								valide = true;
-								break;
-							case "c":
-								carteVisible = false;
-								valide = true;
-								break;
-							default:
-								System.out.println("Vous avez tapé une mauvaise lettre, veuillez recommencer");
-
-							}
+						
+						Joueur j2 = joueurs.get(Character.getNumericValue(choix)-1);
+						System.out.println("Et quelle carte de " + j2.getPseudo() + " souhaitez-vous prendre ? Visible: V, Cachée: C   ");
+						boolean carteVisible = false;
+						String carteAPiocher = sc.nextLine();
+						if (carteAPiocher == "V" || carteAPiocher == "v") {
+							carteVisible = true;
 						}
-
-						/*
-						 * if (carteAPiocher == "V" || carteAPiocher == "v") { carteVisible = true; }
-						 */
 						System.out.println("Vous prenez la carte de " + j2.getPseudo());
 						j.piocherOffre(j2, carteVisible);
 						if (j2.getJouabilite() == true) {
@@ -431,7 +384,7 @@ public class Partie {
 			}
 			System.out.println("\n");
 		}
-		for (Joueur j : joueurs) {
+		for (Joueur j : joueurs){
 			j.setJouabilite(true);
 			j.getMain().setPiochabilite(true);
 		}
@@ -441,43 +394,31 @@ public class Partie {
 		return this.pioche;
 	}
 
-	public boolean testChoixValide(char choix, Joueur j) {
+	public boolean testChoixValide(char choix, Joueur j){
 		boolean valide = false;
-		if (choix == '1' || choix == '2' || choix == '3' || choix == '4') { // On vérifie qu'on rentre bien un chiffre
-																			// valide
-			int choixEntier = Character.getNumericValue(choix) - 1;
+		if (choix == '1' || choix == '2' || choix =='3' || choix =='4'){ //On vérifie qu'on rentre bien un chiffre valide
+			int choixEntier = Character.getNumericValue(choix)-1;
 
 			if (choixEntier < partie.joueurs.size()
-					&& partie.joueurs.get(choixEntier).getMain().getPiochabilite() == true) { // On vérifie que le
-																								// joueur existe et est
-																								// piochable (existe
-																								// notamment dans le cas
-																								// du joueur 4, pas
-																								// toujours présent)
+					&& partie.joueurs.get(choixEntier).getMain().getPiochabilite() == true){ //On vérifie que le joueur existe et est piochable (existe notamment dans le cas du joueur 4, pas toujours présent)
 				boolean dernierJoueur = true;
-				for (Joueur testJoueur : partie.joueurs) {
-					if (testJoueur.getMain().getPiochabilite() == true && testJoueur != j) {
+				for (Joueur testJoueur : partie.joueurs){
+					if (testJoueur.getMain().getPiochabilite() == true && testJoueur != j){
 						dernierJoueur = false;
 					}
 				}
-				if (choixEntier != partie.joueurs.indexOf(j)
-						|| (choixEntier == partie.joueurs.indexOf(j) && dernierJoueur == true)) {// On vérifie qu'on ne
-																									// se pioche pas
-																									// soi-même
+				if (choixEntier != partie.joueurs.indexOf(j) || (choixEntier == partie.joueurs.indexOf(j) && dernierJoueur == true)){//On vérifie qu'on ne se pioche pas soi-même
 					valide = true;
-				} else {
-					System.out.println(
-							"Vous ne pouvez pas piocher votre propre offre si vous n'êtes pas le dernier joueur");
 				}
-			} else {
-				System.out.println("Malheureusement, ce joueur n'est pas piochable");
+				else {System.out.println("Vous ne pouvez pas piocher votre propre offre si vous n'êtes pas le dernier joueur");}
 			}
-		} else {
-			System.out.println("Veuillez saisir un chiffre valide");
+			else {System.out.println("Malheureusement, ce joueur n'est pas piochable");}
 		}
+		else {System.out.println("Veuillez saisir un chiffre valide");}
 		return valide;
 	}
-
+	
+	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		Arbitre arbitre = new Arbitre();
@@ -486,7 +427,7 @@ public class Partie {
 		partie.configurerPartie(sc);
 		partie.initialisationPartie(sc);
 		while (partie.getPioche().getA0Carte() == false) {
-			System.out.println("Taille de la pioche: " + partie.getPioche().getPioche().size() + "\n");
+			System.out.println("Taille de la pioche: "+partie.getPioche().getPioche().size() + "\n");
 			partie.creationDesOffres(sc);
 			System.out.println("\n");
 			partie.affichageDesOffres();
@@ -494,27 +435,26 @@ public class Partie {
 			partie.piochageDesOffres(sc);
 			System.out.println("\n");
 			partie.tourDeJeu++;
-			partie.tas.nouveauTas(partie.pioche, partie.joueurs);
+			partie.tas.nouveauTas(partie.pioche,partie.joueurs);
 		}
 		System.out.println("La pioche n'a plus de cartes !");
 		partie.trophee1.conditionTrophee();
 		partie.trophee2.conditionTrophee();
 		arbitre.attribuerTrophee(partie.joueurs, partie.trophee1, partie.trophee2, partie.getVariante());
-		if (partie.getVariante() == Variante.ECHANGE) {
+		if (partie.getVariante() == Variante.ECHANGE){
 			arbitre.echangeJest(partie);
 		}
 		System.out.println("Affichons les jest des joueurs");
-		for (Joueur joueur : partie.getJoueurs()) {
+		for (Joueur joueur : partie.getJoueurs()){
 			joueur.afficherJest();
 		}
 		classement = arbitre.etablirClassement2(partie);
 		System.out.println("Classement: ");
-		for (Joueur j : classement) {
+		for (Joueur j : classement){
 			System.out.println(j.getPseudo() + " : " + j.getScore() + " points \n");
 		}
-		System.out.println("Le gagnant est donc " + classement.get(classement.size() - 1).getPseudo()
-				+ " avec un score de " + classement.get(classement.size() - 1).getScore());
-
+		System.out.println("Le gagnant est donc " + classement.get(classement.size()-1).getPseudo() + " avec un score de " + classement.get(classement.size() - 1).getScore());
+		
 		sc.close();
 
 	}

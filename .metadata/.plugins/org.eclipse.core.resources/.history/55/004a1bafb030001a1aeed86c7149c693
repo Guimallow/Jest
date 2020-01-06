@@ -206,12 +206,7 @@ public class Partie {
 		int i;
 		String pseudo = "0";
 		if (this.getExtension() == true) {
-			if(nbJoueur==3) {
-			this.getPioche().ajoutExtension3Joueurs();
-			}
-			else {
-				this.getPioche().ajoutExtension4Joueurs();
-			}
+			this.getPioche().ajoutExtension();
 		}
 		for (i = 0; i < (nbJoueur - nbJoueurVirtuel); i++) {
 			System.out.println("Choisir un pseudo pour le joueur" + (i + 1));
