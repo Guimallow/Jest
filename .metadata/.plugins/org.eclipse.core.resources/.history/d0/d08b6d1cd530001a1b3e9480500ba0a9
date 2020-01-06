@@ -1,0 +1,84 @@
+import java.util.*;
+
+public class Pioche {
+	private boolean a0Carte;
+	private LinkedList<Carte> pioche; //PriorityQueue
+
+	public Pioche() {
+		
+		this.pioche = new LinkedList<Carte>();
+		this.a0Carte = false;
+		for (Couleur c : Couleur.values()) {
+			for (Valeur v : Valeur.values()) {
+				if (v != Valeur.JOKER && c!=Couleur.JOKER) {
+					
+					this.pioche.add(new Carte(v, c));
+				}
+			}
+		}
+		for (Couleur c: Couleur.values()){
+			this.pioche.remove(new Carte(Valeur.CINQ, c));
+		}
+		this.pioche.add(new Carte(Valeur.JOKER, Couleur.JOKER));
+		
+	}
+	
+	public void ajoutExtension(Partie partie){
+		if (partie.getJoueurs().size() == 3){
+			this.ajoutExtension3Joueurs();
+		}
+		else if (partie.getJoueurs().size() == 4){
+			this.ajoutExtension3Joueurs();
+			this.ajoutExtension4Joueurs();
+		}
+	}
+	
+	private void ajoutExtension3Joueurs() {
+		for (Couleur c : Couleur.values()) {
+			if (c != Couleur.JOKER && c!= Couleur.PIC) {
+				this.pioche.add(new Carte(Valeur.CINQ, c));
+			}
+		}
+
+	}
+	private void ajoutExtension4Joueurs() {
+		for (Couleur c : Couleur.values()) {
+			if (c != Couleur.JOKER) {
+				this.pioche.add(new Carte(Valeur.CINQ, c));
+			}
+		}
+
+	}
+	
+	public Carte retirerCarteDuHaut() {
+		Carte c;
+		c=this.pioche.removeLast();
+		if (this.pioche.size() == 0){
+			a0Carte = true;
+		}
+		return c;
+		
+	}
+	
+
+	public void melanger() {// mélange la pioche
+		Collections.shuffle(this.pioche);
+	}
+
+	public boolean getA0Carte() {
+		return this.a0Carte;
+	}
+	
+	public void setA0Carte(){
+		if (this.pioche.size() == 0){
+			this.a0Carte = true;
+		}
+	}
+	
+	public LinkedList<Carte> getPioche(){
+		return this.pioche;
+	}
+	public static void main (String args[]) {
+		System.out.println(Couleur.values()) ;
+	}
+}
