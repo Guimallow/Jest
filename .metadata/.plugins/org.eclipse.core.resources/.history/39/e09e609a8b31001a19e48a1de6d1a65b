@@ -29,7 +29,7 @@ public class Pioche {
 		}
 	}
 	
-	private void ajoutExtension4Joueurs() {
+	private void ajoutExtension3Joueurs() {
 		for (Couleur c : Couleur.values()) {
 			if (c != Couleur.JOKER && c!= Couleur.PIC) {
 				this.pioche.add(new Carte(Valeur.CINQ, c));
@@ -37,7 +37,7 @@ public class Pioche {
 		}
 
 	}
-	private void ajoutExtension3Joueurs() {
+	private void ajoutExtension4Joueurs() {
 		for (Couleur c : Couleur.values()) {
 			if (c != Couleur.JOKER) {
 				this.pioche.add(new Carte(Valeur.CINQ, c));

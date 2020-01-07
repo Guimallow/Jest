@@ -203,7 +203,6 @@ public class Partie {
 		}
 
 		this.pioche.melanger();
-		if(this.getExtension()!=true) {
 		this.trophee1 = new Trophee(this.pioche.retirerCarteDuHaut());
 		this.trophee1.conditionTrophee();
 		System.out.println("Trophée 1: " + this.trophee1);
@@ -213,7 +212,6 @@ public class Partie {
 			System.out.println("Trophée 2: " + this.trophee2);
 		}
 		System.out.println("\n");
-		}
 		if (this.getExtension() == true) {
 			this.getPioche().ajoutExtension(this);
 		}
@@ -296,19 +294,18 @@ public class Partie {
 					}
 
 				}
-				else if (j.getMain().getOffre().get(0).getVisibilite() == true
+				if (j.getMain().getOffre().get(0).getVisibilite() == true
 						&& piocheur.getMain().getOffre().get(1).getVisibilite() == true) {
 					if (j.getMain().getOffre().get(0).cartePlusHaute(piocheur.getMain().getOffre().get(1))) {
 						piocheur = j;
 					}
 				}
-				else if (j.getMain().getOffre().get(1).getVisibilite() == true
+				if (j.getMain().getOffre().get(1).getVisibilite() == true
 						&& piocheur.getMain().getOffre().get(1).getVisibilite() == true) {
 					if (j.getMain().getOffre().get(1).cartePlusHaute(piocheur.getMain().getOffre().get(1))) {
 						piocheur = j;
 					}
-				}
-				else {
+				} else {
 					if (j.getMain().getOffre().get(1).cartePlusHaute(piocheur.getMain().getOffre().get(0))) {
 						piocheur = j;
 					}
@@ -467,12 +464,12 @@ public class Partie {
 		System.out.println("Vous récupérez votre dernière carte");
 		
 		partie.recupererDerniereCarte();
-		if(partie.getExtension()!=true) {
+		
 		partie.trophee1.conditionTrophee();
 		partie.trophee2.conditionTrophee();
 		
 		arbitre.attribuerTrophee(partie.joueurs, partie.trophee1, partie.trophee2, partie.getVariante());
-		}
+		
 		if (partie.getVariante() == Variante.ECHANGE){
 			arbitre.echangeJest(partie);
 		}

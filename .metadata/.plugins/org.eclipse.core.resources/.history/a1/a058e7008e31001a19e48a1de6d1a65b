@@ -296,19 +296,18 @@ public class Partie {
 					}
 
 				}
-				else if (j.getMain().getOffre().get(0).getVisibilite() == true
+				if (j.getMain().getOffre().get(0).getVisibilite() == true
 						&& piocheur.getMain().getOffre().get(1).getVisibilite() == true) {
 					if (j.getMain().getOffre().get(0).cartePlusHaute(piocheur.getMain().getOffre().get(1))) {
 						piocheur = j;
 					}
 				}
-				else if (j.getMain().getOffre().get(1).getVisibilite() == true
+				if (j.getMain().getOffre().get(1).getVisibilite() == true
 						&& piocheur.getMain().getOffre().get(1).getVisibilite() == true) {
 					if (j.getMain().getOffre().get(1).cartePlusHaute(piocheur.getMain().getOffre().get(1))) {
 						piocheur = j;
 					}
-				}
-				else {
+				} else {
 					if (j.getMain().getOffre().get(1).cartePlusHaute(piocheur.getMain().getOffre().get(0))) {
 						piocheur = j;
 					}

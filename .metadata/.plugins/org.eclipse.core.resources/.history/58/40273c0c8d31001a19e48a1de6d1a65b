@@ -203,7 +203,7 @@ public class Partie {
 		}
 
 		this.pioche.melanger();
-		if(this.getExtension()!=true) {
+		if(this.getExtension()!=true) {//TEST
 		this.trophee1 = new Trophee(this.pioche.retirerCarteDuHaut());
 		this.trophee1.conditionTrophee();
 		System.out.println("Trophée 1: " + this.trophee1);
@@ -296,19 +296,18 @@ public class Partie {
 					}
 
 				}
-				else if (j.getMain().getOffre().get(0).getVisibilite() == true
+				if (j.getMain().getOffre().get(0).getVisibilite() == true
 						&& piocheur.getMain().getOffre().get(1).getVisibilite() == true) {
 					if (j.getMain().getOffre().get(0).cartePlusHaute(piocheur.getMain().getOffre().get(1))) {
 						piocheur = j;
 					}
 				}
-				else if (j.getMain().getOffre().get(1).getVisibilite() == true
+				if (j.getMain().getOffre().get(1).getVisibilite() == true
 						&& piocheur.getMain().getOffre().get(1).getVisibilite() == true) {
 					if (j.getMain().getOffre().get(1).cartePlusHaute(piocheur.getMain().getOffre().get(1))) {
 						piocheur = j;
 					}
-				}
-				else {
+				} else {
 					if (j.getMain().getOffre().get(1).cartePlusHaute(piocheur.getMain().getOffre().get(0))) {
 						piocheur = j;
 					}
@@ -467,7 +466,7 @@ public class Partie {
 		System.out.println("Vous récupérez votre dernière carte");
 		
 		partie.recupererDerniereCarte();
-		if(partie.getExtension()!=true) {
+		if(partie.getExtension()!=true) {//test
 		partie.trophee1.conditionTrophee();
 		partie.trophee2.conditionTrophee();
 		

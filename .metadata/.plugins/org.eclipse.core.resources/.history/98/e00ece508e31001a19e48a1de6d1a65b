@@ -282,6 +282,7 @@ public class Partie {
 	public Joueur testMeilleureCarteVisible() {// test la meilleure des cartes visibles parmi les joueurs qui n'ont pas
 												// pioché
 		Joueur piocheur = null;
+		Joueur auxiliaire=null;
 		for (Joueur j2 : joueurs) {
 			if (j2.getJouabilite() == true) {
 				piocheur = j2;
@@ -292,28 +293,28 @@ public class Partie {
 				if (j.getMain().getOffre().get(0).getVisibilite() == true
 						&& piocheur.getMain().getOffre().get(0).getVisibilite() == true) {
 					if (j.getMain().getOffre().get(0).cartePlusHaute(piocheur.getMain().getOffre().get(0))) {
-						piocheur = j;
+						auxiliaire = j;
 					}
 
 				}
-				else if (j.getMain().getOffre().get(0).getVisibilite() == true
+				if (j.getMain().getOffre().get(0).getVisibilite() == true
 						&& piocheur.getMain().getOffre().get(1).getVisibilite() == true) {
 					if (j.getMain().getOffre().get(0).cartePlusHaute(piocheur.getMain().getOffre().get(1))) {
-						piocheur = j;
+						auxiliaire = j;
 					}
 				}
-				else if (j.getMain().getOffre().get(1).getVisibilite() == true
+				if (j.getMain().getOffre().get(1).getVisibilite() == true
 						&& piocheur.getMain().getOffre().get(1).getVisibilite() == true) {
 					if (j.getMain().getOffre().get(1).cartePlusHaute(piocheur.getMain().getOffre().get(1))) {
-						piocheur = j;
+						auxiliaire = j;
 					}
-				}
-				else {
+				} else {
 					if (j.getMain().getOffre().get(1).cartePlusHaute(piocheur.getMain().getOffre().get(0))) {
-						piocheur = j;
+						auxiliaire = j;
 					}
 
 				}
+				piocheur=auxiliaire;
 			}
 
 		}
