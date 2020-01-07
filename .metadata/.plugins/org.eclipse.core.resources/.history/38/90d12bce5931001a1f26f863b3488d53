@@ -1,41 +1,14 @@
 import java.util.*;
 
-/**
- * Classe représentant un joueur
- */
-
 public class Joueur {
 
-	/**
-	 * attribut privé de type chaîne de caractère qui définit le nom du joueur
-	 */
 	private String pseudo;
-	/**
-	 * attribut privé de type Jest représentant le jest d'un joueur {@link Jest}
-	 */
 	private Jest jest;
-	/**
-	 * attribut privé de type Offre représentant la main d'un joueur {@link Main}
-	 */
 	private Offre main;
-	/**
-	 * attribut privé de type booléen qui définit si le joueur peut jouer
-	 */
 	private boolean estJouable;
-	/**
-	 * attribut privé statique de type entier représentant le nombre de joueurs
-	 * dans la partie
-	 */
 	private static int nbJoueurs = 0;// va être utile pour pouvoir creer le tas à partir de la pioche
-	/**
-	 * attribut privé de type entier qui définit le score du joueur
-	 */
 	private int score;
-	
-	/**
-	 * constructeur de la classe Joueur avec comme paramètre la partie {@link Partie}
-	 * @param partie la partie dans laquelle va jouer le joueur
-	 */
+
 	public Joueur(Partie partie) {
 		pseudo = null;
 		this.jest = new Jest(this);
@@ -46,9 +19,6 @@ public class Joueur {
 		this.score = 0;
 	}
 
-	/**
-	 * constructeur de la classe Joueur sans paramètre d'entrée
-	 */
 	public Joueur() {
 		pseudo = null;
 		this.jest = new Jest(this);
@@ -56,19 +26,11 @@ public class Joueur {
 		this.score = 0;
 	}
 
-	/**
-	* méthode qui fait piocher le joueur dans le tas de la partie {@link Tas}
-	 * @param a le tas dans lequel pioche le joueur
-	 */
 	public void piocherDansTas(Tas a) {// prend carte du haut du tas, attribue à la carte sa place dans la main
 		Carte c = a.retirerCarteDuHaut();
 		this.main.getOffre().add(c);
 	}
 
-	/**
-	 * méthode qui fait piocher le joueur dans la pioche de la partie {@link Pioche}
-	 * @param p la pioche dans laquelle pioche le joueur
-	 */
 	public void piocherDansPioche(Pioche p) {// prend carte du haut de la pioche, attribue à la carte sa place dans la
 												// main
 		Carte c = p.retirerCarteDuHaut();
