@@ -456,7 +456,8 @@ public class Partie {
 			partie.piochageDesOffres(sc);
 			System.out.println("\n");
 			partie.tourDeJeu++;
-			partie.tas.nouveauTas(partie);	
+			partie.tas.nouveauTas(partie);
+			
 		}
 		
 		System.out.println("La pioche n'a plus de cartes");

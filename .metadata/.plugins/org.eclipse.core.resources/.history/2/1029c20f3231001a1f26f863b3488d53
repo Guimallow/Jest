@@ -445,10 +445,7 @@ public class Partie {
 		partie.configurerPartie(sc);
 		partie.initialisationPartie(sc);
 		while (partie.getPioche().getA0Carte(partie) == false) {
-			if (partie.tourDeJeu > 1){
-				System.out.println("Tour de jeu : " + partie.tourDeJeu);
-			}
-			System.out.println("Taille de la pioche: " + partie.getPioche().getPioche().size() + "\n");
+			System.out.println("Taille de la pioche: "+partie.getPioche().getPioche().size() + "\n");
 			partie.creationDesOffres(sc);
 			System.out.println("\n");
 			partie.affichageDesOffres();
@@ -456,30 +453,31 @@ public class Partie {
 			partie.piochageDesOffres(sc);
 			System.out.println("\n");
 			partie.tourDeJeu++;
-			partie.tas.nouveauTas(partie);	
+			partie.tas.nouveauTas(partie);
 		}
 		
-		System.out.println("La pioche n'a plus de cartes");
+		System.out.println("La pioche n'a plus de cartes, c'est ke dernier tour de jeu");
 		
-		System.out.println("Vous récupérez votre dernière carte");
+		partie.creationDesOffres(sc);
+		System.out.println("\n");
+		partie.affichageDesOffres();
+		System.out.println("\n");
+		partie.piochageDesOffres(sc);
+		System.out.println("\n");
+		partie.tourDeJeu++;
 		
 		partie.recupererDerniereCarte();
-		
 		partie.trophee1.conditionTrophee();
 		partie.trophee2.conditionTrophee();
-		
 		arbitre.attribuerTrophee(partie.joueurs, partie.trophee1, partie.trophee2, partie.getVariante());
-		
 		if (partie.getVariante() == Variante.ECHANGE){
 			arbitre.echangeJest(partie);
 		}
-		
 		System.out.println("Affichons les jest des joueurs");
 		for (Joueur joueur : partie.getJoueurs()) {
 			System.out.println(joueur.getPseudo() + " : ");
 			joueur.getJest().afficherJest();
 		}
-		
 		classement = arbitre.etablirClassement(partie);
 		System.out.println("Classement: ");
 		for (Joueur j : classement){

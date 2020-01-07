@@ -229,7 +229,6 @@ public class Arbitre implements Visiteur {
 		}
 		
 		System.out.println("Le trophee 1 a été attribué à " + jestTropheeT1.getJoueur().getPseudo());
-		jestTropheeT1.getCartes().add(t1.getCarte());
 
 		if (t2 != null && t2.getCondition() != null){
 			
@@ -300,7 +299,7 @@ public class Arbitre implements Visiteur {
 				break;
 			}
 			System.out.println("Le trophee 2 a été attribué à " + jestTropheeT2.getJoueur().getPseudo());
-			jestTropheeT2.getCartes().add(t2.getCarte());
+			jestTropheeT2.getCartes().add(t2);
 		}
 		
 	}
