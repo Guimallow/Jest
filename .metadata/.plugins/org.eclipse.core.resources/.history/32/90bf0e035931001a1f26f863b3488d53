@@ -146,7 +146,7 @@ public class Arbitre implements Visiteur {
 	public int countMajority(Jest jest, Valeur valeur){
 		int count = 0;
 		for (int i = 0; i < jest.getCartes().size(); i++){
-			if (jest.getCartes().get(i).getValeur() == valeur){
+			if (jest.getCartes().get(i).getValeur().ordinal() == valeur.ordinal()){
 				count ++;
 			}
 		}

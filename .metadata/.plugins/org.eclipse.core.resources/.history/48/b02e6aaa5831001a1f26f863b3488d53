@@ -101,7 +101,7 @@ public class Arbitre implements Visiteur {
 	public boolean checkJoker(Jest jest){
 		boolean joker = false;
 		for (int i = 0; i < jest.getCartes().size(); i++){
-			if (jest.getCartes().get(i).getValeur() == Valeur.JOKER){
+			if (jest.getCartes().get(i).getValeur().ordinal() == 0){
 				joker = true;
 			}
 		}
@@ -111,7 +111,7 @@ public class Arbitre implements Visiteur {
 	public int countHeart(Jest jest){
 		int count = 0;
 		for (int i = 0; i < jest.getCartes().size(); i++){
-			if (jest.getCartes().get(i).getCouleur() == Couleur.COEUR){
+			if (jest.getCartes().get(i).getCouleur().ordinal() == 0){
 				count ++;
 			}
 		}
@@ -120,9 +120,9 @@ public class Arbitre implements Visiteur {
 	
 	public boolean onlyCard(Jest jest, Carte carte){
 		boolean onlyOne = true;
-		Couleur couleur = carte.getCouleur();
+		int couleur = carte.getCouleur().ordinal();
 		for (int i= 0; i < jest.getCartes().size(); i++){
-			if (jest.getCartes().get(i).getCouleur() == couleur){
+			if (jest.getCartes().get(i).getCouleur().ordinal() == couleur){
 				onlyOne = false;
 			}
 		}
@@ -131,12 +131,12 @@ public class Arbitre implements Visiteur {
 	
 	public boolean blackPair(Jest jest, Carte carte){
 		boolean paire = false;
-		Valeur valeur1 = carte.getValeur();
-		Couleur couleur1 = carte.getCouleur();
+		int valeur1 = carte.getValeur().ordinal() + 1;
+		int couleur1 = carte.getValeur().ordinal();
 		for (int i = 0; i < jest.getCartes().size(); i++){
-			Couleur couleur2 = jest.getCartes().get(i).getCouleur();
-			Valeur valeur2 = jest.getCartes().get(i).getValeur();
-			if (((couleur2 == Couleur.PIC) || (couleur2 == Couleur.TRÊFLE)) && (couleur1 != couleur2) && (valeur1 == valeur2)){
+			int couleur2 = jest.getCartes().get(i).getCouleur().ordinal();
+			int valeur2 = jest.getCartes().get(i).getValeur().ordinal() + 1;
+			if (((couleur2 == 2) || (couleur2 == 3)) && (couleur1 != couleur2) && (valeur1 == valeur2)){
 				paire = true;
 			}
 		}
@@ -146,7 +146,7 @@ public class Arbitre implements Visiteur {
 	public int countMajority(Jest jest, Valeur valeur){
 		int count = 0;
 		for (int i = 0; i < jest.getCartes().size(); i++){
-			if (jest.getCartes().get(i).getValeur() == valeur){
+			if (jest.getCartes().get(i).getValeur().ordinal() == valeur.ordinal()){
 				count ++;
 			}
 		}
