@@ -17,7 +17,7 @@ public class Arbitre implements Visiteur {
 		int point = 0;
 		Carte currentCard;
 		int currentCardValue;
-		int nbPairs = 0;
+		int nbPaires = 0;
 
 		for (int i = 0; i < jest.getCartes().size(); i++){
 			currentCard = jest.getCartes().get(i);
@@ -27,17 +27,17 @@ public class Arbitre implements Visiteur {
 				currentCardValue = 5;
 			}
 			
-			if ((currentCard.getCouleur().ordinal() == 2) || (currentCard.getCouleur().ordinal() == 3)){
+			if ((currentCard.getCouleur() == Couleur.PIC) || (currentCard.getCouleur() == Couleur.TRÊFLE)){
 				point += currentCardValue;
 				if (blackPair(jest, currentCard) == true){
 					point += 2;
-					nbPairs ++;
+					nbPaires ++;
 				}
 			}
-			else if (currentCard.getCouleur().ordinal() == 1){
+			else if (currentCard.getCouleur() == Couleur.CARREAU){
 				point -= currentCardValue;
 			}
-			else if (currentCard.getCouleur().ordinal() == 0){
+			else if (currentCard.getCouleur() == Couleur.COEUR){
 				if ((checkJoker(jest) == true) && countHeart(jest) == 4){
 					point += currentCardValue;
 				}
@@ -45,13 +45,13 @@ public class Arbitre implements Visiteur {
 					point -= currentCardValue;
 				}
 			}
-			else if (currentCard.getCouleur().ordinal() == 4){
+			else if (currentCard.getCouleur() == Couleur.JOKER){
 				if (countHeart(jest) == 0){
 					point += 4;
 				}
 			}
 		}
-		point -= nbPairs;
+		point -= nbPaires; //Parce qu'on a théoriquement compté chaque paire deux fois en ajoutant donc 2 points en plus par nombre de paires
 		
 		if (variante == Variante.COMPTAGE){
 			if (allCardsValue(jest, Valeur.DEUX)){
@@ -101,7 +101,7 @@ public class Arbitre implements Visiteur {
 	public boolean checkJoker(Jest jest){
 		boolean joker = false;
 		for (int i = 0; i < jest.getCartes().size(); i++){
-			if (jest.getCartes().get(i).getValeur().ordinal() == 0){
+			if (jest.getCartes().get(i).getValeur() == Valeur.JOKER){
 				joker = true;
 			}
 		}
@@ -111,7 +111,7 @@ public class Arbitre implements Visiteur {
 	public int countHeart(Jest jest){
 		int count = 0;
 		for (int i = 0; i < jest.getCartes().size(); i++){
-			if (jest.getCartes().get(i).getCouleur().ordinal() == 0){
+			if (jest.getCartes().get(i).getCouleur() == Couleur.COEUR){
 				count ++;
 			}
 		}
@@ -120,9 +120,9 @@ public class Arbitre implements Visiteur {
 	
 	public boolean onlyCard(Jest jest, Carte carte){
 		boolean onlyOne = true;
-		int couleur = carte.getCouleur().ordinal();
+		Couleur couleur = carte.getCouleur();
 		for (int i= 0; i < jest.getCartes().size(); i++){
-			if (jest.getCartes().get(i).getCouleur().ordinal() == couleur){
+			if (jest.getCartes().get(i).getCouleur() == couleur){
 				onlyOne = false;
 			}
 		}
@@ -131,12 +131,12 @@ public class Arbitre implements Visiteur {
 	
 	public boolean blackPair(Jest jest, Carte carte){
 		boolean paire = false;
-		int valeur1 = carte.getValeur().ordinal() + 1;
-		int couleur1 = carte.getValeur().ordinal();
+		Valeur valeur1 = carte.getValeur();
+		Couleur couleur1 = carte.getCouleur();
 		for (int i = 0; i < jest.getCartes().size(); i++){
-			int couleur2 = jest.getCartes().get(i).getCouleur().ordinal();
-			int valeur2 = jest.getCartes().get(i).getValeur().ordinal() + 1;
-			if (((couleur2 == 2) || (couleur2 == 3)) && (couleur1 != couleur2) && (valeur1 == valeur2)){
+			Couleur couleur2 = jest.getCartes().get(i).getCouleur();
+			Valeur valeur2 = jest.getCartes().get(i).getValeur();
+			if (((couleur2 == Couleur.PIC) || (couleur2 == Couleur.TRÊFLE)) && (couleur1 != couleur2) && (valeur1 == valeur2)){
 				paire = true;
 			}
 		}
@@ -146,7 +146,7 @@ public class Arbitre implements Visiteur {
 	public int countMajority(Jest jest, Valeur valeur){
 		int count = 0;
 		for (int i = 0; i < jest.getCartes().size(); i++){
-			if (jest.getCartes().get(i).getValeur().ordinal() == valeur.ordinal()){
+			if (jest.getCartes().get(i).getValeur() == valeur){
 				count ++;
 			}
 		}

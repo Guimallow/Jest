@@ -25,7 +25,6 @@ public class Pioche {
 			this.ajoutExtension3Joueurs();
 		}
 		else if (partie.getJoueurs().size() == 4){
-			this.ajoutExtension3Joueurs();
 			this.ajoutExtension4Joueurs();
 		}
 	}
