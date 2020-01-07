@@ -430,8 +430,8 @@ public class Partie {
 				joueur.getMain().getOffre().remove(0);
 			}
 			else if (joueur.getMain().getOffre().get(1) != null){
-				joueur.getJest().getCartes().add(joueur.getMain().getOffre().get(1));
-				joueur.getMain().getOffre().remove(1);
+				joueur.getJest().getCartes().add(joueur.getMain().getOffre().get(0));
+				joueur.getMain().getOffre().remove(0);
 			}
 		}
 	}

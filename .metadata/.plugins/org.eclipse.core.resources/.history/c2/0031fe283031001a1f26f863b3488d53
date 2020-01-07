@@ -423,19 +423,6 @@ public class Partie {
 		return valide;
 	}
 	
-	public void recupererDerniereCarte(){
-		for (Joueur joueur : joueurs){
-			if (joueur.getMain().getOffre().get(0) != null){
-				joueur.getJest().getCartes().add(joueur.getMain().getOffre().get(0));
-				joueur.getMain().getOffre().remove(0);
-			}
-			else if (joueur.getMain().getOffre().get(1) != null){
-				joueur.getJest().getCartes().add(joueur.getMain().getOffre().get(1));
-				joueur.getMain().getOffre().remove(1);
-			}
-		}
-	}
-	
 	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
@@ -456,7 +443,6 @@ public class Partie {
 			partie.tas.nouveauTas(partie.pioche,partie.joueurs);
 		}
 		System.out.println("La pioche n'a plus de cartes !");
-		partie.recupererDerniereCarte();
 		partie.trophee1.conditionTrophee();
 		partie.trophee2.conditionTrophee();
 		arbitre.attribuerTrophee(partie.joueurs, partie.trophee1, partie.trophee2, partie.getVariante());
