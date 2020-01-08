@@ -287,16 +287,10 @@ public class Arbitre implements Visiteur {
 			default : System.out.println("Erreur trophée 2");
 				break;
 			}
-			if (jestTropheeT2.getJoueur().getPseudo() != null){
-				System.out.println("Le trophee 2 a été attribué à " + jestTropheeT2.getJoueur().getPseudo());
-				jestTropheeT2.getCartes().add(t2.getCarte());	
-			}
-			else if (jestTropheeT2.getJoueur().getPseudo() == null && jestTropheeT2.getJoueur() != null){
-				jestTropheeT2.getCartes().add(t2.getCarte());
-			}
-			
+			System.out.println("Le trophee 2 a été attribué à " + jestTropheeT2.getJoueur().getPseudo());
+			jestTropheeT2.getCartes().add(t2.getCarte());
+			jestTropheeT1.getCartes().add(t1.getCarte());
 		}
-		jestTropheeT1.getCartes().add(t1.getCarte());
 		
 	}
 	

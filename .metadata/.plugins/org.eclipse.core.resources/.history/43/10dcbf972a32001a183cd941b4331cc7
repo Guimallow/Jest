@@ -219,8 +219,8 @@ public class Arbitre implements Visiteur {
 			
 			switch(conditionT2){
 			case BestJest:
-				int points = compterPoints(joueurs.get(0).getJest(), variante);
 				for (int i=0; i<joueurs.size(); i++){
+					int points = 0;
 					if (compterPoints(joueurs.get(i).getJest(), variante) > points){
 						points = compterPoints(joueurs.get(i).getJest(), variante);
 						jestTropheeT2 = joueurs.get(i).getJest();
@@ -229,12 +229,13 @@ public class Arbitre implements Visiteur {
 				}
 				break;
 			case BestJestNoJoke: 
-				int point = compterPoints(joueurs.get(0).getJest(), variante);
 				for (int i=0; i<joueurs.size(); i++){
-					if ((compterPoints(joueurs.get(i).getJest(), variante) > point) || checkJoker(joueurs.get(i).getJest()) == false){
-						point = compterPoints(joueurs.get(i).getJest(), variante);
+					int points = 0;
+					if ((compterPoints(joueurs.get(i).getJest(), variante) > points) || checkJoker(joueurs.get(i).getJest()) == false){
+						points = compterPoints(joueurs.get(i).getJest(), variante);
 						jestTropheeT2 = joueurs.get(i).getJest();
 					}
+				
 				}
 				break;
 			case Highest: 
@@ -287,16 +288,10 @@ public class Arbitre implements Visiteur {
 			default : System.out.println("Erreur trophée 2");
 				break;
 			}
-			if (jestTropheeT2.getJoueur().getPseudo() != null){
-				System.out.println("Le trophee 2 a été attribué à " + jestTropheeT2.getJoueur().getPseudo());
-				jestTropheeT2.getCartes().add(t2.getCarte());	
-			}
-			else if (jestTropheeT2.getJoueur().getPseudo() == null && jestTropheeT2.getJoueur() != null){
-				jestTropheeT2.getCartes().add(t2.getCarte());
-			}
-			
+			System.out.println("Le trophee 2 a été attribué à " + jestTropheeT2.getJoueur().getPseudo());
+			jestTropheeT2.getCartes().add(t2.getCarte());
+			jestTropheeT1.getCartes().add(t1.getCarte());
 		}
-		jestTropheeT1.getCartes().add(t1.getCarte());
 		
 	}
 	
