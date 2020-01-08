@@ -1,0 +1,8 @@
+import cartes.Jest;
+import cartes.Trophee;
+
+public interface Visiteur {
+	void visit(Jest jest);
+	void visit(Trophee trophee);
+	
+}
