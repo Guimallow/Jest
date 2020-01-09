@@ -17,7 +17,7 @@ public class Arbitre implements Visiteur {
 	}
 	
 	public void visit(Jest j){
-		
+
 	}
 	public void visit(Trophee t){
 
@@ -154,11 +154,10 @@ public class Arbitre implements Visiteur {
 			}
 			break;
 		case BestJestNoJoke: 
-			int point = 0;
-			jestTropheeT1 = joueurs.get(0).getJest();
 			for (int i=0; i<joueurs.size(); i++){
-				if ((compterPoints(joueurs.get(i).getJest(), variante) > point) || checkJoker(joueurs.get(i).getJest()) == false){
-					point = compterPoints(joueurs.get(i).getJest(), variante);
+				int points = 0;
+				if ((compterPoints(joueurs.get(i).getJest(), variante) > points) || checkJoker(joueurs.get(i).getJest()) == false){
+					points = compterPoints(joueurs.get(i).getJest(), variante);
 					jestTropheeT1 = joueurs.get(i).getJest();
 				}
 			}

@@ -17,7 +17,7 @@ public class Arbitre implements Visiteur {
 	}
 	
 	public void visit(Jest j){
-		
+
 	}
 	public void visit(Trophee t){
 
@@ -143,9 +143,8 @@ public class Arbitre implements Visiteur {
 		Jest jestTropheeT2 = null;
 		switch(conditionT1){
 			case BestJest:
-			int points = compterPoints(joueurs.get(0).getJest(), variante);
-			jestTropheeT1 = joueurs.get(0).getJest();
 			for (int i=0; i<joueurs.size(); i++){
+				int points = 0;
 				if (compterPoints(joueurs.get(i).getJest(), variante) > points){
 					points = compterPoints(joueurs.get(i).getJest(), variante);
 					jestTropheeT1 = joueurs.get(i).getJest();
@@ -154,11 +153,10 @@ public class Arbitre implements Visiteur {
 			}
 			break;
 		case BestJestNoJoke: 
-			int point = 0;
-			jestTropheeT1 = joueurs.get(0).getJest();
 			for (int i=0; i<joueurs.size(); i++){
-				if ((compterPoints(joueurs.get(i).getJest(), variante) > point) || checkJoker(joueurs.get(i).getJest()) == false){
-					point = compterPoints(joueurs.get(i).getJest(), variante);
+				int points = 0;
+				if ((compterPoints(joueurs.get(i).getJest(), variante) > points) || checkJoker(joueurs.get(i).getJest()) == false){
+					points = compterPoints(joueurs.get(i).getJest(), variante);
 					jestTropheeT1 = joueurs.get(i).getJest();
 				}
 			}
@@ -222,7 +220,6 @@ public class Arbitre implements Visiteur {
 			switch(conditionT2){
 			case BestJest:
 				int points = compterPoints(joueurs.get(0).getJest(), variante);
-				jestTropheeT2 = joueurs.get(0).getJest();
 				for (int i=0; i<joueurs.size(); i++){
 					if (compterPoints(joueurs.get(i).getJest(), variante) > points){
 						points = compterPoints(joueurs.get(i).getJest(), variante);
@@ -233,7 +230,6 @@ public class Arbitre implements Visiteur {
 				break;
 			case BestJestNoJoke: 
 				int point = compterPoints(joueurs.get(0).getJest(), variante);
-				jestTropheeT2 = joueurs.get(0).getJest();
 				for (int i=0; i<joueurs.size(); i++){
 					if ((compterPoints(joueurs.get(i).getJest(), variante) > point) || checkJoker(joueurs.get(i).getJest()) == false){
 						point = compterPoints(joueurs.get(i).getJest(), variante);
@@ -266,12 +262,11 @@ public class Arbitre implements Visiteur {
 				}
 				break;
 			case Majority: 
-				int compte = countMajority(joueurs.get(0).getJest(), t2.getValeurCondition());
-				jestTropheeT2 = joueurs.get(0).getJest();
+				int compte = 0;
 				for (int i = 0; i <joueurs.size(); i++){
-					if (countMajority(joueurs.get(i).getJest(), t2.getValeurCondition()) > compte){
+					if (countMajority(joueurs.get(i).getJest(), t1.getValeurCondition()) > compte){
 						jestTropheeT2 = joueurs.get(i).getJest();
-						compte = countMajority(joueurs.get(i).getJest(), t2.getValeurCondition());
+						compte = countMajority(joueurs.get(i).getJest(), t1.getValeurCondition());
 					}
 				}
 				break;

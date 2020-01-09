@@ -5,19 +5,27 @@ import modele.ObjetVisite;
 import modele.Visiteur;
 
 public class Trophee implements ObjetVisite{
-
+	private boolean estAttribue;
 	private Carte carte;
 	private ConditionTrophee condition;
 	private Couleur couleurCondition;
 	private Valeur valeurCondition;
 	
 	public Trophee(Carte c){
+		this.estAttribue = false;
 		this.carte = c;
 		this.condition = null;
 		this.couleurCondition = null;
 		this.valeurCondition = null;
 	}
 	
+	public void setAttribution(boolean b){
+		this.estAttribue = b;
+	}
+	
+	public boolean getAttribution(){
+		return this.estAttribue;
+	}
 	
 	public void setCarte(Carte carte){
 		this.carte = carte;

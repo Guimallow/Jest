@@ -37,7 +37,7 @@ public class StrategieA implements Strategie {
 		for(Joueur j:liste) {
 			if(j!=soiMeme && j.getMain().getPiochabilite()==true) {
 			joueurAPiocher=j;
-			}
+			}	
 		}
 		return joueurAPiocher;
 		

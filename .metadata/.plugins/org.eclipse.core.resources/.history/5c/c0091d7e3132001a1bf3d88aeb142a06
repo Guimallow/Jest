@@ -17,7 +17,7 @@ public class Arbitre implements Visiteur {
 	}
 	
 	public void visit(Jest j){
-		
+
 	}
 	public void visit(Trophee t){
 
