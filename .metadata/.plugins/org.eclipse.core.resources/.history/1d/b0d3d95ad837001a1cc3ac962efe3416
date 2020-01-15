@@ -1,0 +1,10 @@
+package controleur.strategie;
+import java.util.*;
+
+import modele.joueurs.Joueur;
+public interface Strategie {
+	public void faireOffre(Joueur a);
+	public void piocherOffre(Joueur a, Joueur b);
+	public Joueur choisirJoueurAPiocher(ArrayList<Joueur> liste, Joueur j);
+
+}

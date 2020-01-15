@@ -1,5 +1,4 @@
 package modele.joueurs;
-
 import java.util.*;
 import controleur.*;
 import controleur.strategie.StrategieA;
@@ -32,19 +31,17 @@ public class Joueur {
 	 */
 	private boolean estJouable;
 	/**
-	 * attribut privé statique de type entier représentant le nombre de joueurs dans
-	 * la partie
+	 * attribut privé statique de type entier représentant le nombre de joueurs
+	 * dans la partie
 	 */
 	private static int nbJoueurs = 0;// va être utile pour pouvoir creer le tas à partir de la pioche
 	/**
 	 * attribut privé de type entier qui définit le score du joueur
 	 */
 	private int score;
-
+	
 	/**
-	 * constructeur de la classe Joueur avec comme paramètre la partie
-	 * {@link Partie}
-	 * 
+	 * constructeur de la classe Joueur avec comme paramètre la partie {@link Partie}
 	 * @param partie la partie dans laquelle va jouer le joueur
 	 */
 	public Joueur(Partie partie) {
@@ -68,8 +65,7 @@ public class Joueur {
 	}
 
 	/**
-	 * méthode qui fait piocher le joueur dans le tas de la partie {@link Tas}
-	 * 
+	* méthode qui fait piocher le joueur dans le tas de la partie {@link Tas}
 	 * @param a le tas dans lequel pioche le joueur
 	 */
 	public void piocherDansTas(Tas a) {// prend carte du haut du tas, attribue à la carte sa place dans la main
@@ -79,21 +75,15 @@ public class Joueur {
 
 	/**
 	 * méthode qui fait piocher le joueur dans la pioche de la partie {@link Pioche}
-	 * 
 	 * @param p la pioche dans laquelle pioche le joueur
 	 */
-	public void piocherDansPioche(Pioche p) {
+	public void piocherDansPioche(Pioche p) {// prend carte du haut de la pioche, attribue à la carte sa place dans la
+												// main
 		Carte c = p.retirerCarteDuHaut();
 		this.main.getOffre().add(c);
 	}
 
-	/**
-	 * méthode qui rend une des deux cartes du joueur visible
-	 * 
-	 * @param premiereCarte booléen qui permet de déterminer quelle carte est rendue
-	 *                      visible
-	 */
-	public void faireOffre(boolean premiereCarte) {
+	public void faireOffre(boolean premiereCarte) {// rend une des cartes visible aux autres joueurs
 		if (premiereCarte == true) {
 			this.main.getOffre().get(0).setVisibilite(true);
 		} else {
@@ -101,16 +91,8 @@ public class Joueur {
 		}
 	}
 
-	/**
-	 * méthode qui permet à un joueur de piocher dans l'offre d'un autre joueur
-	 * 
-	 * @param a            le joueur qui est pioché
-	 * @param carteVisible booléen qui détermine si le joueur pioche la carte
-	 *                     visible ou face cachée
-	 * @return la carte correspondant à la carte piochée
-	 */
-	public Carte piocherOffre(Joueur a, boolean carteVisible) {
-
+	public Carte piocherOffre(Joueur a, boolean carteVisible) {// enlève la carte choisie de la main et la met dans le
+																// jest
 		Carte cartePiochee = null;
 		if (a.main.getPiochabilite() == true) {
 			if ((carteVisible == true && a.main.getOffre().get(0).getVisibilite() == true)
@@ -129,149 +111,87 @@ public class Joueur {
 		return cartePiochee;
 	}
 
-	/**
-	 * méthode qui affiche l'offre d'un joueur
-	 * 
-	 * @param a le joueur que l'on souhaite consulter
-	 */
-	public void consulterOffre(Joueur a) {
-
-		for (Carte c : a.main.getOffre()) {
-			if (c.getVisibilite() == true) {
+	public void consulterOffre(Joueur a) {// affiche l'offre d'un joueur, les cartes non visibles sont affichés face
+											// cachée
+		for(Carte c : a.main.getOffre()) {
+			if(c.getVisibilite()==true) {
 				System.out.println(c);
-			} else {
-				System.out.println("Carte face cachée");
 			}
-
+			else {System.out.println("Carte face cachée");}
+			
 		}
 	}
-
-	/**
-	 * méthode permettant de faire une offre automatiquement pour un joueur virtuel
-	 * 
-	 * @param methode la stratégie utilisée {@link StrategieA}
-	 */
+	
 	public void faireOffre(StrategieA methode) {
 		methode.faireOffre(this);
 	}
-
-	/**
-	 * méthode permettant de piocher automatiquement dans l'offre d'un joueur
-	 * pour un joueur virtuel
-	 * @param methode la stratégie utilisée {@link StrategieA}
-	 * @param joueurPioche le joueur qui est pioché
-	 */
+	
 	public void piocherOffre(StrategieA methode, Joueur joueurPioche) {
 		methode.piocherOffre(this, joueurPioche);
 	}
-	/**
-	 * méthode qui permet de choisir automatiquement le joueur à piocher pour un joueur virtuel
-	 * @param methode la stratégie utilisée {@link StrategieA}
-	 * @param joueurs la liste des joueurs du jeu
-	 * @return le joueur devant être pioché
-	 */
+	
 	public Joueur choisirJoueurAPiocher(StrategieA methode, ArrayList<Joueur> joueurs) {
-		return methode.choisirJoueurAPiocher(joueurs, this);
+		return methode.choisirJoueurAPiocher(joueurs,this); 
 	}
-	/**
-	 * méthode qui affiche sa main
-	 */
+
 	public void consulterMain() {
 		this.main.afficherOffre();
 
 	}
-	/**
-	 * méthode qui affiche son jest
-	 */
+
 	public void consulterJest() {
 		this.jest.afficherJest();
 
 	}
-	/**
-	 * getter qui retourne le nombre de joueurs de la partie
-	 * @return le nombre de joueurs de la partie, de type entier
-	 */
+
 	public static int getNbJoueurs() {
 		return Joueur.nbJoueurs;
 	}
-	/**
-	 * retourne le pseudo du joueur
-	 * @return le pseudo, de type chaine de caractère
-	 */
+
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
 		sb.append(this.pseudo);
 		return sb.toString();
 
 	}
-	/**
-	 * getter qui retourne le jest du joueur
-	 * @return le jest du joueur
-	 */
+
+
 	public Jest getJest() {
 		return this.jest;
 	}
-	/**
-	 * getter qui retourne le pseudo du joueur
-	 * @return le pseudo du joueur de type chaine de caractère
-	 */
+
 	public String getPseudo() {
 		return this.pseudo;
 	}
-	/**
-	 * setter qui permet de modifier le nom d'un joueur
-	 * @param nom le nouveau pseudo du joueur
-	 */
+
 	public void setPseudo(String nom) {
 		this.pseudo = nom;
 	}
-	/**
-	 * setter qui permet de modifier la main d'un joueur
-	 * @param o la nouvelle main du joueur
-	 */
+
 	public void setMain(Offre o) {
 		this.main = o;
 	}
-	/**
-	 * setter qui permet de modifier le jest du joueur
-	 * @param j le nouveau jest du joueur
-	 */
+
 	public void setJest(Jest j) {
 		this.jest = j;
 	}
-	/**
-	 * getter qui retourne la main d'un  joueur
-	 * @return la main du joueur
-	 */
+
 	public Offre getMain() {
 		return this.main;
 	}
-	/**
-	 * getter qui retourne si un joueur est jouable ou pas
-	 * @return le booléen qui représente la jouabilité du joueur
-	 */
+
 	public boolean getJouabilite() {
 		return this.estJouable;
 	}
-	/**
-	 * setter qui permet de modifier la jouabilité d'un joueur
-	 * @param b le booléen correspondant à la nouvelle jouabilité du joueur
-	 */
 	public void setJouabilite(boolean b) {
-		this.estJouable = b;
+		this.estJouable=b;
 	}
-	/**
-	 * getter qui retourne le score du joueur
-	 * @return le score du joueur, de type entier
-	 */
-	public int getScore() {
+	
+	public int getScore(){
 		return this.score;
 	}
-	/**
-	 * setter qui permet de modifier le score d'un joueur
-	 * @param score le nouveau score du joueur
-	 */
-	public void setScore(int score) {
+	
+	public void setScore(int score){
 		this.score = score;
 	}
 

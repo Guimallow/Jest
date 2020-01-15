@@ -1,5 +1,4 @@
 package controleur;
-
 import java.util.*;
 
 import controleur.strategie.StrategieA;
@@ -13,70 +12,21 @@ import modele.joueurs.Joueur;
 import modele.joueurs.JoueurReel;
 import modele.joueurs.JoueurVirtuel;
 
-/**
- * Classe qui représente la partie de Jest
- */
 public class Partie {
-	/**
-	 * attribut privé static de type partie qui représente l'unique partie pouvant
-	 * être lancée (implémentation singleton)
-	 */
 	private static Partie partie = null;
-	/**
-	 * attribut privé de type Arraylist qui représente la liste des joueurs de la
-	 * partie
-	 */
 	private ArrayList<Joueur> joueurs;
-	/**
-	 * attribut privé de type entier qui représente le nombre de joueurs de la
-	 * partie
-	 */
 	private int nbJoueur;
-	/**
-	 * attribut privé de type entier représentant le nombre de joueurs virtuels de
-	 * la partie
-	 */
 	private int nbJoueurVirtuel;
-	/**
-	 * attribut privé de type entier qui représente le numéro du tour de jeu de la
-	 * partie
-	 */
-	private int tourDeJeu;
-	/**
-	 * attribut privé de type Tas qui représente le tas de la partie
-	 */
+	private int tourDeJeu;// ne pas oublier de faire ++ à chaque fin de tour
 	private Tas tas;
-	/**
-	 * attribut privé de type Pioche qui représente la pioche de la partie
-	 */
 	private Pioche pioche;
-	/**
-	 * attribut privé de type StrategieA qui représente la stratégie utilisée par
-	 * les joueurs virtuels
-	 */
 	private StrategieA strategie;
-	/**
-	 * attribut privé de type Trophee qui représente le premier trophée de la partie
-	 */
 	private Trophee trophee1;
-	/**
-	 * attribut privé de type Trophee qui représente le deuxième trophée de la
-	 * partie si le nombre de joueurs nécessitent deux trophées
-	 */
 	private Trophee trophee2;
-	/**
-	 * attribut privé de type booléen qui définit si l'extension est activée
-	 */
-	private boolean extension;
-	/**
-	 * attribut privé de type Variante qui définit quelle variante est utilisée dans
-	 * la partie
-	 */
-	private Variante variante;
-
-	/**
-	 * constructeur de la partie (en privé pour l'implémentation du singleton)
-	 */
+	private boolean extension; //vrai si l'extension est active
+	// On ajoute l'extension après le tirage des trophées, dans initialisationPartie() parce que flemme de rajouter des conditions d'obtention pour le moment
+	private Variante variante; //correspond à la variante utilisée
+	
 	private Partie() {
 		this.joueurs = new ArrayList<Joueur>();
 		this.nbJoueur = 3;
@@ -91,11 +41,6 @@ public class Partie {
 		this.extension = false;
 	}
 
-	/**
-	 * méthode qui créer la partie afin de garder l'unicité de la partie
-	 * 
-	 * @return la partie en cours
-	 */
 	public static Partie getInstance() {
 		if (partie == null) {
 			partie = new Partie();
@@ -103,65 +48,30 @@ public class Partie {
 		return partie;
 	}
 
-	/**
-	 * méthode qui ajoute un joueur aux joueurs de la partie
-	 * 
-	 * @param joueur le joueur ajouté
-	 */
 	public void addJoueur(Joueur joueur) {
 		this.joueurs.add(joueur);
 	}
 
-	/**
-	 * getter qui retourne la liste des joueurs de la partie
-	 * 
-	 * @return la liste des joueurs
-	 */
 	public ArrayList<Joueur> getJoueurs() {
 		return this.joueurs;
 	}
-
-	/**
-	 * setter qui modifie,le booléen responsable de l'extension
-	 * 
-	 * @param b le booléen modifiant la présence ou non de l'extension
-	 */
-	public void setExtension(boolean b) {
+	
+	public void setExtension(boolean b){
 		this.extension = b;
 	}
-
-	/**
-	 * getter qui retourne si l'extension est active
-	 * 
-	 * @return le booléen qui définit si l'extension est active ou non
-	 */
-	public boolean getExtension() {
+	
+	public boolean getExtension(){
 		return this.extension;
 	}
-
-	/**
-	 * setter qui permet de modifier la variante de la partie
-	 * 
-	 * @param v la variante à implémenter dans la partie
-	 */
-	public void setVariante(Variante v) {
+	
+	public void setVariante(Variante v){
 		this.variante = v;
 	}
-
-	/**
-	 * getter qui retourne la variante de la partie
-	 * 
-	 * @return la variante utilisée
-	 */
-	public Variante getVariante() {
+	
+	public Variante getVariante(){
 		return this.variante;
 	}
 
-	/**
-	 * méthode qui configure le nombre de joueur
-	 * 
-	 * @param sc paramètre qui nous permet de rentrer les valeurs dans la console
-	 */
 	public void configurerNbJoueur(Scanner sc) {
 		System.out.println("\n Combien de joueurs souhaitez vous (entre 3 et 4)?\n ");
 
@@ -189,11 +99,6 @@ public class Partie {
 
 	}
 
-	/**
-	 * méthode qui permet de configurer le nombre de joueurs virtuels
-	 * 
-	 * @param sc paramètre qui nous permet de rentrer les valeurs dans la console
-	 */
 	public void configurerNbJoueurVirtuel(Scanner sc) {
 		System.out.println("\n Combien de joueurs virtuels souhaitez vous (inférieur à " + this.nbJoueur + ")?");
 
@@ -233,11 +138,6 @@ public class Partie {
 
 	}
 
-	/**
-	 * méthode qui permet de configurer la partie
-	 * 
-	 * @param sc paramètre qui nous permet de rentrer les valeurs dans la console
-	 */
 	public void configurerPartie(Scanner sc) {
 		System.out.println("------Jeu De Jest------ \n");
 		System.out.println("Que souhaitez vous faire? \n 1. Lancer une partie \n 2. Gérer les paramètres \n");
@@ -266,67 +166,42 @@ public class Partie {
 		}
 
 	}
-
-	/**
-	 * méthode qui permet de configurer l'extension choisie
-	 * 
-	 * @param sc paramètre qui nous permet de rentrer les valeurs dans la console
-	 */
-	public void configurationExtension(Scanner sc) {
+	
+	public void configurationExtension(Scanner sc){
 		char reponse;
 		System.out.println("Souhaitez-vous jouer avec l'extension de carte ? 1- Oui, 2- Non\n"
 				+ "Rappel: l'extension contient les cartes:");
 		reponse = sc.nextLine().charAt(0);
-		while (reponse != '1' && reponse != '2') {
+		while (reponse != '1' && reponse !='2'){
 			System.out.println("Vous avez tapé un mauvais nombre, veuillez recommencer");
 			reponse = sc.nextLine().charAt(0);
 		}
-		if (reponse == '1') {
+		if (reponse == '1'){
 			this.setExtension(true);
 		}
 	}
-
-	/**
-	 * méthode qui permet de configurer la variante choisie
-	 * 
-	 * @param sc paramètre qui nous permet de rentrer les valeurs dans la console
-	 */
-	public void configurationVariantes(Scanner sc) {
+	
+	public void configurationVariantes(Scanner sc){
 		char reponse;
-		System.out
-				.println("Avec quelles règles souhaitez-vous jouer ? 0- Règles de base, 1- Variante 1, 2- Variante 2\n"
-						+ "Rappel: \n"
-						+ "Variante 1: A la fin de la partie, vous échanger votre Jest avec le joueur suivant\n"
-						+ "Variante 2: Essayez de collecter toutes les cartes de même valeur. Si vous réussissez à obtenir tous les 2 ou 3 votre score sera multiplié par cette valeur"); // Pas
-																																															// avec
-																																															// les
-																																															// 4
-																																															// car
-																																															// ce
-																																															// serait
-																																															// trop
-																																															// cheaté
+		System.out.println("Avec quelles règles souhaitez-vous jouer ? 0- Règles de base, 1- Variante 1, 2- Variante 2\n"
+				+ "Rappel: \n"
+				+ "Variante 1: A la fin de la partie, vous échanger votre Jest avec le joueur suivant\n"
+				+ "Variante 2: Essayez de collecter toutes les cartes de même valeur. Si vous réussissez à obtenir tous les 2 ou 3 votre score sera multiplié par cette valeur"); //Pas avec les 4 car ce serait trop cheaté
 		reponse = sc.nextLine().charAt(0);
-		while (reponse != '0' && reponse != '1' && reponse != '2') {
+		while (reponse != '0' && reponse != '1' && reponse !='2'){
 			System.out.println("Vous avez tapé un mauvais nombre, veuillez recommencer");
 			reponse = sc.nextLine().charAt(0);
 		}
-		if (reponse == '1') {
+		if (reponse == '1'){
 			this.setVariante(Variante.ECHANGE);
 		}
-		if (reponse == '2') {
+		if (reponse == '2'){
 			this.setVariante(Variante.COMPTAGE);
 		}
 	}
 
-	/**
-	 * méthode qui initialise la partie en créant les joueurs avec leurs pseudo,
-	 * choisit les trophées et mélange la pioche
-	 * 
-	 * @param sc paramètre qui nous permet de rentrer les valeurs dans la console
-	 */
-	public void initialisationPartie(Scanner sc) {
-
+	public void initialisationPartie(Scanner sc) {// creer les joueurs avec leur pseudo, choisi les trophees de la
+													// partie
 		int i;
 		String pseudo = "0";
 		for (i = 0; i < (nbJoueur - nbJoueurVirtuel); i++) {
@@ -352,14 +227,10 @@ public class Partie {
 		}
 		System.out.println("\n");
 
+
 	}
 
-	/**
-	 * méthode qui fait piocher chaque joueur et leurs fait créer leur offre
-	 * 
-	 * @param sc paramètre qui nous permet de rentrer les valeurs dans la console
-	 */
-	public void creationDesOffres(Scanner sc) {
+	public void creationDesOffres(Scanner sc) {// fait piocher les joueurs et leurs fait creer leurs offres
 		for (Joueur j : joueurs) {
 			if (partie.tourDeJeu == 1) {
 				j.piocherDansPioche(partie.pioche);
@@ -375,11 +246,11 @@ public class Partie {
 				j.faireOffre(partie.strategie);
 			} else {
 				int i = 1;
-				for (Carte c : j.getMain().getOffre()) {
-					System.out.println("Carte " + i + ": " + c);
+				for (Carte c : j.getMain().getOffre()){
+					System.out.println("Carte " + i +": "+ c);
 					i++;
 				}
-
+				
 				System.out.println(j.getPseudo()
 						+ ": Quel carte voulez vous rendre face cachée?\n 1.Première Carte \n 2.Deuxième Carte");
 				String choix = "0";
@@ -408,9 +279,6 @@ public class Partie {
 		}
 	}
 
-	/**
-	 * méthode qui affiche les offres de tous les joueurs
-	 */
 	public void affichageDesOffres() {
 		int i = 1;
 
@@ -421,14 +289,8 @@ public class Partie {
 		}
 	}
 
-	/**
-	 * méthode qui compare chaque carte visible afin de déterminer la meilleure et
-	 * donc de définir le joueur qui commence
-	 * 
-	 * @return le joueur qui commence
-	 */
-	public Joueur testMeilleureCarteVisible() {
-
+	public Joueur testMeilleureCarteVisible() {// test la meilleure des cartes visibles parmi les joueurs qui n'ont pas
+												// pioché
 		Joueur piocheur = null;
 		for (Joueur j2 : joueurs) {
 			if (j2.getJouabilite() == true) {
@@ -443,17 +305,20 @@ public class Partie {
 						piocheur = j;
 					}
 
-				} else if (j.getMain().getOffre().get(0).getVisibilite() == true
+				}
+				else if (j.getMain().getOffre().get(0).getVisibilite() == true
 						&& piocheur.getMain().getOffre().get(1).getVisibilite() == true) {
 					if (j.getMain().getOffre().get(0).cartePlusHaute(piocheur.getMain().getOffre().get(1))) {
 						piocheur = j;
 					}
-				} else if (j.getMain().getOffre().get(1).getVisibilite() == true
+				}
+				else if (j.getMain().getOffre().get(1).getVisibilite() == true
 						&& piocheur.getMain().getOffre().get(1).getVisibilite() == true) {
 					if (j.getMain().getOffre().get(1).cartePlusHaute(piocheur.getMain().getOffre().get(1))) {
 						piocheur = j;
 					}
-				} else {
+				}
+				else {
 					if (j.getMain().getOffre().get(1).cartePlusHaute(piocheur.getMain().getOffre().get(0))) {
 						piocheur = j;
 					}
@@ -465,12 +330,7 @@ public class Partie {
 		return piocheur;
 	}
 
-	/**
-	 * méthode qui permet à tous les joeurs de piocher dans les offres adverses
-	 * 
-	 * @param sc paramètre qui nous permet de rentrer les valeurs dans la console
-	 */
-	public void piochageDesOffres(Scanner sc) {
+	public void piochageDesOffres(Scanner sc) {// permet à tous les joueurs de piocher dans les offres adverses
 		System.out.println("On pioche !");
 		Joueur piocheur = partie.testMeilleureCarteVisible();
 		for (Joueur j1 : joueurs) {
@@ -493,38 +353,35 @@ public class Partie {
 
 					} else {
 						int n = 1;
-
-						for (Joueur joueurAafficher : joueurs) {
-							System.out.println(joueurAafficher.getPseudo() + ": numéro " + n + ", piochabilité: "
-									+ joueurAafficher.getMain().getPiochabilite());
+						
+						for (Joueur joueurAafficher : joueurs){
+							System.out.println(joueurAafficher.getPseudo() + ": numéro " + n + ", piochabilité: " + joueurAafficher.getMain().getPiochabilite());
 							n++;
 						}
 						System.out.println("\n");
-						System.out.println(
-								j.getPseudo() + ", chez quel joueur voulez vous piocher ? (indiquez son numéro)\n");
+						System.out.println(j.getPseudo() + ", chez quel joueur voulez vous piocher ? (indiquez son numéro)\n");
 						char choix = '0';
-
+						
 						// Choix de la carte qu'on veut prendre et ajouter à son jest
 						choix = sc.nextLine().charAt(0);
-
+						
 						// On vérifie qu'on peut bien piocher dans l'offre de ce joueur
-						while (testChoixValide(choix, j) == false) {
+						while (testChoixValide(choix, j) == false){
 							n = 1;
-							for (Joueur joueurAafficher : joueurs) {
-								System.out.println(joueurAafficher.getPseudo() + ": numéro " + n + ", piochabilité: "
-										+ joueurAafficher.getMain().getPiochabilite());
+							for (Joueur joueurAafficher : joueurs){
+								System.out.println(joueurAafficher.getPseudo() + ": numéro " + n + ", piochabilité: " + joueurAafficher.getMain().getPiochabilite());
 								n++;
 							}
 							choix = sc.nextLine().charAt(0);
 						}
-
-						Joueur j2 = joueurs.get(Character.getNumericValue(choix) - 1);
-						System.out.println("Et quelle carte de " + j2.getPseudo()
-								+ " souhaitez-vous prendre ? Visible: V, Cachée: C   ");
+						
+						
+						Joueur j2 = joueurs.get(Character.getNumericValue(choix)-1);
+						System.out.println("Et quelle carte de " + j2.getPseudo() + " souhaitez-vous prendre ? Visible: V, Cachée: C   ");
 						boolean carteVisible = false;
 						char carteAPiocher = sc.nextLine().charAt(0);
-						while (carteAPiocher != 'c' && carteAPiocher != 'C' && carteAPiocher != 'v'
-								&& carteAPiocher != 'V') {
+						while (carteAPiocher != 'c' && carteAPiocher != 'C'
+								&& carteAPiocher != 'v' && carteAPiocher != 'V'){
 							System.out.println("Vous avez tapé un mauvais caratère, veuillez recommencer");
 							carteAPiocher = sc.nextLine().charAt(0);
 						}
@@ -545,75 +402,54 @@ public class Partie {
 			}
 			System.out.println("\n");
 		}
-		for (Joueur j : joueurs) {
+		for (Joueur j : joueurs){
 			j.setJouabilite(true);
 			j.getMain().setPiochabilite(true);
 		}
 	}
 
-	/**
-	 * getter qui retourne la pioche de la partie
-	 * 
-	 * @return la pioche de la partie
-	 */
 	public Pioche getPioche() {
 		return this.pioche;
 	}
 
-	/**
-	 * méthode qui détermine le choix de piochage est valide ou non
-	 * 
-	 * @param choix le choix rentré par le joueur actuel
-	 * @param j le joueur qui choisit
-	 * @return le booléen représentant la validité du choix
-	 */
-	public boolean testChoixValide(char choix, Joueur j) {
+	public boolean testChoixValide(char choix, Joueur j){
 		boolean valide = false;
-		if (choix == '1' || choix == '2' || choix == '3' || choix == '4') {
-
-			int choixEntier = Character.getNumericValue(choix) - 1;
+		if (choix == '1' || choix == '2' || choix =='3' || choix =='4'){ //On vérifie qu'on rentre bien un chiffre valide
+			int choixEntier = Character.getNumericValue(choix)-1;
 
 			if (choixEntier < partie.joueurs.size()
-					&& partie.joueurs.get(choixEntier).getMain().getPiochabilite() == true) {
-
+					&& partie.joueurs.get(choixEntier).getMain().getPiochabilite() == true){ //On vérifie que le joueur existe et est piochable (existe notamment dans le cas du joueur 4, pas toujours présent)
 				boolean dernierJoueur = true;
-				for (Joueur testJoueur : partie.joueurs) {
-					if (testJoueur.getMain().getPiochabilite() == true && testJoueur != j) {
+				for (Joueur testJoueur : partie.joueurs){
+					if (testJoueur.getMain().getPiochabilite() == true && testJoueur != j){
 						dernierJoueur = false;
 					}
 				}
-				if (choixEntier != partie.joueurs.indexOf(j)
-						|| (choixEntier == partie.joueurs.indexOf(j) && dernierJoueur == true)) {
-
+				if (choixEntier != partie.joueurs.indexOf(j) || (choixEntier == partie.joueurs.indexOf(j) && dernierJoueur == true)){//On vérifie qu'on ne se pioche pas soi-même
 					valide = true;
-				} else {
-					System.out.println(
-							"Vous ne pouvez pas piocher votre propre offre si vous n'êtes pas le dernier joueur");
 				}
-			} else {
-				System.out.println("Malheureusement, ce joueur n'est pas piochable");
+				else {System.out.println("Vous ne pouvez pas piocher votre propre offre si vous n'êtes pas le dernier joueur");}
 			}
-		} else {
-			System.out.println("Veuillez saisir un chiffre valide");
+			else {System.out.println("Malheureusement, ce joueur n'est pas piochable");}
 		}
+		else {System.out.println("Veuillez saisir un chiffre valide");}
 		return valide;
 	}
-	/**
-	 * méthode qui permet de récupérer pour chaque joueur sa dernière carte 
-	 * lorsque la partie est finie
-	 */
-	public void recupererDerniereCarte() {
-		for (Joueur joueur : joueurs) {
-			if (joueur.getMain().getOffre().get(0) != null) {
+	
+	public void recupererDerniereCarte(){
+		for (Joueur joueur : joueurs){
+			if (joueur.getMain().getOffre().get(0) != null){
 				joueur.getJest().getCartes().add(joueur.getMain().getOffre().get(0));
 				joueur.getMain().getOffre().remove(0);
-			} else if (joueur.getMain().getOffre().get(1) != null) {
+			}
+			else if (joueur.getMain().getOffre().get(1) != null){
 				joueur.getJest().getCartes().add(joueur.getMain().getOffre().get(1));
 				joueur.getMain().getOffre().remove(1);
 			}
 		}
 	}
-
+	
+	
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		Arbitre arbitre = new Arbitre();
@@ -622,7 +458,7 @@ public class Partie {
 		partie.configurerPartie(sc);
 		partie.initialisationPartie(sc);
 		while (partie.getPioche().getA0Carte(partie) == false) {
-			if (partie.tourDeJeu > 1) {
+			if (partie.tourDeJeu > 1){
 				System.out.println("Tour de jeu : " + partie.tourDeJeu);
 			}
 			System.out.println("Taille de la pioche: " + partie.getPioche().getPioche().size() + "\n");
@@ -633,38 +469,37 @@ public class Partie {
 			partie.piochageDesOffres(sc);
 			System.out.println("\n");
 			partie.tourDeJeu++;
-			partie.tas.nouveauTas(partie);
+			partie.tas.nouveauTas(partie);	
 		}
-
+		
 		System.out.println("La pioche n'a plus de cartes");
-
+		
 		System.out.println("Vous récupérez votre dernière carte");
-
+		
 		partie.recupererDerniereCarte();
 
 		partie.trophee1.conditionTrophee();
 		partie.trophee2.conditionTrophee();
-
+		
 		arbitre.attribuerTrophee(partie.joueurs, partie.trophee1, partie.trophee2, partie.getVariante());
-
-		if (partie.getVariante() == Variante.ECHANGE) {
+		
+		if (partie.getVariante() == Variante.ECHANGE){
 			arbitre.echangeJest(partie);
 		}
-
+		
 		System.out.println("Affichons les jest des joueurs");
 		for (Joueur joueur : partie.getJoueurs()) {
 			System.out.println(joueur.getPseudo() + " : ");
 			joueur.getJest().afficherJest();
 		}
-
+		
 		classement = arbitre.etablirClassement(partie);
 		System.out.println("Classement: ");
-		for (Joueur j : classement) {
+		for (Joueur j : classement){
 			System.out.println(j.getPseudo() + " : " + j.getScore() + " points \n");
 		}
-		System.out.println("Le gagnant est donc " + classement.get(classement.size() - 1).getPseudo()
-				+ " avec un score de " + classement.get(classement.size() - 1).getScore());
-
+		System.out.println("Le gagnant est donc " + classement.get(classement.size()-1).getPseudo() + " avec un score de " + classement.get(classement.size() - 1).getScore());
+		
 		sc.close();
 
 	}
