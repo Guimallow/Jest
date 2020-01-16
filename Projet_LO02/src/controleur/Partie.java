@@ -2,6 +2,7 @@ package controleur;
 
 import java.util.*;
 
+import controleur.strategie.Strategie;
 import controleur.strategie.StrategieA;
 import modele.Arbitre;
 import modele.Variante;
@@ -54,7 +55,7 @@ public class Partie {
 	 * attribut privé de type StrategieA qui représente la stratégie utilisée par
 	 * les joueurs virtuels
 	 */
-	private StrategieA strategie;
+	private Strategie strategie;
 	/**
 	 * attribut privé de type Trophee qui représente le premier trophée de la partie
 	 */
@@ -362,17 +363,17 @@ public class Partie {
 	public void creationDesOffres(Scanner sc) {
 		for (Joueur j : joueurs) {
 			if (partie.tourDeJeu == 1) {
-				j.piocherDansPioche(partie.pioche);
-				j.piocherDansPioche(partie.pioche);
+				((JoueurReel)j).piocherDansPioche(partie.pioche);
+				((JoueurReel)j).piocherDansPioche(partie.pioche);
 			} else {
-				j.piocherDansTas(partie.tas);
-				j.piocherDansTas(partie.tas);
+				((JoueurReel)j).piocherDansTas(partie.tas);
+				((JoueurReel)j).piocherDansTas(partie.tas);
 			}
 
 		}
 		for (Joueur j : joueurs) {
 			if (j instanceof JoueurVirtuel) {
-				j.faireOffre(partie.strategie);
+				((JoueurVirtuel)j).faireOffre(partie.strategie);
 			} else {
 				int i = 1;
 				for (Carte c : j.getMain().getOffre()) {
@@ -390,12 +391,12 @@ public class Partie {
 
 					switch (choix) {
 					case "1":
-						j.faireOffre(false);
+						((JoueurReel)j).faireOffre(false);
 
 						valide = true;
 						break;
 					case "2":
-						j.faireOffre(true);
+						((JoueurReel)j).faireOffre(true);
 						valide = true;
 
 						break;
@@ -478,10 +479,10 @@ public class Partie {
 				if (j == piocheur) {
 					System.out.println("\n C'est au tour de: " + j.getPseudo());
 					if (j instanceof JoueurVirtuel) {
-						Joueur joueurAPiocher = j.choisirJoueurAPiocher(partie.strategie, partie.joueurs);
+						Joueur joueurAPiocher = ((JoueurVirtuel)j).choisirJoueurAPiocher(partie.strategie, partie.joueurs);
 						for (Joueur j3 : joueurs) {
 							if (j3 == joueurAPiocher) {
-								j.piocherOffre(partie.strategie, j3);
+								((JoueurVirtuel)j).piocherOffre(partie.strategie, j3);
 							}
 						}
 						System.out.println(j.getPseudo() + " prend la carte de " + joueurAPiocher.getPseudo());
@@ -532,7 +533,7 @@ public class Partie {
 							carteVisible = true;
 						}
 						System.out.println("Vous prenez la carte de " + j2.getPseudo() + ", qui est : ");
-						Carte cartePiochee = j.piocherOffre(j2, carteVisible);
+						Carte cartePiochee = ((JoueurReel)j).piocherOffre(j2, carteVisible);
 						System.out.println(cartePiochee);
 						if (j2.getJouabilite() == true) {
 							piocheur = j2;
