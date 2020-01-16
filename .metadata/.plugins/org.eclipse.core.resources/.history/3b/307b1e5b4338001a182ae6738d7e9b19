@@ -1,7 +1,5 @@
 package modele;
-/**
- * énumération qui rassemble toutes les conditions possible d'un trophée
- */
+
 public enum ConditionTrophee {
 	Highest,
 	Lowest, 

@@ -1,31 +1,16 @@
 package modele.cartes;
-
 import java.util.*;
 
 import controleur.Partie;
 import modele.joueurs.Joueur;
 
-/**
- * Classe représentant le tas dans lequel chaque joueur pioche après le tour 1
- */
 public class Tas {
-	/**
-	 * attribut privé de type LinkedList représentant les cartes du tas
-	 */
 	private LinkedList<Carte> tas;
 
-	/**
-	 * constructeur du tas
-	 */
 	public Tas() {
 		tas = new LinkedList<Carte>();
 	}
 
-	/**
-	 * méthode qui retire la carte du haut du tas
-	 * 
-	 * @return la carte retirée
-	 */
 	public Carte retirerCarteDuHaut() {
 		Carte c;
 		c = this.tas.getLast();
@@ -34,13 +19,7 @@ public class Tas {
 
 	}
 
-	/**
-	 * méthode qui crée le tas à partir de la pioche et des cartes restantes dans
-	 * les offres des joueurs
-	 * 
-	 * @param partie la partie en cours
-	 */
-	public void nouveauTas(Partie partie) {
+	public void nouveauTas(Partie partie) {// creer le nouveau tas à partir de la pioche et des cartes restantes dans les offres
 		int joueur = Joueur.getNbJoueurs();
 		int i;
 		Carte c;
@@ -48,29 +27,25 @@ public class Tas {
 			c = partie.getPioche().retirerCarteDuHaut();
 			this.tas.add(c);
 		}
-		if (partie.getPioche().getA0Carte(partie) == false) {
-			for (Joueur j : partie.getJoueurs()) {
+		if (partie.getPioche().getA0Carte(partie) == false){
+			for(Joueur j: partie.getJoueurs()) {
 				if (j.getMain().getOffre().get(0) != null) {
 					j.getMain().getOffre().get(0).setVisibilite(false);
 					this.tas.add(j.getMain().getOffre().get(0));
 					j.getMain().getOffre().remove(0);
-				} else {
+				}
+				else {
 					j.getMain().getOffre().get(1).setVisibilite(false);
 					this.tas.add(j.getMain().getOffre().get(1));
 					j.getMain().getOffre().remove(1);
 				}
 
-			}
 		}
+				}
 
 		Collections.shuffle(this.tas);
 	}
 
-	/**
-	 * getter qui retourne les cartes du tas
-	 * 
-	 * @return la liste de cartes du tas
-	 */
 	public LinkedList<Carte> getTas() {
 		return this.tas;
 	}

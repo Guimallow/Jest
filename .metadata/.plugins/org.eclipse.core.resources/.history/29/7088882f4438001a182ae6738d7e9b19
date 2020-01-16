@@ -4,7 +4,7 @@ package modele;
  */
 public interface ObjetVisite {
 	/**
-	 * méthode à implémenter afin d'accepter la visite d'un visiteur
+	 * méthode permettant à un objet visité d'accepter la visite d'un visiteur
 	 * @param visiteur le visiteur de l'objet
 	 */
 	void accept(Visiteur visiteur);
