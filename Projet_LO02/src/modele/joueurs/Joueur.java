@@ -72,7 +72,7 @@ public class Joueur {
 	 * 
 	 * @param a le tas dans lequel pioche le joueur
 	 */
-	public void piocherDansTas(Tas a) {// prend carte du haut du tas, attribue à la carte sa place dans la main
+	public void piocherDansTas(Tas a) {
 		Carte c = a.retirerCarteDuHaut();
 		this.main.getOffre().add(c);
 	}
