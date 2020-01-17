@@ -363,17 +363,17 @@ public class Partie {
 	public void creationDesOffres(Scanner sc) {
 		for (Joueur j : joueurs) {
 			if (partie.tourDeJeu == 1) {
-				((JoueurReel)j).piocherDansPioche(partie.pioche);
-				((JoueurReel)j).piocherDansPioche(partie.pioche);
+				j.piocherDansPioche(partie.pioche);
+				j.piocherDansPioche(partie.pioche);
 			} else {
-				((JoueurReel)j).piocherDansTas(partie.tas);
-				((JoueurReel)j).piocherDansTas(partie.tas);
+				j.piocherDansTas(partie.tas);
+				j.piocherDansTas(partie.tas);
 			}
 
 		}
 		for (Joueur j : joueurs) {
 			if (j instanceof JoueurVirtuel) {
-				((JoueurVirtuel)j).faireOffre(partie.strategie);
+				j.faireOffre(partie.strategie);
 			} else {
 				int i = 1;
 				for (Carte c : j.getMain().getOffre()) {
@@ -391,12 +391,12 @@ public class Partie {
 
 					switch (choix) {
 					case "1":
-						((JoueurReel)j).faireOffre(false);
+						j.faireOffre(false);
 
 						valide = true;
 						break;
 					case "2":
-						((JoueurReel)j).faireOffre(true);
+						j.faireOffre(true);
 						valide = true;
 
 						break;
@@ -479,10 +479,10 @@ public class Partie {
 				if (j == piocheur) {
 					System.out.println("\n C'est au tour de: " + j.getPseudo());
 					if (j instanceof JoueurVirtuel) {
-						Joueur joueurAPiocher = ((JoueurVirtuel)j).choisirJoueurAPiocher(partie.strategie, partie.joueurs);
+						Joueur joueurAPiocher = j.choisirJoueurAPiocher(partie.strategie, partie.joueurs);
 						for (Joueur j3 : joueurs) {
 							if (j3 == joueurAPiocher) {
-								((JoueurVirtuel)j).piocherOffre(partie.strategie, j3);
+								j.piocherOffre(partie.strategie, j3);
 							}
 						}
 						System.out.println(j.getPseudo() + " prend la carte de " + joueurAPiocher.getPseudo());
@@ -533,7 +533,7 @@ public class Partie {
 							carteVisible = true;
 						}
 						System.out.println("Vous prenez la carte de " + j2.getPseudo() + ", qui est : ");
-						Carte cartePiochee = ((JoueurReel)j).piocherOffre(j2, carteVisible);
+						Carte cartePiochee = j.piocherOffre(j2, carteVisible);
 						System.out.println(cartePiochee);
 						if (j2.getJouabilite() == true) {
 							piocheur = j2;

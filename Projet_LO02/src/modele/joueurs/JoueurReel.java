@@ -1,6 +1,5 @@
 package modele.joueurs;
 import controleur.Partie;
-import modele.cartes.Carte;
 /**
  * Classe représentant un joueur réel (hérite de joueur) {@link Joueur}
  */
@@ -14,48 +13,6 @@ public class JoueurReel extends Joueur {
 		super(partie);
 		this.setPseudo(nom);
 		
-	}
-
-	/**
-	 * méthode qui rend une des deux cartes du joueur visible
-	 * 
-	 * @param premiereCarte booléen qui permet de déterminer quelle carte est rendue
-	 *                      visible
-	 */
-	public void faireOffre(boolean premiereCarte) {
-		if (premiereCarte == true) {
-			this.main.getOffre().get(0).setVisibilite(true);
-		} else {
-			this.main.getOffre().get(1).setVisibilite(true);
-		}
-	}
-
-	/**
-	 * méthode qui permet à un joueur de piocher dans l'offre d'un autre joueur
-	 * 
-	 * @param a            le joueur qui est pioché
-	 * @param carteVisible booléen qui détermine si le joueur pioche la carte
-	 *                     visible ou face cachée
-	 * @return la carte correspondant à la carte piochée
-	 */
-	public Carte piocherOffre(Joueur a, boolean carteVisible) {
-
-		Carte cartePiochee = null;
-		if (a.main.getPiochabilite() == true) {
-			if ((carteVisible == true && a.main.getOffre().get(0).getVisibilite() == true)
-					|| (carteVisible == false && a.main.getOffre().get(0).getVisibilite() == false)) {
-				this.jest.getCartes().add(a.main.getOffre().get(0));
-				cartePiochee = a.getMain().getOffre().get(0);
-				a.main.getOffre().remove(0);
-			} else {
-				this.jest.getCartes().add(a.main.getOffre().get(1));
-				cartePiochee = a.getMain().getOffre().get(1);
-				a.main.getOffre().remove(1);
-			}
-			a.main.setPiochabilite(false);
-		}
-		this.estJouable = false;
-		return cartePiochee;
 	}
 	
 }

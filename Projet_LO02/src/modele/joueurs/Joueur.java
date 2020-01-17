@@ -1,12 +1,14 @@
 package modele.joueurs;
 
-
+import java.util.*;
 import controleur.*;
+import controleur.strategie.Strategie;
 import modele.cartes.Carte;
 import modele.cartes.Jest;
 import modele.cartes.Offre;
 import modele.cartes.Pioche;
 import modele.cartes.Tas;
+
 /**
  * Classe représentant un joueur
  */
@@ -16,28 +18,28 @@ public class Joueur {
 	/**
 	 * attribut privé de type chaîne de caractère qui définit le nom du joueur
 	 */
-	protected String pseudo;
+	private String pseudo;
 	/**
 	 * attribut privé de type Jest représentant le jest d'un joueur {@link Jest}
 	 */
-	protected Jest jest;
+	private Jest jest;
 	/**
 	 * attribut privé de type Offre représentant la main d'un joueur {@link Main}
 	 */
-	protected Offre main;
+	private Offre main;
 	/**
 	 * attribut privé de type booléen qui définit si le joueur peut jouer
 	 */
-	protected boolean estJouable;
+	private boolean estJouable;
 	/**
 	 * attribut privé statique de type entier représentant le nombre de joueurs dans
 	 * la partie
 	 */
-	private static int nbJoueurs = 0;
+	private static int nbJoueurs = 0;// va être utile pour pouvoir creer le tas à partir de la pioche
 	/**
 	 * attribut privé de type entier qui définit le score du joueur
 	 */
-	protected int score;
+	private int score;
 
 	/**
 	 * constructeur de la classe Joueur avec comme paramètre la partie
@@ -66,6 +68,68 @@ public class Joueur {
 	}
 
 	/**
+	 * méthode qui fait piocher le joueur dans le tas de la partie {@link Tas}
+	 * 
+	 * @param a le tas dans lequel pioche le joueur
+	 */
+	public void piocherDansTas(Tas a) {// prend carte du haut du tas, attribue à la carte sa place dans la main
+		Carte c = a.retirerCarteDuHaut();
+		this.main.getOffre().add(c);
+	}
+
+	/**
+	 * méthode qui fait piocher le joueur dans la pioche de la partie {@link Pioche}
+	 * 
+	 * @param p la pioche dans laquelle pioche le joueur
+	 */
+	public void piocherDansPioche(Pioche p) {
+		Carte c = p.retirerCarteDuHaut();
+		this.main.getOffre().add(c);
+	}
+
+	/**
+	 * méthode qui rend une des deux cartes du joueur visible
+	 * 
+	 * @param premiereCarte booléen qui permet de déterminer quelle carte est rendue
+	 *                      visible
+	 */
+	public void faireOffre(boolean premiereCarte) {
+		if (premiereCarte == true) {
+			this.main.getOffre().get(0).setVisibilite(true);
+		} else {
+			this.main.getOffre().get(1).setVisibilite(true);
+		}
+	}
+
+	/**
+	 * méthode qui permet à un joueur de piocher dans l'offre d'un autre joueur
+	 * 
+	 * @param a            le joueur qui est pioché
+	 * @param carteVisible booléen qui détermine si le joueur pioche la carte
+	 *                     visible ou face cachée
+	 * @return la carte correspondant à la carte piochée
+	 */
+	public Carte piocherOffre(Joueur a, boolean carteVisible) {
+
+		Carte cartePiochee = null;
+		if (a.main.getPiochabilite() == true) {
+			if ((carteVisible == true && a.main.getOffre().get(0).getVisibilite() == true)
+					|| (carteVisible == false && a.main.getOffre().get(0).getVisibilite() == false)) {
+				this.jest.getCartes().add(a.main.getOffre().get(0));
+				cartePiochee = a.getMain().getOffre().get(0);
+				a.main.getOffre().remove(0);
+			} else {
+				this.jest.getCartes().add(a.main.getOffre().get(1));
+				cartePiochee = a.getMain().getOffre().get(1);
+				a.main.getOffre().remove(1);
+			}
+			a.main.setPiochabilite(false);
+		}
+		this.estJouable = false;
+		return cartePiochee;
+	}
+
+	/**
 	 * méthode qui affiche l'offre d'un joueur
 	 * 
 	 * @param a le joueur que l'on souhaite consulter
@@ -81,26 +145,34 @@ public class Joueur {
 
 		}
 	}
+
 	/**
-	 * méthode qui fait piocher le joueur dans le tas de la partie {@link Tas}
+	 * méthode permettant de faire une offre automatiquement pour un joueur virtuel
 	 * 
-	 * @param a le tas dans lequel pioche le joueur
+	 * @param methode la stratégie utilisée {@link Strategie}
 	 */
-	public void piocherDansTas(Tas a) {
-		Carte c = a.retirerCarteDuHaut();
-		this.main.getOffre().add(c);
+	public void faireOffre(Strategie methode) {
+		methode.faireOffre(this);
 	}
 
 	/**
-	 * méthode qui fait piocher le joueur dans la pioche de la partie {@link Pioche}
-	 * 
-	 * @param p la pioche dans laquelle pioche le joueur
+	 * méthode permettant de piocher automatiquement dans l'offre d'un joueur
+	 * pour un joueur virtuel
+	 * @param methode la stratégie utilisée {@link Strategie}
+	 * @param joueurPioche le joueur qui est pioché
 	 */
-	public void piocherDansPioche(Pioche p) {
-		Carte c = p.retirerCarteDuHaut();
-		this.main.getOffre().add(c);
+	public void piocherOffre(Strategie methode, Joueur joueurPioche) {
+		methode.piocherOffre(this, joueurPioche);
 	}
-	
+	/**
+	 * méthode qui permet de choisir automatiquement le joueur à piocher pour un joueur virtuel
+	 * @param methode la stratégie utilisée {@link Strategie}
+	 * @param joueurs la liste des joueurs du jeu
+	 * @return le joueur devant être pioché
+	 */
+	public Joueur choisirJoueurAPiocher(Strategie methode, ArrayList<Joueur> joueurs) {
+		return methode.choisirJoueurAPiocher(joueurs, this);
+	}
 	/**
 	 * méthode qui affiche sa main
 	 */

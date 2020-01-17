@@ -1,9 +1,5 @@
 package modele.joueurs;
-import java.util.ArrayList;
-
 import controleur.Partie;
-import controleur.strategie.Strategie;
-import controleur.strategie.StrategieA;
 /**
  * Classe représentant un joueur virtuel (hérite de joueur) {@link Joueur}
  */
@@ -32,33 +28,10 @@ public class JoueurVirtuel extends Joueur {
 		}
 		return pass.toString();
 	}
-	
-	/**
-	 * méthode permettant de faire une offre automatiquement pour un joueur virtuel
-	 * 
-	 * @param methode la stratégie utilisée {@link StrategieA}
-	 */
-	public void faireOffre(Strategie methode) {
-		methode.faireOffre(this);
-	}
 
-	/**
-	 * méthode permettant de piocher automatiquement dans l'offre d'un joueur
-	 * pour un joueur virtuel
-	 * @param methode la stratégie utilisée {@link StrategieA}
-	 * @param joueurPioche le joueur qui est pioché
-	 */
-	public void piocherOffre(Strategie methode, Joueur joueurPioche) {
-		methode.piocherOffre(this, joueurPioche);
-	}
-	/**
-	 * méthode qui permet de choisir automatiquement le joueur à piocher pour un joueur virtuel
-	 * @param methode la stratégie utilisée {@link StrategieA}
-	 * @param joueurs la liste des joueurs du jeu
-	 * @return le joueur devant être pioché
-	 */
-	public Joueur choisirJoueurAPiocher(Strategie methode, ArrayList<Joueur> joueurs) {
-		return methode.choisirJoueurAPiocher(joueurs, this);
-	}
+	
+	
+	
+
 	
 }
